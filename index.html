@@ -632,7 +632,7 @@ function services(R){ const out=[]; const f=R.cats.flatMap(c=>c[3]); const has=(
   if(sc['مزاجك']!=='good'||sc['قلقك']!=='good') out.push(['جلسة راحة بال','استشارة بالفيديو مع فريق ول. النفسي، وباقة ٤ جلسات بعدها','من جواباتك عن المزاج والقلق','٢٩٩','جلسة']);
   else if(sc['ضغطك النفسي']!=='good'||sc['نومك']!=='good') out.push(['برنامج النوم والتوتر','٦ أسابيع مع مرشد، وقياس الكورتيزول في الشهر السادس','نومك وتوترك من جواباتك','٤٩٩','برنامج']);
   if(S.vitals.sbp>=130) out.push(['متابعة الضغط في البيت','جهاز ومتابعة ممرضة أسبوعين','ضغطك في الزيارة '+n2a(S.vitals.sbp),'١٩٩','أسبوعين']);
-  if(sc['حركتك']!=='good'&&sc['أكلك']!=='good'&&!out.some(x=>/الطاقة/.test(x[0]))) out.push(['محلول الطاقة في بيتك','ترطيب وفيتامينات B وC، بعد موافقة طبيبك','طاقتك وأكلك من جواباتك','٨٤٩','سعر الأعضاء']);
+  out.push(['المحاليل الوريدية في بيتك','يقرر طبيبك إذا تحتاجها ونوعها بعد ما يشوف نتايجك، مو من الاستبيان','بناءً على تقييم طبيبك في المكالمة','—','يحددها طبيبك']);
   if(A.sex==='امرأة'&&(A.w_cycle==='غير منتظمة'||A.w_preg==='نعم')) out.push(['استشارة صحة المرأة','عيادة ول. للنساء والقابلات','دورتك أو تخطيطك للحمل','٢٤٩','استشارة']);
   if(A.sex==='رجل'&&A.m_conf&&['m_conf','m_firm','m_keep'].some(k=>idx(k)<=2)) out.push(['استشارة صحة الرجل','مع د. نيبال، خاصة وسرية','من جواباتك في قسم صحة الرجل','٢٩٩','استشارة']);
   if(!out.length) out.push(['فيتاميناتك الشهرية','خطة مكملات يكتبها طبيبك، توصيل شهري من الصيدلية الشريكة','أرقامك ممتازة، نحافظ عليها','١٩٩','شهر']);
@@ -654,7 +654,7 @@ function s9(){ setStage(9,92); const R=results(); const flagged=R.cats.flatMap(c
   ${pri.slice(0,3).map((p,i)=>`<div class="card"><h3>${n2a(i+1)}. ${p[0]}</h3><p>${p[1]}</p><p class="small" style="margin-top:6px">نقيسه: ${p[2]}</p></div>`).join('')}
   ${S.chosenAddon?`<div class="card"><h3>إضافة ${S.chosenAddon}</h3><p class="small">نتايجها مع الطبيب بنفس المكالمة.</p></div>`:''}
   <h2>خدمات ول. المقترحة لك</h2><p class="why">طبيبك اختارها من نتايجك. كل خدمة لها مؤشر نرجع نقيسه بعد ٦ شهور.</p>
-  ${services(R).map((x,i)=>`<div class="svc"><div><div class="t">${x[0]}</div><div class="d">${x[1]}</div><span class="why">ليش: ${x[2]}</span></div><div class="p"><b>${x[3]}</b><small>${x[4]}</small><button data-i="${i}">احجز</button></div></div>`).join('')}
+  ${services(R).map((x,i)=>`<div class="svc"><div><div class="t">${x[0]}</div><div class="d">${x[1]}</div><span class="why">ليش: ${x[2]}</span></div><div class="p"><b>${x[3]}</b><small>${x[4]}</small><button data-i="${i}">${x[3]==='—'?'اسأل طبيبك':'احجز'}</button></div></div>`).join('')}
   <div class="card"><h3>كلمة من طبيبك</h3><p class="small">"أرقامك أحسن من اللي {تتوقع|تتوقعين} في أشياء، وفيها ثلاث فرص واضحة. بنشوف الفرق بعد ستة شهور، مو بعد سنة."</p></div>
   <button class="btn primary" id="year">سنتك مع ول.</button>`);
   screen.querySelectorAll('.svc button').forEach(b=>b.onclick=()=>{b.textContent='تم ✓';b.classList.add('done')});
