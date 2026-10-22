@@ -454,7 +454,7 @@ function s0(){ setStage(0,0);
   html(`<div class="hero"><span class="tag">عضوية طال عمرك</span><h1>شاب ولا شايب؟</h1><p>اعرف عمرك الصحي بناءً على جواباتك. ٣ دقايق.</p></div>
   <p>تقدير لعمرك الصحي من عاداتك، وثلاث ملاحظات على جسمك، مجاناً. والدم هو اللي يقول الكلمة الأخيرة.</p>
   <button class="btn primary" id="go">اعرف عمرك الصحي</button>
-  <p class="small" style="margin-top:14px">هذا نموذج تجريبي لرحلة العضو. القائمة اللي تحت تنقلك بين المراحل.</p><p class="small" style="margin-top:18px;text-align:center;color:var(--ink)">طبيب واحد. عائلة وحدة. منصة وحدة.</p>`);
+  <p class="small" style="margin-top:14px">هذا نموذج تجريبي لرحلة العضو. القائمة اللي تحت تنقلك بين المراحل.</p><p class="small" style="margin-top:18px;text-align:center;color:var(--ink)">عِش بعافية، عِش أفضل.</p>`);
   $('#go').onclick=()=>{S.qi=0;renderQuick()};
 }
 function renderQuick(){ setStage(1,S.qi/QUICK.length*20); const q=QUICK[S.qi]; hint.textContent=`${n2a(S.qi+1)} / ${n2a(QUICK.length)}`;
