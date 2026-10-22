@@ -95,6 +95,50 @@ p{margin:0 0 12px;color:var(--ink-2)}
 .flash{animation:pop .5s ease}
 @keyframes pop{from{transform:scale(.96);opacity:.6}to{transform:scale(1);opacity:1}}
 @media (prefers-reduced-motion:reduce){.flash{animation:none}.bar i{transition:none}}
+/* reveal + bio-age moments */
+.reveal{background:linear-gradient(160deg,var(--hero-bg),#3A2A9C 60%,#7E57FD);color:var(--hero-fg);border-radius:24px;padding:22px 18px 18px;margin:4px 0 16px;position:relative;overflow:hidden}
+.reveal::before{content:"";position:absolute;inset:-40% -20% auto auto;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 60%)}
+.reveal .lbl{font-size:13px;color:var(--hero-sub);letter-spacing:.03em}
+.reveal .big{font-family:var(--font-num);font-size:84px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.reveal .big small{font-size:22px;font-weight:600;color:var(--hero-sub);margin-inline-start:6px}
+.reveal .vs{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-top:6px}
+.reveal .id{text-align:left}
+.reveal .id .n{font-family:var(--font-num);font-size:34px;font-weight:600;opacity:.85;font-variant-numeric:tabular-nums}
+.delta{display:inline-block;margin-top:10px;padding:6px 14px;border-radius:999px;font-weight:600;font-size:15px;background:rgba(255,255,255,.14);color:#fff}
+.delta.up{background:rgba(255,120,110,.28)} .delta.down{background:rgba(90,210,160,.28)}
+.gauge{display:block;width:100%;height:auto;margin:6px 0 0}
+.gauge .track{stroke:rgba(255,255,255,.18);stroke-width:14;fill:none;stroke-linecap:round}
+.gauge .fill{stroke:#fff;stroke-width:14;fill:none;stroke-linecap:round;transition:stroke-dasharray 1.2s cubic-bezier(.2,.8,.2,1)}
+.gauge .needle{stroke:#fff;stroke-width:3;stroke-linecap:round;transform-origin:150px 150px;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.gauge text{fill:var(--hero-sub);font-size:12px;font-family:var(--font-body)}
+.finding{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px;border-inline-start-width:5px}
+.finding.up{border-inline-start-color:var(--warn)} .finding.down{border-inline-start-color:var(--good)} .finding.neutral{border-inline-start-color:var(--lav)}
+.finding .ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:color-mix(in srgb,var(--accent) 10%,var(--surface));color:var(--accent)}
+.finding .ico svg{width:24px;height:24px}
+.finding h3{margin:0 0 4px;font-size:16px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.finding h3 .yrs{font-family:var(--font-num);font-size:15px;font-weight:700;white-space:nowrap}
+.finding.up .yrs{color:var(--warn)} .finding.down .yrs{color:var(--good)}
+.finding p{margin:0;font-size:14px;color:var(--ink-2)}
+.finding b{color:var(--accent);font-weight:600}
+.ageline{position:relative;height:92px;margin:18px 4px 6px}
+.ageline .rail{position:absolute;left:0;right:0;top:46px;height:6px;border-radius:6px;background:linear-gradient(90deg,var(--good),var(--warn) 55%,var(--act))}
+.ageline .mk{position:absolute;top:0;transform:translateX(50%);text-align:center;width:96px;transition:right 1.2s cubic-bezier(.2,.8,.2,1)}
+.ageline .mk .n{font-family:var(--font-num);font-weight:700;font-size:22px;line-height:1;font-variant-numeric:tabular-nums}
+.ageline .mk .l{font-size:11px;color:var(--muted);white-space:nowrap}
+.ageline .mk i{display:block;width:14px;height:14px;border-radius:50%;margin:6px auto 0;border:3px solid var(--surface);box-shadow:0 0 0 2px var(--line)}
+.ageline .mk.bio{top:auto;bottom:0}
+.ageline .mk.bio i{margin:0 auto 6px;background:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 30%,transparent)}
+.ageline .mk.bio .n{color:var(--accent);font-size:28px}
+.ageline .mk.id i{background:var(--ink)} .ageline .mk.est i{background:var(--lav)}
+.bioCard{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:12px}
+.bioCard .head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.bioCard .head b{font-size:16px}
+.bioCard .head .chip{font-size:13px;padding:4px 10px;border-radius:999px;background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent);font-weight:600}
+.ring{transition:--p 1.4s}
+.cat .barr{height:6px;border-radius:6px;background:var(--line);margin-top:8px;overflow:hidden}
+.cat .barr i{display:block;height:100%;background:var(--accent);width:0;transition:width 1s ease}
+@media (prefers-reduced-motion:reduce){.gauge .fill,.gauge .needle,.ageline .mk,.cat .barr i{transition:none}}
+
 </style></head><body>
 
 <div class="app" id="app">
@@ -245,6 +289,15 @@ function addonSuggest(){
 }
 
 /* ---------- rendering helpers ---------- */
+const ICONS={bmi:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',waist:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16M7 8c0 4 10 4 10 8M7 16c0-4 10-4 10-8"/></svg>',sleep:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>',active:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 14l4-2 3 3 4-6 2 3h3"/><circle cx="18" cy="6" r="2"/></svg>',sweet:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 4h10l-1 16H8z M9 9h6"/></svg>',smoke:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 15h14v4H3zM19 15h2v4h-2zM18 9c0-2 2-2 2-4M15 11c0-2 2-2 2-4"/></svg>',stress:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>'};
+function countUp(el,from,to,ms=1200){const t0=performance.now();const step=t=>{const k=Math.min(1,(t-t0)/ms);const e=1-Math.pow(1-k,3);el.textContent=n2a(Math.round(from+(to-from)*e));if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
+function gauge(total){ // semicircle -12..+12
+  const r=120,cx=150,cy=150; const ang=a=>a*Math.PI/180; const pt=a=>[cx+r*Math.cos(ang(a)),cy+r*Math.sin(ang(a))];
+  const [x0,y0]=pt(180),[x1,y1]=pt(0); const L=Math.PI*r; const k=(total+12)/24; const deg=180+k*180;
+  return `<svg class="gauge" viewBox="0 0 300 165" aria-hidden="true"><path class="track" d="M${x0} ${y0} A${r} ${r} 0 0 1 ${x1} ${y1}"/><path class="fill" id="gf" d="M${x0} ${y0} A${r} ${r} 0 0 1 ${x1} ${y1}" stroke-dasharray="0 ${L}"/><line class="needle" id="gn" x1="150" y1="150" x2="150" y2="${150-r+22}" style="transform:rotate(-90deg)"/><circle cx="150" cy="150" r="6" fill="#fff"/><text x="22" y="160" text-anchor="middle">أصغر بـ١٢</text><text x="150" y="20" text-anchor="middle">عمرك</text><text x="278" y="160" text-anchor="middle">أكبر بـ١٢</text></svg>`;
+}
+function animGauge(total){const r=120,L=Math.PI*r,k=(total+12)/24;setTimeout(()=>{const f=$('#gf'),n=$('#gn');if(f)f.setAttribute('stroke-dasharray',`${L*k} ${L}`);if(n)n.style.transform=`rotate(${-90+k*180}deg)`},60)}
+
 const STAGES=['الحملة','الفحص السريع','النتيجة الأولى','الاستبيان الكامل','تقريرك المجاني','العضوية','الحجز','الزيارة المنزلية','نتائجك','خطتك','سنتك مع ول.'];
 function setStage(i,p){S.step=i;stageLbl.textContent=STAGES[i];bar.style.width=(p??(i/(STAGES.length-1)*100))+'%';hint.textContent='';backBtn.hidden=(i===0);window.scrollTo(0,0)}
 const t=h=>h.replace(/\{([^|}]*)\|([^}]*)\}/g,(m,a,b)=>A.sex==='امرأة'?b:a);
@@ -271,7 +324,7 @@ function renderCurrent(){ if(S.step===1) renderQuick(); else if(S.step===3) rend
 
 /* ---------- screens ---------- */
 function s0(){ setStage(0,0);
-  html(`<div class="hero"><span class="tag">باقة طال عمرك</span><h1>شاب ولا شايب؟</h1><p>اعرف عمرك الصحي بناءً على جواباتك. ٣ دقايق.</p></div>
+  html(`<div class="hero"><span class="tag">عضوية طال عمرك</span><h1>شاب ولا شايب؟</h1><p>اعرف عمرك الصحي بناءً على جواباتك. ٣ دقايق.</p></div>
   <p>تقدير لعمرك الصحي من عاداتك، وثلاث ملاحظات على جسمك، مجاناً. والدم هو اللي يقول الكلمة الأخيرة.</p>
   <button class="btn primary" id="go">اعرف عمرك الصحي</button>
   <p class="small" style="margin-top:14px">هذا نموذج تجريبي لرحلة العضو. القائمة اللي تحت تنقلك بين المراحل.</p>`);
@@ -284,17 +337,20 @@ function renderQuick(){ setStage(1,S.qi/QUICK.length*20); const q=QUICK[S.qi]; h
   bindOpts(q,next);
 }
 function s2(){ setStage(2,22);
-  const r=lifestyleAge(); const est=A.age+r.total; const top=r.adj.slice(0,3);
-  const allGood=top.every(x=>x[1]<=0);
+  const r=lifestyleAge(); const est=A.age+r.total; const top=r.adj.slice(0,3); const allGood=top.every(x=>x[1]<=0);
+  const d=r.total; const dcls=d>0?'up':d<0?'down':''; const dtxt=d>0?`أكبر من عمرك بـ${n2a(d)} سنة`:d<0?`أصغر من عمرك بـ${n2a(-d)} سنة`:'نفس عمرك بالهوية';
   html(`<h1>{شاب ولا شايب|بنت ولا خالة}؟</h1>
-  <div class="age"><div><div class="n">${n2a(A.age)}</div><div class="l">عمرك بالهوية</div></div><div class="est"><div class="n">${n2a(est-2)}–${n2a(est+2)}</div><div class="l">عمرك الصحي من جواباتك</div></div></div>
-  <p class="why">هذا تقدير من ١٢ سؤال. عمرك البيولوجي الحقيقي يطلع من ١٠١ مؤشر في دمك.</p>
+  <div class="reveal"><div class="lbl">عمرك الصحي من جواباتك</div>
+    <div class="vs"><div><div class="big"><span id="cnt">${n2a(A.age)}</span><small>± ٢</small></div><span class="delta ${dcls}">${dtxt}</span></div><div class="id"><div class="n">${n2a(A.age)}</div><div class="lbl">بالهوية</div></div></div>
+    ${gauge(d)}
+    <div class="lbl" style="margin-top:6px">هذا تقدير من ١٢ سؤال. عمرك البيولوجي الحقيقي يطلع من ١٠١ مؤشر في دمك.</div></div>
   <h2>${allGood?'نقاط قوتك':'أهم ثلاث ملاحظات'}</h2>
-  ${top.map(x=>`<div class="card"><h3>${x[2]}</h3><p>${x[1]>0?`يضيف ${n2a(x[1])} سنة على عمرك التقديري.`:x[1]<0?`ينقّص ${n2a(-x[1])} سنة من عمرك التقديري.`:'ما يغيّر عمرك التقديري.'} أثره الحقيقي يبان في: <b>${x[3]}</b>، وهذا اللي نشوفه في الفحص.</p></div>`).join('')}
-  ${r.fam?`<div class="card"><h3>تاريخ أهلك</h3><p>{ما تقدر تغيّره، بس تقدر تراقبه|ما تقدرين تغيّرينه، بس تقدرين تراقبينه} قبلهم. يزيد ${n2a(r.fam)} سنة كتنبيه، مو كحكم.</p></div>`:''}
-  <button class="btn primary" id="join">{اشترك|اشتركي} الآن — ٥.٥ ريال باليوم</button><div style="height:10px"></div>
+  ${top.map(x=>`<div class="finding ${x[1]>0?'up':x[1]<0?'down':'neutral'}"><div class="ico">${ICONS[x[0]]||ICONS.bmi}</div><div><h3><span>${x[2]}</span><span class="yrs">${x[1]>0?'+':x[1]<0?'−':''}${x[1]?n2a(Math.abs(x[1])):'٠'} سنة</span></h3><p>أثره الحقيقي يبان في: <b>${x[3]}</b>، وهذا اللي نشوفه في الفحص.</p></div></div>`).join('')}
+  ${r.fam?`<div class="finding neutral"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-4 3-6 6-6s6 2 6 6M14 20c0-3 1.5-5 3-5s4 2 4 5"/></svg></div><div><h3><span>تاريخ أهلك</span><span class="yrs">+${n2a(r.fam)} سنة</span></h3><p>{ما تقدر تغيّره، بس تقدر تراقبه|ما تقدرين تغيّرينه، بس تقدرين تراقبينه} قبلهم. تنبيه، مو حكم.</p></div></div>`:''}
+  <button class="btn primary" id="join">{صير عضو|صيري عضوة} في طال عمرك — ٥.٥ ريال باليوم</button><div style="height:10px"></div>
   <button class="btn ghost" id="deep">{كمّل|كمّلي} تقريرك المجاني (٨ دقايق)</button>
   <p class="small" style="margin-top:12px">هذا تقدير من جواباتك، مو تشخيص. طبيب ول. يقرا نتايجك معك.</p>`);
+  countUp($('#cnt'),A.age,est,1300); animGauge(d);
   $('#join').onclick=s5; $('#deep').onclick=()=>{S.di=0;renderDeep()};
 }
 function visibleDeep(){ return DEEP.filter(x=>{ if(x.only&&x.only!==A.sex) return false; if(x.sk&&S.skipMen) return false; if(x.gate==='phq'&&idx('phq1')+idx('phq2')<3) return false; if(x.gate==='gad'&&idx('gad1')+idx('gad2')<3) return false; return true; }); }
@@ -313,12 +369,12 @@ function s4(){ setStage(4,48); const sc=scores(); const g=sc.filter(x=>x[1]==='g
   $('#join').onclick=s5;
 }
 function s5(){ setStage(5,58); const ad=addonSuggest(); const first=(A.goals||[])[0]||'';
-  html(`<span class="tag">باقة طال عمرك</span><h1>١٠١ مؤشر من دمك، و١٠ قياسات من بيتك</h1>
+  html(`<span class="tag">عضوية طال عمرك</span><h1>صير عضو في طال عمرك</h1><p class="why">١٠١ مؤشر من دمك، و١٠ قياسات من بيتك، وفريق يعرفك بالاسم طول السنة.</p>
   <p>على حسب جواباتك، هذي الفئات اللي نبدأ فيها: <b>${[first?('هدفك: '+first):'',A.sex==='رجل'?'القلب والدهون':'الحديد والفيتامينات','السكر والأيض','عمرك البيولوجي'].filter(Boolean).join('، ')}</b>.</p>
   <div class="card"><div class="price">١٬٩٩٩ <span style="font-size:18px;color:var(--muted)">ريال/سنة</span></div><p class="small">≈ ٥.٥ ريال باليوم · ٤ دفعات مع تابي أو تمارا · استرجاع كامل قبل أول سحب</p>
-  <ul class="list"><li>فحصين في السنة: كامل الآن، ومتابعة بعد ٦ أشهر لكل اللي يتغيّر</li><li>نجيك البيت، ونفس الممرضة تجيك الزيارتين</li><li>طبيب ول. يشرح لك نتايجك مرتين ويكتب لك خطتك</li><li>مدير رعاية باسمك على الواتساب طول السنة</li><li>عمرك البيولوجي من دمك، وتشوفه يتغيّر قدام عينك</li></ul></div>
+  <ul class="list"><li>فحصين في السنة: كامل الآن، ومتابعة بعد ٦ أشهر لكل اللي يتغيّر</li><li>فريق طبي متخصص يجيك البيت في الزيارتين، ما تروح لأي مختبر</li><li>طبيب ول. يشرح لك نتايجك مرتين ويكتب لك خطتك</li><li>مدير رعاية باسمك على الواتساب طول السنة</li><li>عمرك البيولوجي من دمك، وتشوفه يتغيّر قدام عينك</li></ul></div>
   <div class="card"><h3>إضافة مقترحة لك: ${ad[0]}</h3><p class="small">${ad[1]} · تُسحب في نفس الزيارة · ${ad[0]==='التوتر والنوم'?'١٤٩':ad[0]==='القلب المتقدم'?'٥٩٩':'٤٩٩'} ريال</p><div style="height:8px"></div><button class="btn ghost" id="addon">${S.chosenAddon?'انضافت ✓':'أضفها'}</button></div>
-  <button class="btn primary" id="book">{اشترك واحجز|اشتركي واحجزي} زيارتك</button>
+  <button class="btn primary" id="book">{فعّل عضويتك واحجز|فعّلي عضويتك واحجزي} زيارتك</button>
   <p class="small" style="margin-top:10px">طال عمرك… مو كلمة تنقال وبس، هي أسلوب حياة.</p>`);
   $('#addon').onclick=()=>{S.chosenAddon=S.chosenAddon?null:ad[0];s5()}; $('#book').onclick=s6;
 }
@@ -327,13 +383,13 @@ function s6(){ setStage(6,66); const days=['السبت ٢٥ أكتوبر','ال�
   <h2>اليوم</h2><div class="opts">${days.map(d=>`<button class="opt ${S.booking.d===d?'sel':''}" data-d="${d}"><span>${d}</span><span class="tick">${S.booking.d===d?'✓':''}</span></button>`).join('')}</div>
   <h2>الوقت</h2><div class="row">${slots.map(t=>`<button class="opt ${S.booking.t===t?'sel':''}" data-t="${t}" style="justify-content:center"><span>${t}</span></button>`).join('')}</div>
   ${A.sex==='امرأة'&&S.chosenAddon==='صحة المرأة'?'<p class="small" style="margin-top:10px">لأن إضافة صحة المرأة مختارة، الأفضل يكون السحب بين اليوم الثاني والخامس من الدورة. بنتأكد معك.</p>':''}
-  <div class="card" style="margin-top:16px"><h3>مين بيجيك</h3><p class="small">نورة، ممرضة ول. · تجيك بسيارة ول. · تاخذ العينة وتقيس ضغطك ونبضك ووزنك وخصرك وقوة قبضتك · ربع ساعة</p></div>
+  <div class="card" style="margin-top:16px"><h3>مين بيجيك</h3><p class="small">فريق ول. الطبي المتخصص · بسيارة ول. · يسحب العينة ويقيس ضغطك ونبضك ووزنك وخصرك وقوة قبضتك · ربع ساعة</p></div>
   <button class="btn primary" id="confirm" ${S.booking.d&&S.booking.t?'':'disabled'}>تأكيد الحجز</button>`);
   screen.querySelectorAll('[data-d]').forEach(b=>b.onclick=()=>{S.booking.d=b.dataset.d;s6()}); screen.querySelectorAll('[data-t]').forEach(b=>b.onclick=()=>{S.booking.t=b.dataset.t;s6()});
   $('#confirm').onclick=s7;
 }
 function s7(){ setStage(7,74); const v=S.vitals;
-  html(`<span class="tag">محاكاة</span><h1>الزيارة المنزلية</h1><p class="why">${S.booking.d||'اليوم'} · ${S.booking.t||''} · نورة وصلت. تأكدت إنك صايم، سحبت العينة، والحين القياسات العشرة. {غيّر|غيّري} الأرقام {وجرّب|وجرّبي}.</p>
+  html(`<span class="tag">محاكاة</span><h1>الزيارة المنزلية</h1><p class="why">${S.booking.d||'اليوم'} · ${S.booking.t||''} · الفريق وصل. تأكدوا إنك صايم، سحبوا العينة، والحين القياسات العشرة. {غيّر|غيّري} الأرقام {وجرّب|وجرّبي}.</p>
   <div class="vital">
   <div><label>ضغط الدم الانقباضي</label><input id="sbp" type="number" value="${v.sbp??128}"></div>
   <div><label>الانبساطي</label><input id="dbp" type="number" value="${v.dbp??82}"></div>
@@ -367,13 +423,22 @@ function results(){
   const bio=Math.round(A.age+r.total*0.6+(v.sbp>=140?2:0)+(v.grip<(A.sex==='رجل'?30:18)?1:0));
   return {cats,well,bio};
 }
-function s8(){ setStage(8,84); const R=results();
+function s8(){ setStage(8,84); const R=results(); const est=A.age+lifestyleAge().total;
+  const pos=a=>Math.max(4,Math.min(96,50+(a-A.age)*3.5)); // percent along the rail, right-to-left
+  const dd=R.bio-A.age; const dtxt=dd>0?`أكبر بـ${n2a(dd)} سنة`:dd<0?`أصغر بـ${n2a(-dd)} سنة`:'مطابق لعمرك';
   html(`<h1>نتايجك جاهزة</h1><p class="why">طبيبك راجعها قبلك. اللي بالأحمر بيشرحه لك بالمكالمة.</p>
-  <div class="row" style="align-items:center"><div class="ring" style="--p:${R.well}"><b>${n2a(R.well)}</b><small>Well. Score</small></div>
-  <div><div class="age" style="grid-template-columns:1fr"><div class="est"><div class="n">${n2a(R.bio)}</div><div class="l">عمرك البيولوجي من الدم (PhenoAge)</div></div></div><p class="small">مقابل ${n2a(A.age)} بالهوية، و${n2a(A.age+lifestyleAge().total)} تقديري من جواباتك</p></div></div>
-  <div class="cats">${R.cats.map(c=>`<div class="cat"><div class="t">${c[0]}</div><div class="s">${c[1]}</div><div class="dots">${c[3].map(m=>`<i class="dot-${m[1]}" title="${m[0]}"></i>`).join('')}</div></div>`).join('')}</div>
+  <div class="bioCard"><div class="head"><b>عمرك البيولوجي من دمك</b><span class="chip">PhenoAge</span></div>
+    <div class="ageline"><div class="rail"></div>
+      <div class="mk id" style="right:${pos(A.age)}%"><div class="n">${n2a(A.age)}</div><div class="l">بالهوية</div><i></i></div>
+      <div class="mk est" style="right:${pos(est)}%"><div class="n">${n2a(est)}</div><div class="l">من جواباتك</div><i></i></div>
+      <div class="mk bio" id="bioMk" style="right:${pos(A.age)}%"><i></i><div class="n" id="bioN">${n2a(A.age)}</div><div class="l">من دمك</div></div>
+    </div>
+    <p class="small" style="margin:6px 0 0"><b style="color:var(--accent)">${dtxt}</b> · محسوب من ٩ مؤشرات في دمك (الألبومين، الكرياتينين، السكر، hs-CRP، الخلايا اللمفاوية، MCV، RDW، ALP، كريات الدم البيضاء). نعيد حسابه بعد ٦ شهور.</p></div>
+  <div class="row" style="align-items:center;margin-bottom:6px"><div class="ring" id="ring" style="--p:0"><b id="wellN">٠</b><small>Well. Score</small></div><div><p style="margin:0"><b>${n2a(R.well)} من ١٠٠</b></p><p class="small">نسبة مؤشراتك في المدى المثالي، موزونة على أولويات طبيبك. هذا الرقم اللي تتابعه طول السنة.</p></div></div>
+  <div class="cats">${R.cats.map(c=>{const g=c[3].filter(m=>m[1]==='good').length,p=Math.round(g/c[3].length*100);return `<div class="cat"><div class="t">${c[0]}</div><div class="s">${c[1]}</div><div class="dots">${c[3].map(m=>`<i class="dot-${m[1]}" title="${m[0]}"></i>`).join('')}</div><div class="barr"><i data-w="${p}"></i></div></div>`}).join('')}</div>
   <h2>القياسات من بيتك</h2><div class="card">${[['ضغط الدم',`${n2a(S.vitals.sbp)}/${n2a(S.vitals.dbp)}`,S.vitals.sbp>=140?'act':S.vitals.sbp>=130?'warn':'good'],['النبض',n2a(S.vitals.hr),S.vitals.hr>90?'warn':'good'],['الخصر ÷ الطول',(S.vitals.wa/A.height).toFixed(2),S.vitals.wa/A.height>0.5?'warn':'good'],['قوة القبضة',n2a(S.vitals.grip)+' كجم',S.vitals.grip<(A.sex==='رجل'?30:18)?'warn':'good']].map(x=>`<div class="score"><div class="name">${x[0]}</div><div style="display:flex;gap:10px;align-items:center"><span class="sub" style="font-family:var(--font-num);font-size:18px;color:var(--ink)">${x[1]}</span><span class="pill ${x[2]}">${x[2]==='good'?'مثالي':x[2]==='warn'?'للمتابعة':'يحتاج انتباه'}</span></div></div>`).join('')}</div>
   <button class="btn primary" id="plan">مكالمة الطبيب: خطتك</button>`);
+  setTimeout(()=>{const m=$('#bioMk');if(m)m.style.right=pos(R.bio)+'%';countUp($('#bioN'),A.age,R.bio,1200);countUp($('#wellN'),0,R.well,1400);let p=0;const rg=$('#ring');const iv=setInterval(()=>{p+=2;rg.style.setProperty('--p',Math.min(p,R.well));if(p>=R.well)clearInterval(iv)},18);screen.querySelectorAll('.barr i').forEach(b=>b.style.width=b.dataset.w+'%')},80);
   $('#plan').onclick=s9;
 }
 function s9(){ setStage(9,92); const R=results(); const flagged=R.cats.flatMap(c=>c[3].filter(m=>m[1]!=='good').map(m=>[c[0],m[0],m[1]]));
@@ -394,7 +459,7 @@ function s9(){ setStage(9,92); const R=results(); const flagged=R.cats.flatMap(c
   $('#year').onclick=s10;
 }
 function s10(){ setStage(10,100);
-  html(`<h1>سنتك مع ول.</h1><p class="why">فحصين، وزيارتين، ومكالمتين مع الطبيب، ومدير رعاية باسمك بينهم.</p>
+  html(`<h1>سنتك مع ول.</h1><p class="why">فحصين، وزيارتين من الفريق الطبي، ومكالمتين مع الطبيب، ومدير رعاية باسمك بينهم.</p>
   <ul class="timeline">
   <li class="now"><b>الشهر ٠</b>السحب الأول، النتائج، خطة ٣ أولويات</li>
   <li><b>الشهر ١</b>رسالة من مدير رعايتك: كيف ماشي معك أول هدف؟</li>
