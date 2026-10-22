@@ -512,15 +512,12 @@ function renderCurrent(){ if(S.step===1) renderQuick(); else if(S.step===3) rend
 
 /* ---------- screens ---------- */
 function s0(){ setStage(0,0);
-  html(`<div class="hero"><span class="tag">عضوية طال عمرك</span><h1 style="font-size:40px;margin-bottom:6px">طال عمرك.</h1><h2 style="margin:0 0 10px;font-size:24px;color:var(--hero-fg)">عمرك الحقيقي من دمك، ورعايتك من بيتك.</h2><p>اعرف عمرك الصحي اليوم، وشوفه يتحسن شهر بعد شهر: ١٠١ مؤشر، فحصين في السنة، طبيب يشرح لك ويكتب خطتك، وفريق طبي يجيك البيت.</p></div>
-  <button class="btn primary" id="join0">صير عضو في طال عمرك</button>
-  <div style="text-align:center;margin:14px 0 4px"><span class="small" style="text-decoration:line-through;opacity:.7">٢١٩٠ ريال</span> <span class="price" style="font-size:34px;vertical-align:middle;margin:0 8px">١٩٩٩</span><span class="small">ريال سنوياً · ≈ ٥.٥ ريال باليوم</span></div>
-  <p class="small" style="text-align:center;margin:0">٤ دفعات مع تابي، كل دفعة ٥٠٠ ريال · تمارا متاحة</p>
-  <p class="small" style="text-align:center;margin:4px 0 16px">استرجاع كامل قبل أول سحب · مختبرات معتمدة</p>
-  <p style="text-align:center;font-weight:700;color:var(--ink);margin:0 0 16px">طال عمرك… مو كلمة تنقال وبس، هي أسلوب حياة.</p>
-  <div class="card"><h3>شاب ولا شايب؟</h3><p>اعرف عمرك الصحي من جواباتك، مجاناً، في ٣ دقايق. والدم هو اللي يقول الكلمة الأخيرة.</p><div style="height:10px"></div><button class="btn ghost" id="go">ابدأ الفحص المجاني</button></div>
-  <p class="small" style="margin-top:12px">هذا نموذج تجريبي لرحلة العضو. القائمة اللي تحت تنقلك بين المراحل.</p>`);
-  $('#go').onclick=()=>{S.qi=0;renderQuick()}; $('#join0').onclick=()=>{ensureDefaults();s5()};
+  html(`<div class="hero"><span class="tag">فحص مجاني · ٣ دقايق</span><h1 style="font-size:40px;margin-bottom:6px">شاب ولا شايب؟</h1><h2 style="margin:0 0 10px;font-size:22px;color:var(--hero-fg)">اعرف عمرك الصحي من جواباتك، مجاناً.</h2><p>ثلاث دقايق، وتطلع لك نتيجتك مع ثلاث ملاحظات على جسمك. والدم هو اللي يقول الكلمة الأخيرة.</p></div>
+  <button class="btn primary" id="go">ابدأ الفحص المجاني</button>
+  <p class="small" style="text-align:center;margin:12px 0 0">بدون تسجيل · بدون دفع · جواباتك خاصة</p>
+  <p style="text-align:center;font-weight:700;color:var(--ink);margin:22px 0 0">عِش بعافية، عِش أفضل.</p>
+  <p class="small" style="margin-top:16px">هذا نموذج تجريبي لرحلة العضو. القائمة اللي تحت تنقلك بين المراحل.</p>`);
+  $('#go').onclick=()=>{S.qi=0;renderQuick()};
 }
 function renderQuick(){ setStage(1,S.qi/QUICK.length*20); const q=QUICK[S.qi]; hint.textContent=`${n2a(S.qi+1)} / ${n2a(QUICK.length)}`;
   const next=()=>{S.qi++; if(S.qi>=QUICK.length) s2(); else renderQuick()};
@@ -542,7 +539,7 @@ function s2(){ setStage(2,22);
   ${top.map(x=>`<div class="finding ${x[1]>0?'up':x[1]<0?'down':'neutral'}"><div class="ico">${ICONS[x[0]]||ICONS.bmi}</div><div><h3><span>${x[2]}</span><span class="yrs">${x[1]>0?'+':x[1]<0?'−':''}${x[1]?n2a(Math.abs(x[1])):'٠'} سنة</span></h3><p>أثره الحقيقي يبان في: <b>${x[3]}</b>، وهذا اللي نشوفه في الفحص.</p></div></div>`).join('')}
   ${r.fam?`<div class="finding neutral"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-4 3-6 6-6s6 2 6 6M14 20c0-3 1.5-5 3-5s4 2 4 5"/></svg></div><div><h3><span>تاريخ أهلك</span><span class="yrs">+${n2a(r.fam)} سنة</span></h3><p>{ما تقدر تغيّره، بس تقدر تراقبه|ما تقدرين تغيّرينه، بس تقدرين تراقبينه} قبلهم. تنبيه، مو حكم.</p></div></div>`:''}
   <div class="card" style="border-color:color-mix(in srgb,var(--accent) 45%,var(--line));background:linear-gradient(135deg,rgba(143,107,255,.16),var(--surface))"><h3>${d>0?'بس لا {تشيل|تشيلين} هم'+NM()+'، حنا معك.':'ممتاز'+NM()+'، حنا معك.'}</h3><p>${d>0?'{نعينك ونساعدك تصير أحسن نسخة من نفسك|نعينك ونساعدك تصيرين أحسن نسخة من نفسك}: أغلب اللي شفناه في جواباتك يتغيّر، وطبيبك وفريقك في ول. يمشون معك خطوة خطوة — نوم أعمق، طاقة أعلى، مزاج أهدى، وأرقام {تشوفها|تشوفينها} تتحسن بعينك بعد ستة شهور.':'جسمك أصغر من عمرك، و{نعينك تحافظ|نعينك تحافظين} عليها: نثبّتها بالأرقام ونمشي معك عشان {تصير|تصيرين} أحسن نسخة من نفسك.'}</p></div>
-  <button class="btn primary" id="join">{صير عضو|صيري عضوة} في طال عمرك — ٥.٥ ريال باليوم</button><div style="height:10px"></div>
+  <button class="btn primary" id="join">{انضم|انضمي} إلى عضوية طال عمرك من ول.</button><div style="height:10px"></div>
   <button class="btn ghost" id="deep">{كمّل|كمّلي} تقريرك المجاني (٨ دقايق)</button>
   <p class="small" style="margin-top:12px">هذا تقدير من جواباتك، مو تشخيص. طبيب ول. يقرا نتايجك معك.</p>`);
   countUp($('#cnt'),A.age,est,1300); animGauge(d);
@@ -560,11 +557,11 @@ function safety(next){ html(`<div class="card safety"><h3>نبي نطمّن عل
 function s4(){ setStage(4,48); const sc=scores(); const g=sc.filter(x=>x[1]==='good').length;
   html(`<h1>تقريرك المجاني${NM()}</h1><p class="why">${n2a(sc.length)} مؤشر من جواباتك، ${n2a(g)} منها في المدى الصحي. هذي الأشياء اللي {تقدر تغيّرها|تقدرين تغيّرينها}، والدم يبيّن لك أثرها.</p>
   <div class="card">${sc.map(x=>`<div class="score"><div><div class="name">${x[0]}</div><div class="sub">${x[2]}</div></div><span class="pill ${x[1]}">${x[1]==='good'?'مثالي':x[1]==='warn'?'للمتابعة':'يحتاج انتباه'}</span></div>`).join('')}</div>
-  <button class="btn primary" id="join">{شوف|شوفي} اللي ما يبان بالأسئلة</button>`);
+  <button class="btn primary" id="join">{انضم|انضمي} إلى عضوية طال عمرك من ول.</button>`);
   $('#join').onclick=s5;
 }
 function s5(){ setStage(5,58); const ad=addonSuggest(); const first=(A.goals||[])[0]||'';
-  html(`<span class="tag">عضوية طال عمرك</span><h1>{صير عضو|صيري عضوة} في طال عمرك${NM()}</h1><p class="why">١٠١ مؤشر من دمك، و١٠ قياسات من بيتك، وفريق يعرفك بالاسم طول السنة.</p>
+  html(`<span class="tag">عضوية طال عمرك</span><h1>{انضم|انضمي} إلى عضوية طال عمرك${NM()}</h1><h2 style="margin:0 0 6px;font-size:20px">عمرك الحقيقي من دمك، ورعايتك من بيتك.</h2><p class="why">اعرف عمرك الصحي اليوم، وشوفه يتحسن شهر بعد شهر: ١٠١ مؤشر، فحصين في السنة، طبيب يشرح لك ويكتب خطتك، وفريق طبي يجيك البيت.</p>
   <p>على حسب جواباتك، هذي الفئات اللي نبدأ فيها: <b>${[first?('هدفك: '+first):'',A.sex==='رجل'?'القلب والدهون':'الحديد والفيتامينات','السكر والأيض','عمرك البيولوجي'].filter(Boolean).join('، ')}</b>.</p>
   <div class="mcard"><div class="l1"><div class="brand"><span class="en">Well<span style="color:#ACA6E1">.</span></span></div><div class="chip"></div></div><div><div class="name">عضوية طال عمرك</div><div class="big">${(A.name||'').trim()||(A.sex==='امرأة'?'عضوة':'عضو')} · ${n2a(A.age)} سنة</div></div><div class="l3"><span>٢٠٢٦ — ٢٠٢٧</span><span>N° 00001</span></div></div>
   <div class="card"><div class="price">١٩٩٩ <span style="font-size:18px;color:var(--muted)">ريال/سنة</span></div><p class="small">≈ ٥.٥ ريال باليوم · ٤ دفعات مع تابي أو تمارا · استرجاع كامل قبل أول سحب</p>
