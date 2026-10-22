@@ -204,12 +204,12 @@ h1{font-size:28px;line-height:1.4}
 .bio .verdict{font-size:17px;color:#fff;margin:0 0 18px}
 .bio .verdict b{color:#C9B8FF}
 .pace{margin-top:6px}
-.pace .lbls{display:flex;justify-content:space-between;font-size:12px;color:var(--hero-sub);margin-bottom:8px}
-.pace .lbls b{color:#fff;font-size:13px}
-.pace .track{position:relative;height:10px;border-radius:10px;background:linear-gradient(90deg,#2FD39A 0%,#5CC79D 30%,#7E57FD 50%,#E6B05A 65%,#F07A72 100%)}
-.pace .track::before{content:"";position:absolute;left:50%;top:-6px;bottom:-6px;width:2px;background:rgba(255,255,255,.35)}
-.pace .mk{position:absolute;top:50%;width:22px;height:22px;border-radius:50%;background:#fff;transform:translate(50%,-50%);box-shadow:0 0 0 5px rgba(255,255,255,.22),0 0 24px 6px rgba(169,139,255,.65);transition:right 1.4s cubic-bezier(.2,.8,.2,1)}
-.pace .ticks{display:flex;justify-content:space-between;font-size:11px;color:var(--hero-sub);margin-top:8px}
+
+
+
+
+
+
 .bio .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
 .bio .stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:10px 12px}
 .bio .stat .k{font-size:12px;color:var(--hero-sub)}
@@ -400,13 +400,13 @@ function drawRing(cv,seed,tone){ // organic particle ring
   let r0=seed*9301+49297; const rnd=()=>{r0=(r0*9301+49297)%233280;return r0/233280};
   const cx=W/2,cy=W/2,R=W*0.36; const a1=rnd()*6.28,a2=rnd()*6.28,a3=rnd()*6.28;
   const rad=t=>R*(1+0.08*Math.sin(2*t+a1)+0.05*Math.sin(3*t+a2)+0.04*Math.sin(5*t+a3));
-  const dots=[]; for(let i=0;i<620;i++){const t=rnd()*6.283; const spread=(rnd()+rnd()+rnd())/3; const rr=rad(t)*(0.72+spread*0.5); const sz=0.8+rnd()*2.6*(1-Math.abs(spread-0.5)); dots.push({t,rr,sz,ph:rnd()*6.28,sp:0.3+rnd()*0.8,a:0.25+rnd()*0.7})}
-  const cols=tone==='good'?['#5CC79D','#A98BFF','#C9B8FF','#FFFFFF']:tone==='act'?['#F07A72','#E6B05A','#C9B8FF','#FFFFFF']:['#7E57FD','#A98BFF','#C9B8FF','#FFFFFF'];
+  const dots=[]; for(let i=0;i<1100;i++){const t=rnd()*6.283; const spread=(rnd()+rnd()+rnd())/3; const rr=rad(t)*(0.74+spread*0.48); const sz=1+rnd()*3.2*(1-Math.abs(spread-0.5)*1.2); dots.push({t,rr,sz,ph:rnd()*6.28,sp:0.3+rnd()*0.8,a:0.45+rnd()*0.55})}
+  const cols=tone==='good'?['#7FE3BD','#C9B8FF','#E6DEFF','#FFFFFF']:tone==='act'?['#FFB3AD','#F2C97E','#E6DEFF','#FFFFFF']:['#A98BFF','#C9B8FF','#E6DEFF','#FFFFFF'];
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches; let t0=performance.now(); let frames=0;
   function frame(now){ const k=reduce?1:Math.min(1,(now-t0)/1400); g.clearRect(0,0,W,W);
     // glow
-    const gl=g.createRadialGradient(cx,cy,R*0.55,cx,cy,R*1.15); gl.addColorStop(0,'rgba(126,87,253,0)'); gl.addColorStop(0.6,'rgba(126,87,253,0.22)'); gl.addColorStop(1,'rgba(126,87,253,0)'); g.fillStyle=gl; g.beginPath(); g.arc(cx,cy,R*1.2,0,6.283); g.fill();
-    const tt=now/1000; for(const d of dots){ const e=1-Math.pow(1-k,3); const rr=d.rr*(0.7+0.3*e)+(reduce?0:Math.sin(tt*d.sp+d.ph)*1.6); const x=cx+Math.cos(d.t)*rr,y=cy+Math.sin(d.t)*rr; g.globalAlpha=d.a*e; g.fillStyle=cols[Math.floor(d.a*4)%4]; g.beginPath(); g.arc(x,y,d.sz,0,6.283); g.fill(); }
+    const gl=g.createRadialGradient(cx,cy,R*0.55,cx,cy,R*1.15); gl.addColorStop(0,'rgba(126,87,253,0)'); gl.addColorStop(0.6,'rgba(126,87,253,0.38)'); gl.addColorStop(1,'rgba(126,87,253,0)'); g.fillStyle=gl; g.beginPath(); g.arc(cx,cy,R*1.2,0,6.283); g.fill();
+    const tt=now/1000; for(const d of dots){ const e=1-Math.pow(1-k,3); const rr=d.rr*(0.7+0.3*e)+(reduce?0:Math.sin(tt*d.sp+d.ph)*1.6); const x=cx+Math.cos(d.t)*rr,y=cy+Math.sin(d.t)*rr; g.globalAlpha=d.a*e; g.fillStyle=cols[Math.floor(d.a*4)%4]; g.shadowColor='rgba(201,184,255,0.9)'; g.shadowBlur=d.sz>2.6?6:0; g.beginPath(); g.arc(x,y,d.sz,0,6.283); g.fill(); g.shadowBlur=0; }
     g.globalAlpha=1; frames++; if(!reduce&&document.body.contains(cv)&&frames<900) requestAnimationFrame(frame); }
   requestAnimationFrame(frame);
 }
