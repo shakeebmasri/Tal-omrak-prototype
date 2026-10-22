@@ -528,22 +528,24 @@ function addonSuggest(){
 /* ---------- rendering helpers ---------- */
 const ICONS={bmi:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',waist:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16M7 8c0 4 10 4 10 8M7 16c0-4 10-4 10-8"/></svg>',sleep:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>',active:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 14l4-2 3 3 4-6 2 3h3"/><circle cx="18" cy="6" r="2"/></svg>',sweet:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 4h10l-1 16H8z M9 9h6"/></svg>',smoke:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 15h14v4H3zM19 15h2v4h-2zM18 9c0-2 2-2 2-4M15 11c0-2 2-2 2-4"/></svg>',stress:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>'};
 
-function drawRing(cv,seed,tone){ // dense organic particle band with dark halo
+function drawRing(cv,seed,tone){ // living particle band: swirls, breathes, twinkles, never stops
   const dpr=Math.min(2,window.devicePixelRatio||1); const W=cv.clientWidth||300; cv.width=W*dpr; cv.height=W*dpr; const g=cv.getContext('2d'); g.scale(dpr,dpr);
   let r0=seed*9301+49297; const rnd=()=>{r0=(r0*9301+49297)%233280;return r0/233280};
   const cx=W/2,cy=W/2,R=W*0.40; const a1=rnd()*6.28,a2=rnd()*6.28,a3=rnd()*6.28,a4=rnd()*6.28;
-  const shape=t=>1+0.10*Math.sin(2*t+a1)+0.07*Math.sin(3*t+a2)+0.05*Math.sin(4*t+a3)+0.03*Math.sin(7*t+a4);
-  const ro=t=>R*shape(t), ri=t=>R*shape(t)*0.62;
-  const dots=[]; for(let i=0;i<2600;i++){ const t=rnd()*6.283; let u=(rnd()+rnd())/2; u=Math.pow(u,0.9); const rr=ri(t)+(ro(t)-ri(t))*u; const edge=Math.min(u,1-u)*2; const sz=0.7+rnd()*(1.2+2.8*edge); dots.push({t,rr,sz,ph:rnd()*6.28,sp:0.2+rnd()*0.6,a:0.35+rnd()*0.65*edge+0.1}); }
+  const shape=(t,ph)=>1+0.10*Math.sin(2*t+a1+ph*0.6)+0.07*Math.sin(3*t+a2-ph*0.4)+0.05*Math.sin(4*t+a3+ph*0.3)+0.03*Math.sin(7*t+a4);
+  const N=W<220?1500:2400; const dots=[]; for(let i=0;i<N;i++){ const t=rnd()*6.283; let u=(rnd()+rnd())/2; const edge=Math.min(u,1-u)*2; dots.push({t,u,edge,sz:0.7+rnd()*(1.2+2.8*edge),ph:rnd()*6.28,sp:0.15+rnd()*0.5,tw:1.5+rnd()*3,a:0.35+rnd()*0.65*edge+0.1,c:Math.floor(rnd()*4)}); }
   const cols=tone==='good'?['#8FE8C6','#C9B8FF','#E6DEFF','#FFFFFF']:tone==='act'?['#FFB3AD','#F6CB8B','#E6DEFF','#FFFFFF']:['#A98BFF','#C9B8FF','#E6DEFF','#FFFFFF'];
-  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches; let t0=performance.now(); let frames=0;
-  function frame(now){ const k=reduce?1:Math.min(1,(now-t0)/1500); const e=1-Math.pow(1-k,3); g.clearRect(0,0,W,W);
-    // dark halo
-    const h=g.createRadialGradient(cx,cy,R*0.95,cx,cy,R*1.35); h.addColorStop(0,'rgba(8,4,36,0.85)'); h.addColorStop(1,'rgba(8,4,36,0)'); g.fillStyle=h; g.fillRect(0,0,W,W);
-    // inner soft glow
-    const gl=g.createRadialGradient(cx,cy,R*0.45,cx,cy,R*0.95); gl.addColorStop(0,'rgba(126,87,253,0)'); gl.addColorStop(1,'rgba(143,107,255,0.28)'); g.fillStyle=gl; g.beginPath(); g.arc(cx,cy,R,0,6.283); g.fill();
-    const tt=now/1000; for(const d of dots){ const rr=d.rr*(0.8+0.2*e)+(reduce?0:Math.sin(tt*d.sp+d.ph)*1.2); const x=cx+Math.cos(d.t)*rr,y=cy+Math.sin(d.t)*rr; g.globalAlpha=Math.min(1,d.a)*e; g.fillStyle=cols[Math.floor(d.a*4)%4]; if(d.sz>3){g.shadowColor='rgba(201,184,255,0.95)';g.shadowBlur=8}else g.shadowBlur=0; g.beginPath(); g.arc(x,y,d.sz,0,6.283); g.fill(); }
-    g.shadowBlur=0; g.globalAlpha=1; frames++; if(!reduce&&document.body.contains(cv)&&frames<900) requestAnimationFrame(frame); }
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches; const t0=performance.now();
+  function frame(now){ if(!document.body.contains(cv)) return; const r=cv.getBoundingClientRect(); const vis=r.bottom>0&&r.top<innerHeight;
+    if(vis||reduce){ const el=(now-t0)/1000; const k=reduce?1:Math.min(1,el/1.4); const e=1-Math.pow(1-k,3); const ph=reduce?0:el*0.5; const breathe=reduce?1:1+0.025*Math.sin(el*1.3); const rot=reduce?0:el*0.18;
+      g.clearRect(0,0,W,W);
+      const h=g.createRadialGradient(cx,cy,R*0.95,cx,cy,R*1.35); h.addColorStop(0,'rgba(8,4,36,0.85)'); h.addColorStop(1,'rgba(8,4,36,0)'); g.fillStyle=h; g.fillRect(0,0,W,W);
+      const gl=g.createRadialGradient(cx,cy,R*0.45,cx,cy,R*0.95); gl.addColorStop(0,'rgba(126,87,253,0)'); gl.addColorStop(1,`rgba(143,107,255,${0.22+0.1*Math.sin(el*1.3)})`); g.fillStyle=gl; g.beginPath(); g.arc(cx,cy,R*breathe,0,6.283); g.fill();
+      for(const d of dots){ const tt=d.t+rot*(0.6+d.sp); const sh=shape(tt,ph)*breathe; const rr=(R*sh*0.62+(R*sh-R*sh*0.62)*d.u)*(0.8+0.2*e)+(reduce?0:Math.sin(el*d.sp*3+d.ph)*1.4);
+        const x=cx+Math.cos(tt)*rr,y=cy+Math.sin(tt)*rr; const tw=reduce?1:0.65+0.35*Math.sin(el*d.tw+d.ph);
+        g.globalAlpha=Math.min(1,d.a*tw)*e; g.fillStyle=cols[d.c]; if(d.sz>3){g.shadowColor='rgba(201,184,255,0.95)';g.shadowBlur=8}else g.shadowBlur=0; g.beginPath(); g.arc(x,y,d.sz,0,6.283); g.fill(); }
+      g.shadowBlur=0; g.globalAlpha=1; }
+    if(!reduce) requestAnimationFrame(frame); }
   requestAnimationFrame(frame);
 }
 
@@ -682,6 +684,8 @@ function s0(){ setStage(0,0);
   <p class="tagl">طال عمرك… مو كلمة تنقال وبس، هي أسلوب حياة.</p>
   <p class="small" style="margin-top:18px;opacity:.7">نسخة أولية. القائمة اللي تحت تنقلك بين المراحل.</p>`);
   drawRing($('#landCv'),4242,'mid'); drawRing($('#pvCv'),2718,'act');
+  (function loopQ(){ const q=screen.querySelector('.qmark'); if(!q||matchMedia('(prefers-reduced-motion: reduce)').matches) return; const ages=[27,52,34,46,31,58,39,44]; let i=0; const iv=setInterval(()=>{ if(!document.body.contains(q)){clearInterval(iv);return} if(i<ages.length){q.textContent=n2a(ages[i]);q.style.opacity=.85;i++} else {q.textContent='؟';q.style.opacity=1; if(i++>ages.length+12) i=0} },140); })();
+  (function loopPv(){ const n=screen.querySelector('.pv-ring .num'); if(!n||matchMedia('(prefers-reduced-motion: reduce)').matches) return; const run=()=>{ if(!document.body.contains(n)) return; countUp(n,38,43.2,1600,1); setTimeout(run,5000)}; run(); })();
   $('#go').onclick=$('#go2').onclick=()=>{S.qi=0;renderQuick()}; $('#join0').onclick=()=>{ensureDefaults();s5()};
 }
 function renderQuick(){ setStage(1,S.qi/QUICK.length*20); const q=QUICK[S.qi]; hint.textContent=`${n2a(S.qi+1)} / ${n2a(QUICK.length)}`;
