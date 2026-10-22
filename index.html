@@ -215,6 +215,34 @@ h1{font-size:28px;line-height:1.4}
 .bio .stat .k{font-size:12px;color:var(--hero-sub)}
 .bio .stat .v{font-family:var(--font-num);font-size:24px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
 .bio .foot{font-size:12.5px;color:var(--hero-sub);margin:14px 0 0;line-height:1.6}
+
+/* bio-age hero v3 (WHOOP-like ring) */
+.bio{position:relative;overflow:hidden;border-radius:28px;padding:18px 18px 18px;margin:4px 0 16px;color:var(--hero-fg);background:radial-gradient(90% 60% at 50% 20%,#2A1C86 0%,#17104F 60%,#110A3F 100%);box-shadow:0 24px 60px rgba(17,10,63,.45)}
+.bio .eyebrow{font-size:12px;color:var(--hero-sub);letter-spacing:.14em;text-align:center;text-transform:uppercase}
+.ringwrap{position:relative;width:min(300px,78vw);aspect-ratio:1;margin:6px auto 2px}
+.ringwrap canvas{position:absolute;inset:0;width:100%;height:100%}
+.ringwrap .center{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.ringwrap .num{font-family:var(--font-num);font-size:64px;font-weight:700;line-height:1;color:#fff;letter-spacing:-.02em;font-variant-numeric:tabular-nums;text-shadow:0 0 30px rgba(169,139,255,.5)}
+.ringwrap .cap{font-size:13px;color:var(--hero-sub);letter-spacing:.12em;margin-top:6px}
+.ringwrap .verdict{font-size:17px;color:#C9B8FF;margin-top:10px;font-weight:600}
+.pace{margin-top:14px}
+.pace .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.pace .head .t{font-size:13px;color:#fff;letter-spacing:.1em;font-weight:600}
+.pace .head .chip{font-size:11.5px;padding:4px 10px;border-radius:999px;background:rgba(126,87,253,.25);color:#DCD2FF;border:1px solid rgba(201,184,255,.3)}
+.pace .big{font-family:var(--font-num);font-size:30px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums;line-height:1;margin:2px 0 8px;text-align:right}
+.pace .big small{font-size:14px;color:var(--hero-sub);margin-inline-start:4px}
+.ticks2{display:flex;justify-content:space-between;align-items:flex-end;height:44px;gap:0;direction:ltr}
+.ticks2 i{display:block;width:2px;height:22px;background:rgba(255,255,255,.22);border-radius:2px;transition:height .4s,background .4s}
+.ticks2 i.on{background:#fff;height:34px}
+.ticks2 i.mk{background:#fff;height:44px;box-shadow:0 0 12px 3px rgba(201,184,255,.9)}
+.ticks2 i.mid{height:30px;background:rgba(255,255,255,.5)}
+.pace .lbl2{display:flex;justify-content:space-between;font-size:11.5px;color:var(--hero-sub);margin-top:6px;direction:ltr;font-family:var(--font-num)}
+.bio .stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.bio .stat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:10px 12px}
+.bio .stat .k{font-size:12px;color:var(--hero-sub)}
+.bio .stat .v{font-family:var(--font-num);font-size:24px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
+.bio .go{margin-top:14px;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.18);box-shadow:none;letter-spacing:.06em;font-size:15px}
+.bio .foot{font-size:12px;color:var(--hero-sub);margin:12px 0 0;line-height:1.6}
 </style></head><body>
 
 <div class="app" id="app">
@@ -366,6 +394,23 @@ function addonSuggest(){
 
 /* ---------- rendering helpers ---------- */
 const ICONS={bmi:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',waist:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16M7 8c0 4 10 4 10 8M7 16c0-4 10-4 10-8"/></svg>',sleep:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>',active:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 14l4-2 3 3 4-6 2 3h3"/><circle cx="18" cy="6" r="2"/></svg>',sweet:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 4h10l-1 16H8z M9 9h6"/></svg>',smoke:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 15h14v4H3zM19 15h2v4h-2zM18 9c0-2 2-2 2-4M15 11c0-2 2-2 2-4"/></svg>',stress:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>'};
+
+function drawRing(cv,seed,tone){ // organic particle ring
+  const dpr=Math.min(2,window.devicePixelRatio||1); const W=cv.clientWidth||300; cv.width=W*dpr; cv.height=W*dpr; const g=cv.getContext('2d'); g.scale(dpr,dpr);
+  let r0=seed*9301+49297; const rnd=()=>{r0=(r0*9301+49297)%233280;return r0/233280};
+  const cx=W/2,cy=W/2,R=W*0.36; const a1=rnd()*6.28,a2=rnd()*6.28,a3=rnd()*6.28;
+  const rad=t=>R*(1+0.08*Math.sin(2*t+a1)+0.05*Math.sin(3*t+a2)+0.04*Math.sin(5*t+a3));
+  const dots=[]; for(let i=0;i<620;i++){const t=rnd()*6.283; const spread=(rnd()+rnd()+rnd())/3; const rr=rad(t)*(0.72+spread*0.5); const sz=0.8+rnd()*2.6*(1-Math.abs(spread-0.5)); dots.push({t,rr,sz,ph:rnd()*6.28,sp:0.3+rnd()*0.8,a:0.25+rnd()*0.7})}
+  const cols=tone==='good'?['#5CC79D','#A98BFF','#C9B8FF','#FFFFFF']:tone==='act'?['#F07A72','#E6B05A','#C9B8FF','#FFFFFF']:['#7E57FD','#A98BFF','#C9B8FF','#FFFFFF'];
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches; let t0=performance.now(); let frames=0;
+  function frame(now){ const k=reduce?1:Math.min(1,(now-t0)/1400); g.clearRect(0,0,W,W);
+    // glow
+    const gl=g.createRadialGradient(cx,cy,R*0.55,cx,cy,R*1.15); gl.addColorStop(0,'rgba(126,87,253,0)'); gl.addColorStop(0.6,'rgba(126,87,253,0.22)'); gl.addColorStop(1,'rgba(126,87,253,0)'); g.fillStyle=gl; g.beginPath(); g.arc(cx,cy,R*1.2,0,6.283); g.fill();
+    const tt=now/1000; for(const d of dots){ const e=1-Math.pow(1-k,3); const rr=d.rr*(0.7+0.3*e)+(reduce?0:Math.sin(tt*d.sp+d.ph)*1.6); const x=cx+Math.cos(d.t)*rr,y=cy+Math.sin(d.t)*rr; g.globalAlpha=d.a*e; g.fillStyle=cols[Math.floor(d.a*4)%4]; g.beginPath(); g.arc(x,y,d.sz,0,6.283); g.fill(); }
+    g.globalAlpha=1; frames++; if(!reduce&&document.body.contains(cv)&&frames<900) requestAnimationFrame(frame); }
+  requestAnimationFrame(frame);
+}
+
 function countUp(el,from,to,ms=1200,dec=0){const t0=performance.now();const step=t=>{const k=Math.min(1,(t-t0)/ms);const e=1-Math.pow(1-k,3);el.textContent=n2a((from+(to-from)*e).toFixed(dec));if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
 function gauge(total){ // semicircle -12..+12
   const r=120,cx=150,cy=150; const ang=a=>a*Math.PI/180; const pt=a=>[cx+r*Math.cos(ang(a)),cy+r*Math.sin(ang(a))];
@@ -506,17 +551,22 @@ function s8(){ setStage(8,84); const R=results(); const est=A.age+lifestyleAge()
   const pos=a=>Math.max(4,Math.min(96,50+(a-A.age)*3.5)); // percent along the rail, right-to-left
   const dd=Math.round((R.bio-A.age)*10)/10;
   html(`<h1>نتايجك جاهزة</h1><p class="why">طبيبك راجعها قبلك. اللي بالأحمر بيشرحه لك بالمكالمة.</p>
-  <div class="bio"><div class="eyebrow"><span>عمرك البيولوجي من دمك</span><span class="chip">PhenoAge</span></div>
-    <div class="num"><span id="bioN">${n2a(A.age)}</span><small>سنة</small></div>
-    <p class="verdict" id="bioV">&nbsp;</p>
-    <div class="pace"><div class="lbls"><span>وتيرة تقدّمك بالعمر</span><b id="paceV">—</b></div><div class="track"><div class="mk" id="paceMk" style="right:50%"></div></div><div class="ticks"><span>أسرع من التقويم</span><span>١.٠</span><span>أبطأ من التقويم</span></div></div>
+  <div class="bio"><div class="eyebrow">عمرك البيولوجي</div>
+    <div class="ringwrap"><canvas id="ringCv"></canvas><div class="center"><div><div class="num" id="bioN">${n2a(A.age)}</div><div class="cap">من دمك · PhenoAge</div><div class="verdict" id="bioV">&nbsp;</div></div></div></div>
+    <div class="pace"><div class="head"><span class="t">وتيرة تقدّمك بالعمر</span><span class="chip" id="paceChip">—</span></div><div class="big"><span id="paceV">١.٠</span><small>x</small></div>
+      <div class="ticks2" id="ticks"></div><div class="lbl2"><span>0.5x</span><span>1.0x</span><span>1.5x</span></div></div>
     <div class="stats"><div class="stat"><div class="k">عمرك بالهوية</div><div class="v">${n2a(A.age)}</div></div><div class="stat"><div class="k">من جواباتك</div><div class="v">${n2a(Math.round(est))}</div></div></div>
+    <button class="btn go" id="goCats">شوف صحتك بالتفصيل</button>
     <p class="foot">محسوب من ٩ مؤشرات في دمك: الألبومين، الكرياتينين، السكر، hs-CRP، الخلايا اللمفاوية، MCV، RDW، ALP، كريات الدم البيضاء. نعيد حسابه بعد ٦ شهور وتشوف الفرق.</p></div>
   <div class="row" style="align-items:center;margin-bottom:6px"><div class="ring" id="ring" style="--p:0"><b id="wellN">٠</b><small>Well. Score</small></div><div><p style="margin:0"><b>${n2a(R.well)} من ١٠٠</b></p><p class="small">نسبة مؤشراتك في المدى المثالي، موزونة على أولويات طبيبك. هذا الرقم اللي تتابعه طول السنة.</p></div></div>
   <div class="cats">${R.cats.map(c=>{const g=c[3].filter(m=>m[1]==='good').length,p=Math.round(g/c[3].length*100);const CI={'القلب والدهون':'<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>','السكر والأيض':'<path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/>','الدم والمناعة والالتهاب':'<circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/>','الكبد والبنكرياس':'<path d="M4 9c0-3 3-5 8-5s8 2 8 5-2 7-5 9-6 2-8 0-3-6-3-9z"/>','الكلى والبول':'<path d="M8 5c-3 0-4 3-4 7s1 7 4 7 3-2 3-7-0-7-3-7zM16 5c3 0 4 3 4 7s-1 7-4 7-3-2-3-7 0-7 3-7z"/>','الأملاح والمعادن':'<path d="M12 3l8 5v8l-8 5-8-5V8z"/>','الحديد والفيتامينات':'<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>','الغدة الدرقية':'<path d="M8 6c-2 0-3 2-3 5s1 7 3 7 2-3 4-3 2 3 4 3 3-4 3-7-1-5-3-5"/>','العضلات':'<path d="M5 14l3-3 3 3 2-6 3 6 3-3M4 19h16"/>','راحة البال':'<path d="M12 4a7 7 0 0 0-7 7c0 3 2 4 2 7h10c0-3 2-4 2-7a7 7 0 0 0-7-7zM10 21h4"/>'};return `<div class="cat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${CI[c[0]]||''}</svg></div><div class="t">${c[0]}</div><div class="s">${c[1]}</div><div class="dots">${c[3].map(m=>`<i class="dot-${m[1]}" title="${m[0]}"></i>`).join('')}</div><div class="barr"><i data-w="${p}"></i></div></div>`}).join('')}</div>
   <h2>القياسات من بيتك</h2><div class="card">${[['ضغط الدم',`${n2a(S.vitals.sbp)}/${n2a(S.vitals.dbp)}`,S.vitals.sbp>=140?'act':S.vitals.sbp>=130?'warn':'good'],['النبض',n2a(S.vitals.hr),S.vitals.hr>90?'warn':'good'],['الخصر ÷ الطول',(S.vitals.wa/A.height).toFixed(2),S.vitals.wa/A.height>0.5?'warn':'good'],['قوة القبضة',n2a(S.vitals.grip)+' كجم',S.vitals.grip<(A.sex==='رجل'?30:18)?'warn':'good']].map(x=>`<div class="score"><div class="name">${x[0]}</div><div style="display:flex;gap:10px;align-items:center"><span class="sub" style="font-family:var(--font-num);font-size:18px;color:var(--ink)">${x[1]}</span><span class="pill ${x[2]}">${x[2]==='good'?'مثالي':x[2]==='warn'?'للمتابعة':'يحتاج انتباه'}</span></div></div>`).join('')}</div>
   <button class="btn primary" id="plan">مكالمة الطبيب: خطتك</button>`);
-  setTimeout(()=>{countUp($('#bioN'),A.age,R.bio,1400,1);const mk=$('#paceMk');const pp=Math.max(4,Math.min(96,50-(R.pace-1)*250));if(mk)mk.style.right=pp+'%';setTimeout(()=>{$('#paceV').textContent=n2a(R.pace.toFixed(2));const v=$('#bioV');v.innerHTML=dd>0?`<b>أكبر</b> من عمرك بـ${n2a(Math.abs(dd).toFixed(1))} سنة`:dd<0?`<b>أصغر</b> من عمرك بـ${n2a(Math.abs(dd).toFixed(1))} سنة`:'<b>مطابق</b> لعمرك بالهوية'},700);countUp($('#wellN'),0,R.well,1400);let p=0;const rg=$('#ring');const iv=setInterval(()=>{p+=2;rg.style.setProperty('--p',Math.min(p,R.well));if(p>=R.well)clearInterval(iv)},18);screen.querySelectorAll('.barr i').forEach(b=>b.style.width=b.dataset.w+'%')},80);
+  setTimeout(()=>{countUp($('#bioN'),A.age,R.bio,1400,1); const tone=dd>2?'act':dd<-1?'good':'mid'; drawRing($('#ringCv'),Math.round(A.age*7+(A.weight||80)),tone);
+      const tk=$('#ticks'); const N=61; tk.innerHTML=Array.from({length:N},(_,i)=>`<i${i===30?' class="mid"':''}></i>`).join(''); const idx=Math.round(Math.max(0,Math.min(1,(R.pace-0.5)))*(N-1));
+      setTimeout(()=>{const el=tk.children; for(let i=Math.max(0,idx-4);i<=Math.min(N-1,idx+4);i++)el[i].classList.add('on'); el[idx].classList.add('mk'); $('#paceV').textContent=n2a(R.pace.toFixed(2)); $('#paceChip').textContent=R.pace>1.02?'أسرع من التقويم':R.pace<0.98?'أبطأ من التقويم':'على وتيرة التقويم';
+      const v=$('#bioV');v.textContent=dd>0?`أكبر بـ${n2a(Math.abs(dd).toFixed(1))} سنة`:dd<0?`أصغر بـ${n2a(Math.abs(dd).toFixed(1))} سنة`:'مطابق لعمرك'},600);
+      const gc=$('#goCats'); if(gc) gc.onclick=()=>{const c=screen.querySelector('.cats'); if(c) c.scrollIntoView({behavior:'smooth',block:'start'})};countUp($('#wellN'),0,R.well,1400);let p=0;const rg=$('#ring');const iv=setInterval(()=>{p+=2;rg.style.setProperty('--p',Math.min(p,R.well));if(p>=R.well)clearInterval(iv)},18);screen.querySelectorAll('.barr i').forEach(b=>b.style.width=b.dataset.w+'%')},80);
   $('#plan').onclick=s9;
 }
 function s9(){ setStage(9,92); const R=results(); const flagged=R.cats.flatMap(c=>c[3].filter(m=>m[1]!=='good').map(m=>[c[0],m[0],m[1]]));
