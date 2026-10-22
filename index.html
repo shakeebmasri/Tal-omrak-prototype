@@ -438,6 +438,12 @@ function drawRing(cv,seed,tone){ // dense organic particle band with dark halo
     g.shadowBlur=0; g.globalAlpha=1; frames++; if(!reduce&&document.body.contains(cv)&&frames<900) requestAnimationFrame(frame); }
   requestAnimationFrame(frame);
 }
+
+function labsArc(g,w,a){ const N=g+w+a, segs=40, r=120, cx=150, cy=150; const out=[]; const col=i=>{const f=i/segs; return f<g/N?'var(--good)':f<(g+w)/N?'var(--warn)':'var(--act)'};
+  for(let i=0;i<segs;i++){ const a0=Math.PI+(i/segs)*Math.PI, a1=Math.PI+((i+1)/segs)*Math.PI-0.025; const x0=cx+r*Math.cos(a0),y0=cy+r*Math.sin(a0),x1=cx+r*Math.cos(a1),y1=cy+r*Math.sin(a1); out.push(`<path class="seg" data-i="${i}" d="M${x0} ${y0} A${r} ${r} 0 0 1 ${x1} ${y1}" stroke="${col(i)}"/>`)}
+  return `<svg class="arc" viewBox="0 0 300 170" aria-hidden="true">${out.join('')}<text x="150" y="128" text-anchor="middle" font-size="44" font-weight="700">${n2a(N)}</text><text x="150" y="152" text-anchor="middle" font-size="12" style="fill:var(--muted)">مؤشر من دمك</text></svg>`;
+}
+
 function countUp(el,from,to,ms=1200,dec=0){const t0=performance.now();const step=t=>{const k=Math.min(1,(t-t0)/ms);const e=1-Math.pow(1-k,3);el.textContent=n2a((from+(to-from)*e).toFixed(dec));if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
 function gauge(total){ // semicircle -12..+12
   const r=120,cx=150,cy=150; const ang=a=>a*Math.PI/180; const pt=a=>[cx+r*Math.cos(ang(a)),cy+r*Math.sin(ang(a))];
