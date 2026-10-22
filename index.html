@@ -97,6 +97,7 @@ p{margin:0 0 12px;color:var(--ink-2)}
 .hero{background:linear-gradient(160deg,#1D1069 0%,#2A1B9E 55%,#7E57FD 100%);color:var(--hero-fg);border-radius:22px;padding:26px 20px;margin-bottom:16px}
 .hero h1{color:var(--hero-fg);font-size:34px}
 .hero p{color:var(--hero-sub)}
+.hero h2{font-family:var(--font-head)}
 .hero .tag{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25);color:var(--hero-fg)}
 .tag{display:inline-block;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:13px;color:var(--ink-2);margin:0 0 6px 6px}
 .safety{background:color-mix(in srgb,var(--accent) 8%,var(--surface));border:1.5px solid var(--accent)}
@@ -496,11 +497,15 @@ function renderCurrent(){ if(S.step===1) renderQuick(); else if(S.step===3) rend
 
 /* ---------- screens ---------- */
 function s0(){ setStage(0,0);
-  html(`<div class="hero"><span class="tag">عضوية طال عمرك</span><h1>شاب ولا شايب؟</h1><p>اعرف عمرك الصحي بناءً على جواباتك. ٣ دقايق.</p></div>
-  <p>تقدير لعمرك الصحي من عاداتك، وثلاث ملاحظات على جسمك، مجاناً. والدم هو اللي يقول الكلمة الأخيرة.</p>
-  <button class="btn primary" id="go">اعرف عمرك الصحي</button>
-  <p class="small" style="margin-top:14px">هذا نموذج تجريبي لرحلة العضو. القائمة اللي تحت تنقلك بين المراحل.</p><p class="small" style="margin-top:18px;text-align:center;color:var(--ink)">عِش بعافية، عِش أفضل.</p>`);
-  $('#go').onclick=()=>{S.qi=0;renderQuick()};
+  html(`<div class="hero"><span class="tag">عضوية طال عمرك</span><h1 style="font-size:40px;margin-bottom:6px">طال عمرك.</h1><h2 style="margin:0 0 10px;font-size:22px;color:var(--hero-fg)">اعرف عمرك الحقيقي، وخلّنا نعتني فيه معك سنة كاملة.</h2><p>١٠١ مؤشر من دمك، فحصين في السنة مو فحص، طبيب يشرح لك ويكتب خطتك، وفريق طبي يجيك البيت.</p></div>
+  <button class="btn primary" id="join0">صير عضو في طال عمرك</button>
+  <div style="text-align:center;margin:14px 0 4px"><span class="small" style="text-decoration:line-through;opacity:.7">٢١٩٠ ريال</span> <span class="price" style="font-size:34px;vertical-align:middle;margin:0 8px">١٩٩٩</span><span class="small">ريال سنوياً · ≈ ٥.٥ ريال باليوم</span></div>
+  <p class="small" style="text-align:center;margin:0">٤ دفعات مع تابي، كل دفعة ٥٠٠ ريال · تمارا متاحة</p>
+  <p class="small" style="text-align:center;margin:4px 0 16px">استرجاع كامل قبل أول سحب · مختبرات معتمدة</p>
+  <p style="text-align:center;font-weight:700;color:var(--ink);margin:0 0 16px">طال عمرك… مو كلمة تنقال وبس، هي أسلوب حياة.</p>
+  <div class="card"><h3>شاب ولا شايب؟</h3><p>اعرف عمرك الصحي من جواباتك، مجاناً، في ٣ دقايق. والدم هو اللي يقول الكلمة الأخيرة.</p><div style="height:10px"></div><button class="btn ghost" id="go">ابدأ الفحص المجاني</button></div>
+  <p class="small" style="margin-top:12px">هذا نموذج تجريبي لرحلة العضو. القائمة اللي تحت تنقلك بين المراحل.</p>`);
+  $('#go').onclick=()=>{S.qi=0;renderQuick()}; $('#join0').onclick=()=>{ensureDefaults();s5()};
 }
 function renderQuick(){ setStage(1,S.qi/QUICK.length*20); const q=QUICK[S.qi]; hint.textContent=`${n2a(S.qi+1)} / ${n2a(QUICK.length)}`;
   const next=()=>{S.qi++; if(S.qi>=QUICK.length) s2(); else renderQuick()};
