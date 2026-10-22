@@ -247,6 +247,20 @@ h1{font-size:28px;line-height:1.4}
 .bio .stat .v{font-family:var(--font-num);font-size:24px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
 .bio .go{margin-top:14px;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.18);box-shadow:none;letter-spacing:.06em;font-size:15px}
 .bio .foot{font-size:12px;color:var(--hero-sub);margin:12px 0 0;line-height:1.6}
+
+/* labs summary arc */
+.labs{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:16px 16px 6px;margin-bottom:12px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.labs .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.labs .head b{font-size:16px;letter-spacing:.02em}
+.labs .head span{color:var(--muted);font-size:13px}
+.arc{display:block;width:100%;height:auto}
+.arc .seg{fill:none;stroke-width:14;stroke-linecap:butt;opacity:0;transition:opacity .5s}
+.arc .seg.on{opacity:1}
+.arc text{fill:var(--ink);font-family:var(--font-num)}
+.labs .legend{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:-6px 0 10px;text-align:center}
+.labs .legend .n{font-family:var(--font-num);font-weight:700;font-size:22px;line-height:1.1}
+.labs .legend .k{font-size:12px;color:var(--muted)}
+.labs .legend .g .n{color:var(--good)} .labs .legend .w .n{color:var(--warn)} .labs .legend .a .n{color:var(--act)}
 </style></head><body>
 
 <div class="app" id="app">
@@ -415,6 +429,12 @@ function drawRing(cv,seed,tone){ // organic particle ring
   requestAnimationFrame(frame);
 }
 
+
+function labsArc(g,w,a){ const N=g+w+a, segs=40, r=120, cx=150, cy=150; const out=[]; let cum=0; const col=i=>{const f=i/segs; return f<g/N?'var(--good)':f<(g+w)/N?'var(--warn)':'var(--act)'};
+  for(let i=0;i<segs;i++){ const a0=Math.PI+ (i/segs)*Math.PI, a1=Math.PI+((i+1)/segs)*Math.PI-0.025; const x0=cx+r*Math.cos(a0),y0=cy+r*Math.sin(a0),x1=cx+r*Math.cos(a1),y1=cy+r*Math.sin(a1); out.push(`<path class="seg" data-i="${i}" d="M${x0} ${y0} A${r} ${r} 0 0 1 ${x1} ${y1}" stroke="${col(i)}"/>`)}
+  return `<svg class="arc" viewBox="0 0 300 170" aria-hidden="true">${out.join('')}<text x="150" y="128" text-anchor="middle" font-size="44" font-weight="700">${n2a(N)}</text><text x="150" y="152" text-anchor="middle" font-size="12" fill="var(--muted)" style="fill:var(--muted)">مؤشر من دمك</text></svg>`;
+}
+
 function countUp(el,from,to,ms=1200,dec=0){const t0=performance.now();const step=t=>{const k=Math.min(1,(t-t0)/ms);const e=1-Math.pow(1-k,3);el.textContent=n2a((from+(to-from)*e).toFixed(dec));if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
 function gauge(total){ // semicircle -12..+12
   const r=120,cx=150,cy=150; const ang=a=>a*Math.PI/180; const pt=a=>[cx+r*Math.cos(ang(a)),cy+r*Math.sin(ang(a))];
@@ -562,6 +582,7 @@ function s8(){ setStage(8,84); const R=results(); const est=A.age+lifestyleAge()
     <div class="stats"><div class="stat"><div class="k">عمرك بالهوية</div><div class="v">${n2a(A.age)}</div></div><div class="stat"><div class="k">من جواباتك</div><div class="v">${n2a(Math.round(est))}</div></div></div>
     <button class="btn go" id="goCats">شوف صحتك بالتفصيل</button>
     <p class="foot">Well Age محسوب من ٩ مؤشرات في دمك (PhenoAge): الألبومين، الكرياتينين، السكر، hs-CRP، الخلايا اللمفاوية، MCV، RDW، ALP، كريات الدم البيضاء. نعيد حسابه بعد ٦ شهور وتشوف الفرق.</p></div>
+  ${(()=>{const all=R.cats.flatMap(c=>c[3]);const tot=all.length;const sc=x=>Math.round(all.filter(m=>m[1]===x).length/tot*101);let gC=sc('good'),wC=sc('warn'),aC=101-gC-wC;return `<div class="labs"><div class="head"><b>مؤشراتك</b><span>١٠١ من دمك · ١٠ من بيتك</span></div>${labsArc(gC,wC,aC)}<div class="legend"><div class="g"><div class="n">${n2a(gC)}</div><div class="k">مثالي</div></div><div class="w"><div class="n">${n2a(wC)}</div><div class="k">للمتابعة</div></div><div class="a"><div class="n">${n2a(aC)}</div><div class="k">يحتاج انتباه</div></div></div></div>`})()}
   <div class="row" style="align-items:center;margin-bottom:6px"><div class="ring" id="ring" style="--p:0"><b id="wellN">٠</b><small>Well. Score</small></div><div><p style="margin:0"><b>${n2a(R.well)} من ١٠٠</b></p><p class="small">نسبة مؤشراتك في المدى المثالي، موزونة على أولويات طبيبك. هذا الرقم اللي تتابعه طول السنة.</p></div></div>
   <div class="cats">${R.cats.map(c=>{const g=c[3].filter(m=>m[1]==='good').length,p=Math.round(g/c[3].length*100);const CI={'القلب والدهون':'<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>','السكر والأيض':'<path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/>','الدم والمناعة والالتهاب':'<circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/>','الكبد والبنكرياس':'<path d="M4 9c0-3 3-5 8-5s8 2 8 5-2 7-5 9-6 2-8 0-3-6-3-9z"/>','الكلى والبول':'<path d="M8 5c-3 0-4 3-4 7s1 7 4 7 3-2 3-7-0-7-3-7zM16 5c3 0 4 3 4 7s-1 7-4 7-3-2-3-7 0-7 3-7z"/>','الأملاح والمعادن':'<path d="M12 3l8 5v8l-8 5-8-5V8z"/>','الحديد والفيتامينات':'<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>','الغدة الدرقية':'<path d="M8 6c-2 0-3 2-3 5s1 7 3 7 2-3 4-3 2 3 4 3 3-4 3-7-1-5-3-5"/>','العضلات':'<path d="M5 14l3-3 3 3 2-6 3 6 3-3M4 19h16"/>','راحة البال':'<path d="M12 4a7 7 0 0 0-7 7c0 3 2 4 2 7h10c0-3 2-4 2-7a7 7 0 0 0-7-7zM10 21h4"/>'};return `<div class="cat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${CI[c[0]]||''}</svg></div><div class="t">${c[0]}</div><div class="s">${c[1]}</div><div class="dots">${c[3].map(m=>`<i class="dot-${m[1]}" title="${m[0]}"></i>`).join('')}</div><div class="barr"><i data-w="${p}"></i></div></div>`}).join('')}</div>
   <h2>القياسات من بيتك</h2><div class="card">${[['ضغط الدم',`${n2a(S.vitals.sbp)}/${n2a(S.vitals.dbp)}`,S.vitals.sbp>=140?'act':S.vitals.sbp>=130?'warn':'good'],['النبض',n2a(S.vitals.hr),S.vitals.hr>90?'warn':'good'],['الخصر ÷ الطول',(S.vitals.wa/A.height).toFixed(2),S.vitals.wa/A.height>0.5?'warn':'good'],['قوة القبضة',n2a(S.vitals.grip)+' كجم',S.vitals.grip<(A.sex==='رجل'?30:18)?'warn':'good']].map(x=>`<div class="score"><div class="name">${x[0]}</div><div style="display:flex;gap:10px;align-items:center"><span class="sub" style="font-family:var(--font-num);font-size:18px;color:var(--ink)">${x[1]}</span><span class="pill ${x[2]}">${x[2]==='good'?'مثالي':x[2]==='warn'?'للمتابعة':'يحتاج انتباه'}</span></div></div>`).join('')}</div>
@@ -570,6 +591,7 @@ function s8(){ setStage(8,84); const R=results(); const est=A.age+lifestyleAge()
       const tk=$('#ticks'); const N=61; tk.innerHTML=Array.from({length:N},(_,i)=>`<i${i===30?' class="mid"':''}></i>`).join(''); const idx=Math.round(Math.max(0,Math.min(1,(R.pace-0.5)))*(N-1));
       setTimeout(()=>{const el=tk.children; for(let i=Math.max(0,idx-4);i<=Math.min(N-1,idx+4);i++)el[i].classList.add('on'); el[idx].classList.add('mk'); $('#paceV').textContent=n2a(R.pace.toFixed(2)); $('#paceChip').textContent=R.pace>1.02?'أسرع من التقويم':R.pace<0.98?'أبطأ من التقويم':'على وتيرة التقويم';
       const v=$('#bioV');v.textContent=dd>0?`أكبر بـ${n2a(Math.abs(dd).toFixed(1))} سنة`:dd<0?`أصغر بـ${n2a(Math.abs(dd).toFixed(1))} سنة`:'مطابق لعمرك'},600);
+      screen.querySelectorAll('.arc .seg').forEach((el,i)=>setTimeout(()=>el.classList.add('on'),200+i*22));
       const gc=$('#goCats'); if(gc) gc.onclick=()=>{const c=screen.querySelector('.cats'); if(c) c.scrollIntoView({behavior:'smooth',block:'start'})};countUp($('#wellN'),0,R.well,1400);let p=0;const rg=$('#ring');const iv=setInterval(()=>{p+=2;rg.style.setProperty('--p',Math.min(p,R.well));if(p>=R.well)clearInterval(iv)},18);screen.querySelectorAll('.barr i').forEach(b=>b.style.width=b.dataset.w+'%')},80);
   $('#plan').onclick=s9;
 }
