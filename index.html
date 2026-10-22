@@ -280,6 +280,21 @@ h1{font-size:30px;line-height:1.35;font-family:var(--font-head);font-weight:700}
 .svc .p small{font-size:11px;color:var(--muted);display:block;margin-bottom:6px}
 .svc .p button{font:inherit;font-size:13px;padding:7px 14px;border-radius:999px;border:0;background:var(--accent);color:#fff;cursor:pointer}
 .svc .p button.done{background:var(--good)}
+
+/* monthly tracking */
+.mtrack{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.mtrack .row2{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.mtrack .row2 b{font-size:16px}
+.mtrack .row2 .up{font-family:var(--font-num);color:var(--good);font-weight:700;font-size:15px}
+.spark{display:block;width:100%;height:auto;margin:8px 0 2px}
+.spark .l{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.spark .a{opacity:.18}
+.spark text{fill:var(--muted);font-size:10px;font-family:var(--font-body)}
+.mlegend{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--ink-2)}
+.mlegend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-inline-end:6px;vertical-align:middle}
+.checkin{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.checkin div{background:rgba(143,107,255,.12);border:1px solid rgba(143,107,255,.25);border-radius:12px;padding:8px;text-align:center;font-size:12.5px;color:var(--ink-2)}
+.checkin b{display:block;font-family:var(--font-num);font-size:18px;color:var(--ink)}
 </style></head><body>
 
 <div class="app" id="app">
@@ -666,10 +681,24 @@ function s9(){ setStage(9,92); const R=results(); const flagged=R.cats.flatMap(c
   screen.querySelectorAll('.svc button').forEach(b=>b.onclick=()=>{b.textContent='تم ✓';b.classList.add('done')});
   $('#year').onclick=s10;
 }
+
+function spark(series,cols){ const W=300,H=110,px=24,py=14; const n=series[0].length; const x=i=>px+i*(W-2*px)/(n-1), y=v=>H-py-(v/100)*(H-2*py);
+  let out=''; series.forEach((sr,k)=>{ const d=sr.map((v,i)=>`${i?'L':'M'}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(' '); out+=`<path class="a" d="${d} L${x(n-1)} ${H-py} L${x(0)} ${H-py}Z" fill="${cols[k]}"/><path class="l" d="${d}" stroke="${cols[k]}"/><circle cx="${x(n-1)}" cy="${y(sr[n-1])}" r="4" fill="${cols[k]}"/>`; });
+  const lbl=['٠','١','٢','٣','٤','٥','٦']; for(let i=0;i<n;i++) out+=`<text x="${x(i)}" y="${H-1}" text-anchor="middle">${lbl[i]||''}</text>`;
+  return `<svg class="spark" viewBox="0 0 ${W} ${H}" aria-hidden="true" style="direction:ltr">${out}</svg>`;
+}
+
 function s10(){ setStage(10,100);
   html(`<h1>سنتك مع ول.${NM()}</h1><p class="why">فحصين، وزيارتين من الفريق الطبي، ومكالمتين مع الطبيب، ومدير رعاية باسمك بينهم.</p>
+  <div class="mtrack"><div class="row2"><b>صحتك شهر بعد شهر</b><span class="up">+١٨٪</span></div>
+    <p class="small" style="margin:2px 0 0">تسجيل شهري في دقيقة (نوم، طاقة، مزاج) وقراءات ساعتك الذكية، بين السحبتين. مثال توضيحي.</p>
+    ${spark([[52,55,61,64,68,71,74],[48,50,54,60,63,66,70],[58,57,62,65,67,70,72]],['#8F6BFF','#5CC79D','#E6B05A'])}
+    <div class="mlegend"><span><i style="background:#8F6BFF"></i>الطاقة</span><span><i style="background:#5CC79D"></i>النوم</span><span><i style="background:#E6B05A"></i>المزاج</span><span style="color:var(--muted)">الشهر</span></div>
+    <div class="checkin"><div><b>٧.٢</b>ساعات نوم</div><div><b>٨٬٤٠٠</b>خطوة باليوم</div><div><b>٦٢</b>نبض الراحة</div></div>
+  </div>
   <ul class="timeline">
   <li class="now"><b>الشهر ٠</b>السحب الأول، النتائج، خطة ٣ أولويات</li>
+  <li><b>كل شهر</b>تسجيل دقيقة واحدة للنوم والطاقة والمزاج، وقراءات ساعتك تنضاف تلقائياً، وتشوف الخط يتحرك</li>
   <li><b>الشهر ١</b>رسالة من مدير رعايتك: كيف ماشي معك أول هدف؟</li>
   <li><b>الشهر ٢</b>نصايح على قد أولوياتك الثلاث، بس</li>
   <li><b>الشهر ٣</b>مراجعة نص الطريق مع طبيبك، ونعدّل الخطة</li>
