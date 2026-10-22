@@ -385,7 +385,9 @@ function opts(q,cur,on){
 function bindOpts(q,next){
   screen.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
     const o=b.dataset.o;
-    if(q.multi){let cur=A[q.id]||[]; if(o.startsWith('ولا')) cur=[o]; else {cur=cur.filter(x=>!x.startsWith('ولا')); cur=cur.includes(o)?cur.filter(x=>x!==o):[...cur,o]; if(q.max&&cur.length>q.max)cur.shift()} A[q.id]=cur; renderCurrent();}
+    if(q.multi){let cur=A[q.id]||[]; if(o.startsWith('ولا')) cur=[o]; else {cur=cur.filter(x=>!x.startsWith('ولا')); cur=cur.includes(o)?cur.filter(x=>x!==o):[...cur,o]; if(q.max&&cur.length>q.max)cur.shift()} A[q.id]=cur;
+      screen.querySelectorAll('.opt').forEach(x=>{const on=cur.includes(x.dataset.o);x.classList.toggle('sel',on);x.querySelector('.tick').textContent=on?'✓':''});
+      const c=$('#cont'); if(c) c.disabled=cur.length===0; return;}
     else {A[q.id]=o; setTimeout(next,180);}
   });
   const c=$('#cont'); if(c) c.onclick=next;
@@ -409,7 +411,7 @@ function s0(){ setStage(0,0);
 function renderQuick(){ setStage(1,S.qi/QUICK.length*20); const q=QUICK[S.qi]; hint.textContent=`${n2a(S.qi+1)} / ${n2a(QUICK.length)}`;
   const next=()=>{S.qi++; if(S.qi>=QUICK.length) s2(); else renderQuick()};
   if(q.type==='slider') return sliderQ(q,next);
-  html(`<h1>${q.q}</h1>${q.why?`<p class="why">${q.why}</p>`:''}${opts(q,A[q.id])}${q.multi?'<button class="btn primary" id="cont">{كمّل|كمّلي}</button>':''}`);
+  html(`<h1>${q.q}</h1>${q.why?`<p class="why">${q.why}</p>`:''}${opts(q,A[q.id])}${q.multi?`<button class="btn primary" id="cont" ${(A[q.id]||[]).length?'':'disabled'}>{كمّل|كمّلي}</button>`:''}`);
   bindOpts(q,next);
 }
 function s2(){ setStage(2,22);
@@ -434,7 +436,7 @@ function renderDeep(){ const list=visibleDeep(); if(S.di>=list.length) return s4
   hint.textContent=`${n2a(S.di+1)} / ${n2a(list.length)}`;
   const next=()=>{S.di++;renderDeep()};
   if(q.mod){ html(`<div class="modintro"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="120" cy="120" r="80" fill="var(--lav)" opacity=".5"/><circle cx="70" cy="90" r="46" fill="var(--accent)" opacity=".35"/><circle cx="150" cy="60" r="26" fill="var(--surface)" opacity=".9"/></svg><span class="tag">${n2a(DEEP.filter(x=>x.mod).indexOf(q)+1)} من ${n2a(DEEP.filter(x=>x.mod).length)}</span><h1>${q.mod}</h1><p class="why" style="margin:0">${q.why}</p></div><button class="btn primary" id="cont">{يلا نبدأ|يلا نبدأ}</button>${q.skippable?'<div style="height:10px"></div><button class="btn ghost" id="skip">تخطّي هالجزء</button>':''}`); $('#cont').onclick=next; if(q.skippable)$('#skip').onclick=()=>{S.skipMen=true;next()}; return; }
-  html(`<span class="hint-eyebrow">${(DEEP.slice(0,DEEP.indexOf(q)).reverse().find(x=>x.mod)||{}).mod||''}</span><h1>${q.q}</h1>${opts(q,A[q.id])}${q.multi?'<button class="btn primary" id="cont">{كمّل|كمّلي}</button>':''}`);
+  html(`<span class="hint-eyebrow">${(DEEP.slice(0,DEEP.indexOf(q)).reverse().find(x=>x.mod)||{}).mod||''}</span><h1>${q.q}</h1>${opts(q,A[q.id])}${q.multi?`<button class="btn primary" id="cont" ${(A[q.id]||[]).length?'':'disabled'}>{كمّل|كمّلي}</button>`:''}`);
   bindOpts(q,()=>{ if(q.safety&&A.phq9&&A.phq9!=='أبداً') return safety(next); next(); });
 }
 function safety(next){ html(`<div class="card safety"><h3>نبي نطمّن عليك</h3><p>إجابتك مهمة لنا. أحد من فريق ول. الطبي بيكلمك خلال ساعة في أوقات الدوام. وإذا تحتاج أحد الحين، الخط الوطني للصحة النفسية: <b dir="ltr">920033360</b>.</p></div><p>{تقدر تكمّل|تقدرين تكمّلين} الاستبيان متى ما {تبي|تبين}.</p><button class="btn primary" id="cont">أكمل</button>`); $('#cont').onclick=next; }
