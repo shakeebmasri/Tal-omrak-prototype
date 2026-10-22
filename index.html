@@ -228,12 +228,12 @@ h1{font-size:30px;line-height:1.35;font-family:var(--font-head);font-weight:700}
 .bio .foot{font-size:12.5px;color:var(--hero-sub);margin:14px 0 0;line-height:1.6}
 
 /* bio-age hero v3 (WHOOP-like ring) */
-.bio{position:relative;overflow:hidden;border-radius:28px;padding:18px 18px 18px;margin:4px 0 16px;color:var(--hero-fg);background:radial-gradient(100% 70% at 50% 15%,#3A2CB8 0%,#221196 55%,#160D5C 100%);box-shadow:0 24px 60px rgba(17,10,63,.45)}
+.bio{position:relative;overflow:hidden;border-radius:28px;padding:16px 16px 18px;margin:4px 0 16px;color:var(--hero-fg);background:radial-gradient(100% 70% at 50% 15%,#3A2CB8 0%,#221196 55%,#160D5C 100%);box-shadow:0 24px 60px rgba(17,10,63,.45)}
 .bio .eyebrow{font-size:12px;color:var(--hero-sub);letter-spacing:.14em;text-align:center;text-transform:uppercase}
-.ringwrap{position:relative;width:min(300px,78vw);aspect-ratio:1;margin:6px auto 2px}
+.ringwrap{position:relative;width:min(340px,86vw);aspect-ratio:1;margin:0 auto -6px}
 .ringwrap canvas{position:absolute;inset:0;width:100%;height:100%}
 .ringwrap .center{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
-.ringwrap .num{font-family:var(--font-num);font-size:64px;font-weight:700;line-height:1;color:#fff;letter-spacing:-.02em;font-variant-numeric:tabular-nums;text-shadow:0 0 30px rgba(169,139,255,.5)}
+.ringwrap .num{font-family:var(--font-num);font-size:72px;font-weight:700;line-height:1;color:#fff;letter-spacing:-.02em;font-variant-numeric:tabular-nums;text-shadow:0 0 30px rgba(169,139,255,.5)}
 .ringwrap .cap{font-size:13px;color:var(--hero-sub);letter-spacing:.12em;margin-top:6px}
 .ringwrap .verdict{font-size:17px;color:#C9B8FF;margin-top:10px;font-weight:600}
 .pace{margin-top:14px}
@@ -420,28 +420,24 @@ function addonSuggest(){
 /* ---------- rendering helpers ---------- */
 const ICONS={bmi:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',waist:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16M7 8c0 4 10 4 10 8M7 16c0-4 10-4 10-8"/></svg>',sleep:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>',active:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 14l4-2 3 3 4-6 2 3h3"/><circle cx="18" cy="6" r="2"/></svg>',sweet:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 4h10l-1 16H8z M9 9h6"/></svg>',smoke:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 15h14v4H3zM19 15h2v4h-2zM18 9c0-2 2-2 2-4M15 11c0-2 2-2 2-4"/></svg>',stress:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>'};
 
-function drawRing(cv,seed,tone){ // organic particle ring
+function drawRing(cv,seed,tone){ // dense organic particle band with dark halo
   const dpr=Math.min(2,window.devicePixelRatio||1); const W=cv.clientWidth||300; cv.width=W*dpr; cv.height=W*dpr; const g=cv.getContext('2d'); g.scale(dpr,dpr);
   let r0=seed*9301+49297; const rnd=()=>{r0=(r0*9301+49297)%233280;return r0/233280};
-  const cx=W/2,cy=W/2,R=W*0.36; const a1=rnd()*6.28,a2=rnd()*6.28,a3=rnd()*6.28;
-  const rad=t=>R*(1+0.08*Math.sin(2*t+a1)+0.05*Math.sin(3*t+a2)+0.04*Math.sin(5*t+a3));
-  const dots=[]; for(let i=0;i<1100;i++){const t=rnd()*6.283; const spread=(rnd()+rnd()+rnd())/3; const rr=rad(t)*(0.74+spread*0.48); const sz=1+rnd()*3.2*(1-Math.abs(spread-0.5)*1.2); dots.push({t,rr,sz,ph:rnd()*6.28,sp:0.3+rnd()*0.8,a:0.45+rnd()*0.55})}
-  const cols=tone==='good'?['#7FE3BD','#C9B8FF','#E6DEFF','#FFFFFF']:tone==='act'?['#FFB3AD','#F2C97E','#E6DEFF','#FFFFFF']:['#A98BFF','#C9B8FF','#E6DEFF','#FFFFFF'];
+  const cx=W/2,cy=W/2,R=W*0.40; const a1=rnd()*6.28,a2=rnd()*6.28,a3=rnd()*6.28,a4=rnd()*6.28;
+  const shape=t=>1+0.10*Math.sin(2*t+a1)+0.07*Math.sin(3*t+a2)+0.05*Math.sin(4*t+a3)+0.03*Math.sin(7*t+a4);
+  const ro=t=>R*shape(t), ri=t=>R*shape(t)*0.62;
+  const dots=[]; for(let i=0;i<2600;i++){ const t=rnd()*6.283; let u=(rnd()+rnd())/2; u=Math.pow(u,0.9); const rr=ri(t)+(ro(t)-ri(t))*u; const edge=Math.min(u,1-u)*2; const sz=0.7+rnd()*(1.2+2.8*edge); dots.push({t,rr,sz,ph:rnd()*6.28,sp:0.2+rnd()*0.6,a:0.35+rnd()*0.65*edge+0.1}); }
+  const cols=tone==='good'?['#8FE8C6','#C9B8FF','#E6DEFF','#FFFFFF']:tone==='act'?['#FFB3AD','#F6CB8B','#E6DEFF','#FFFFFF']:['#A98BFF','#C9B8FF','#E6DEFF','#FFFFFF'];
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches; let t0=performance.now(); let frames=0;
-  function frame(now){ const k=reduce?1:Math.min(1,(now-t0)/1400); g.clearRect(0,0,W,W);
-    // glow
-    const gl=g.createRadialGradient(cx,cy,R*0.55,cx,cy,R*1.15); gl.addColorStop(0,'rgba(126,87,253,0)'); gl.addColorStop(0.6,'rgba(126,87,253,0.38)'); gl.addColorStop(1,'rgba(126,87,253,0)'); g.fillStyle=gl; g.beginPath(); g.arc(cx,cy,R*1.2,0,6.283); g.fill();
-    const tt=now/1000; for(const d of dots){ const e=1-Math.pow(1-k,3); const rr=d.rr*(0.7+0.3*e)+(reduce?0:Math.sin(tt*d.sp+d.ph)*1.6); const x=cx+Math.cos(d.t)*rr,y=cy+Math.sin(d.t)*rr; g.globalAlpha=d.a*e; g.fillStyle=cols[Math.floor(d.a*4)%4]; g.shadowColor='rgba(201,184,255,0.9)'; g.shadowBlur=d.sz>2.6?6:0; g.beginPath(); g.arc(x,y,d.sz,0,6.283); g.fill(); g.shadowBlur=0; }
-    g.globalAlpha=1; frames++; if(!reduce&&document.body.contains(cv)&&frames<900) requestAnimationFrame(frame); }
+  function frame(now){ const k=reduce?1:Math.min(1,(now-t0)/1500); const e=1-Math.pow(1-k,3); g.clearRect(0,0,W,W);
+    // dark halo
+    const h=g.createRadialGradient(cx,cy,R*0.95,cx,cy,R*1.35); h.addColorStop(0,'rgba(8,4,36,0.85)'); h.addColorStop(1,'rgba(8,4,36,0)'); g.fillStyle=h; g.fillRect(0,0,W,W);
+    // inner soft glow
+    const gl=g.createRadialGradient(cx,cy,R*0.45,cx,cy,R*0.95); gl.addColorStop(0,'rgba(126,87,253,0)'); gl.addColorStop(1,'rgba(143,107,255,0.28)'); g.fillStyle=gl; g.beginPath(); g.arc(cx,cy,R,0,6.283); g.fill();
+    const tt=now/1000; for(const d of dots){ const rr=d.rr*(0.8+0.2*e)+(reduce?0:Math.sin(tt*d.sp+d.ph)*1.2); const x=cx+Math.cos(d.t)*rr,y=cy+Math.sin(d.t)*rr; g.globalAlpha=Math.min(1,d.a)*e; g.fillStyle=cols[Math.floor(d.a*4)%4]; if(d.sz>3){g.shadowColor='rgba(201,184,255,0.95)';g.shadowBlur=8}else g.shadowBlur=0; g.beginPath(); g.arc(x,y,d.sz,0,6.283); g.fill(); }
+    g.shadowBlur=0; g.globalAlpha=1; frames++; if(!reduce&&document.body.contains(cv)&&frames<900) requestAnimationFrame(frame); }
   requestAnimationFrame(frame);
 }
-
-
-function labsArc(g,w,a){ const N=g+w+a, segs=40, r=120, cx=150, cy=150; const out=[]; let cum=0; const col=i=>{const f=i/segs; return f<g/N?'var(--good)':f<(g+w)/N?'var(--warn)':'var(--act)'};
-  for(let i=0;i<segs;i++){ const a0=Math.PI+ (i/segs)*Math.PI, a1=Math.PI+((i+1)/segs)*Math.PI-0.025; const x0=cx+r*Math.cos(a0),y0=cy+r*Math.sin(a0),x1=cx+r*Math.cos(a1),y1=cy+r*Math.sin(a1); out.push(`<path class="seg" data-i="${i}" d="M${x0} ${y0} A${r} ${r} 0 0 1 ${x1} ${y1}" stroke="${col(i)}"/>`)}
-  return `<svg class="arc" viewBox="0 0 300 170" aria-hidden="true">${out.join('')}<text x="150" y="128" text-anchor="middle" font-size="44" font-weight="700">${n2a(N)}</text><text x="150" y="152" text-anchor="middle" font-size="12" fill="var(--muted)" style="fill:var(--muted)">مؤشر من دمك</text></svg>`;
-}
-
 function countUp(el,from,to,ms=1200,dec=0){const t0=performance.now();const step=t=>{const k=Math.min(1,(t-t0)/ms);const e=1-Math.pow(1-k,3);el.textContent=n2a((from+(to-from)*e).toFixed(dec));if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
 function gauge(total){ // semicircle -12..+12
   const r=120,cx=150,cy=150; const ang=a=>a*Math.PI/180; const pt=a=>[cx+r*Math.cos(ang(a)),cy+r*Math.sin(ang(a))];
