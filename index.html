@@ -2,20 +2,27 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&display=swap">
 <style>
+@font-face{font-family:"Thmanyah Sans";src:url(fonts/thmanyahsans-Regular.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Thmanyah Sans";src:url(fonts/thmanyahsans-Medium.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Thmanyah Sans";src:url(fonts/thmanyahsans-Bold.woff2) format("woff2");font-weight:600 800;font-display:swap}
+@font-face{font-family:"Thmanyah Serif Display";src:url(fonts/thmanyahserifdisplay-Bold.woff2) format("woff2");font-weight:600 700;font-display:swap}
+@font-face{font-family:"Thmanyah Serif Display";src:url(fonts/thmanyahserifdisplay-Black.woff2) format("woff2");font-weight:800 900;font-display:swap}
+
 /* Layout: one phone-width column, one screen at a time, brand indigo on ivory; numbers in Playfair, Arabic in Noto Naskh. */
 :root{
   --bg:#15113A; --surface:#1F1A4F; --ink:#F6F0E3; --ink-2:#DCD6F2; --muted:#A9A4CE;
   --accent:#8F6BFF; --lav:#ACA6E1; --deep:#221196; --pink:#F86080; --line:#2F2A66;
   --good:#5CC79D; --warn:#E6B05A; --act:#F86080;
   --hero-bg:#221196; --hero-fg:#F6F0E3; --hero-sub:#C9B8FF;
-  --font-body:"Noto Naskh Arabic","Noto Naskh Arabic UI",Georgia,serif;
-  --font-num:"Noto Naskh Arabic","Noto Naskh Arabic UI",Georgia,serif;
+  --font-body:"Thmanyah Sans","Noto Naskh Arabic",system-ui,sans-serif;
+  --font-num:"Thmanyah Serif Display","Noto Naskh Arabic",Georgia,serif;
+  --font-head:"Thmanyah Serif Display","Noto Naskh Arabic",Georgia,serif;
   --font-display:"Playfair Display",Georgia,serif;
   --font-latin:"Inter",system-ui,sans-serif;
   color-scheme:dark;
 }
 html,body{height:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.7;direction:rtl}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16.5px;line-height:1.75;direction:rtl}
 .app{max-width:480px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;padding-block:12px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
 .logo{display:flex;align-items:baseline;gap:10px}
@@ -27,7 +34,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body)
 .bar{height:4px;background:var(--line);border-radius:4px;overflow:hidden;margin-bottom:22px}
 .bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
 h1{font-size:26px;line-height:1.35;margin:0 0 8px;text-wrap:balance;font-weight:700}
-h2{font-size:20px;margin:22px 0 8px;font-weight:600}
+h2{font-size:20px;margin:22px 0 8px;font-weight:700;font-family:var(--font-head)}
 p{margin:0 0 12px;color:var(--ink-2)}
 .why{font-size:14px;color:var(--muted);margin-bottom:16px}
 .opts{display:flex;flex-direction:column;gap:10px;margin:8px 0 18px}
@@ -150,7 +157,7 @@ body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;bac
 .stage{font-size:12px;color:var(--pink);font-weight:600;background:color-mix(in srgb,var(--pink) 10%,transparent);padding:4px 12px;border-radius:999px}
 .bar{height:6px;background:color-mix(in srgb,var(--lav) 35%,transparent);border-radius:6px}
 .bar i{background:linear-gradient(90deg,#7E57FD,#ACA6E1)}
-h1{font-size:28px;line-height:1.4}
+h1{font-size:30px;line-height:1.35;font-family:var(--font-head);font-weight:700}
 .why{font-size:14.5px;line-height:1.7}
 .opt{border-radius:18px;padding:16px 18px;box-shadow:0 1px 0 rgba(29,16,105,.03);transition:transform .12s,border-color .15s,background .15s,box-shadow .15s}
 .opt:active{transform:scale(.985)}
