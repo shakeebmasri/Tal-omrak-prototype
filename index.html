@@ -517,7 +517,8 @@ function renderQuick(){ setStage(1,S.qi/QUICK.length*20); const q=QUICK[S.qi]; h
 function s2(){ setStage(2,22);
   const r=lifestyleAge(); const est=A.age+r.total; const top=r.adj.slice(0,3); const allGood=top.every(x=>x[1]<=0);
   const d=r.total; const dcls=d>0?'up':d<0?'down':''; const dtxt=d>0?`أكبر من عمرك بـ${n2a(d)} سنة`:d<0?`أصغر من عمرك بـ${n2a(-d)} سنة`:'نفس عمرك بالهوية';
-  html(`<h1>${NM()?NM().replace(' يا','يا')+'، ':''}{شاب ولا شايب|بنت ولا خالة}؟</h1>
+  const nm=NM()?NM().replace(' يا','يا')+'، ':''; const verdictH=d>0?'{تراك شايب|تراكِ خالة}':d<0?'{تراك شاب|تراكِ بنت}':'{لا شاب ولا شايب|لا بنت ولا خالة}';
+  html(`<h1>${nm}${verdictH}.</h1>
   <div class="reveal"><div class="lbl">عمرك الصحي من جواباتك</div>
     <div class="vs"><div><div class="big"><span id="cnt">${n2a(A.age)}</span><small>± ٢</small></div><span class="delta ${dcls}">${dtxt}</span></div><div class="id"><div class="n">${n2a(A.age)}</div><div class="lbl">بالهوية</div></div></div>
     ${gauge(d)}
