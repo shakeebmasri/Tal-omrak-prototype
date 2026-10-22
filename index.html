@@ -268,6 +268,17 @@ h1{font-size:30px;line-height:1.35;font-family:var(--font-head);font-weight:700}
 .labs .legend .n{font-family:var(--font-num);font-weight:700;font-size:22px;line-height:1.1}
 .labs .legend .k{font-size:12px;color:var(--muted)}
 .labs .legend .g .n{color:var(--good)} .labs .legend .w .n{color:var(--warn)} .labs .legend .a .n{color:var(--act)}
+
+/* services */
+.svc{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 16px;margin-bottom:10px;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.svc .t{font-weight:700;font-size:15.5px}
+.svc .d{font-size:13.5px;color:var(--ink-2);margin-top:2px}
+.svc .why{font-size:12px;color:var(--accent);margin-top:4px;display:block}
+.svc .p{text-align:center;min-width:86px}
+.svc .p b{display:block;font-family:var(--font-num);font-size:18px;color:var(--ink)}
+.svc .p small{font-size:11px;color:var(--muted);display:block;margin-bottom:6px}
+.svc .p button{font:inherit;font-size:13px;padding:7px 14px;border-radius:999px;border:0;background:var(--accent);color:#fff;cursor:pointer}
+.svc .p button.done{background:var(--good)}
 </style></head><body>
 
 <div class="app" id="app">
@@ -612,6 +623,23 @@ function s8(){ setStage(8,84); const R=results(); const est=A.age+lifestyleAge()
       const gc=$('#goCats'); if(gc) gc.onclick=()=>{const c=screen.querySelector('.cats'); if(c) c.scrollIntoView({behavior:'smooth',block:'start'})};countUp($('#wellN'),0,R.well,1400);let p=0;const rg=$('#ring');const iv=setInterval(()=>{p+=2;rg.style.setProperty('--p',Math.min(p,R.well));if(p>=R.well)clearInterval(iv)},18);screen.querySelectorAll('.barr i').forEach(b=>b.style.width=b.dataset.w+'%')},80);
   $('#plan').onclick=s9;
 }
+
+function services(R){ const out=[]; const f=R.cats.flatMap(c=>c[3]); const has=(n,st)=>f.some(m=>m[0]===n&&(st?m[1]===st:m[1]!=='good')); const sc=Object.fromEntries(scores().map(x=>[x[0],x[1]]));
+  if(has('فيتامين د')) out.push(['جرعة فيتامين د في بيتك','حقنة أو جرعة فموية يصفها طبيبك، والممرضة تجيك البيت','فيتامين د عندك منخفض','١٤٩','زيارة']);
+  if(has('B12')||(A.meds||[]).some(m=>/ميتفورمين|حموضة/.test(m))) out.push(['كورس B12 في بيتك','٤ حقن على ٤ أسابيع بوصفة طبيبك','B12 أو الأدوية اللي تاخذها','٣٩٩','كورس']);
+  if(has('الفيريتين')) out.push(['برنامج الحديد','حديد فموي من الصيدلية الشريكة، وتسريب في العيادة إذا احتاج','الفيريتين عندك منخفض','٢٤٩','شهر']);
+  if(idx('sweet')>=3||has('HbA1c')||has('الأنسولين')) out.push(['برنامج السكر مع أخصائية تغذية','٤ جلسات في التطبيق على ١٢ أسبوع','HbA1c والأنسولين عندك للمتابعة','٥٩٩','برنامج']);
+  if(sc['مزاجك']!=='good'||sc['قلقك']!=='good') out.push(['جلسة راحة بال','استشارة بالفيديو مع فريق ول. النفسي، وباقة ٤ جلسات بعدها','من جواباتك عن المزاج والقلق','٢٩٩','جلسة']);
+  else if(sc['ضغطك النفسي']!=='good'||sc['نومك']!=='good') out.push(['برنامج النوم والتوتر','٦ أسابيع مع مرشد، وقياس الكورتيزول في الشهر السادس','نومك وتوترك من جواباتك','٤٩٩','برنامج']);
+  if(S.vitals.sbp>=130) out.push(['متابعة الضغط في البيت','جهاز ومتابعة ممرضة أسبوعين','ضغطك في الزيارة '+n2a(S.vitals.sbp),'١٩٩','أسبوعين']);
+  if(sc['حركتك']!=='good'&&sc['أكلك']!=='good'&&!out.some(x=>/الطاقة/.test(x[0]))) out.push(['محلول الطاقة في بيتك','ترطيب وفيتامينات B وC، بعد موافقة طبيبك','طاقتك وأكلك من جواباتك','٨٤٩','سعر الأعضاء']);
+  if(A.sex==='امرأة'&&(A.w_cycle==='غير منتظمة'||A.w_preg==='نعم')) out.push(['استشارة صحة المرأة','عيادة ول. للنساء والقابلات','دورتك أو تخطيطك للحمل','٢٤٩','استشارة']);
+  if(A.sex==='رجل'&&A.m_conf&&['m_conf','m_firm','m_keep'].some(k=>idx(k)<=2)) out.push(['استشارة صحة الرجل','مع د. نيبال، خاصة وسرية','من جواباتك في قسم صحة الرجل','٢٩٩','استشارة']);
+  if(!out.length) out.push(['فيتاميناتك الشهرية','خطة مكملات يكتبها طبيبك، توصيل شهري من الصيدلية الشريكة','أرقامك ممتازة، نحافظ عليها','١٩٩','شهر']);
+  out.push(['أضف من تحب','زوجتك أو والدك بسعر الأعضاء، ونفس الفريق يعتني بالبيت كله','نعتني بك وبمن تحب','٪١٥','خصم']);
+  return out.slice(0,5);
+}
+
 function s9(){ setStage(9,92); const R=results(); const flagged=R.cats.flatMap(c=>c[3].filter(m=>m[1]!=='good').map(m=>[c[0],m[0],m[1]]));
   const pri=[]; const sc=Object.fromEntries(scores().map(x=>[x[0],x[1]]));
   if(flagged.some(f=>f[1]==='فيتامين د')) pri.push(['فيتامين د','جرعة أسبوعية يصفها لك الطبيب، وربع ساعة شمس','فيتامين د بعد ٦ شهور']);
@@ -625,8 +653,11 @@ function s9(){ setStage(9,92); const R=results(); const flagged=R.cats.flatMap(c
   html(`<h1>خطتك${NM()}: ٣ أشياء بس هالشهر</h1><p class="why">د. فيصل، طبيب ول. · ${n2a(flagged.length)} مؤشر يبي متابعة من ${n2a(101)} · كل أولوية لها مؤشر نرجع نقيسه.</p>
   ${pri.slice(0,3).map((p,i)=>`<div class="card"><h3>${n2a(i+1)}. ${p[0]}</h3><p>${p[1]}</p><p class="small" style="margin-top:6px">نقيسه: ${p[2]}</p></div>`).join('')}
   ${S.chosenAddon?`<div class="card"><h3>إضافة ${S.chosenAddon}</h3><p class="small">نتايجها مع الطبيب بنفس المكالمة.</p></div>`:''}
+  <h2>خدمات ول. المقترحة لك</h2><p class="why">طبيبك اختارها من نتايجك. كل خدمة لها مؤشر نرجع نقيسه بعد ٦ شهور.</p>
+  ${services(R).map((x,i)=>`<div class="svc"><div><div class="t">${x[0]}</div><div class="d">${x[1]}</div><span class="why">ليش: ${x[2]}</span></div><div class="p"><b>${x[3]}</b><small>${x[4]}</small><button data-i="${i}">احجز</button></div></div>`).join('')}
   <div class="card"><h3>كلمة من طبيبك</h3><p class="small">"أرقامك أحسن من اللي {تتوقع|تتوقعين} في أشياء، وفيها ثلاث فرص واضحة. بنشوف الفرق بعد ستة شهور، مو بعد سنة."</p></div>
   <button class="btn primary" id="year">سنتك مع ول.</button>`);
+  screen.querySelectorAll('.svc button').forEach(b=>b.onclick=()=>{b.textContent='تم ✓';b.classList.add('done')});
   $('#year').onclick=s10;
 }
 function s10(){ setStage(10,100);
