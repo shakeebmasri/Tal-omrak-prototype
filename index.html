@@ -302,6 +302,18 @@ h1{font-size:30px;line-height:1.35;font-family:var(--font-head);font-weight:700}
 .land-h{font-size:34px;line-height:1.35;margin:4px 0 10px;text-wrap:balance}
 .land-q{display:inline-block;font-family:var(--font-head);font-weight:700;font-size:24px;color:#fff;padding:6px 20px;border-radius:999px;background:linear-gradient(135deg,rgba(143,107,255,.35),rgba(143,107,255,.12));border:1px solid rgba(201,184,255,.35);margin-bottom:14px}
 .land-p{color:var(--ink-2);font-size:16px;max-width:34ch;margin:0 auto}
+
+.land{text-align:right}
+.land-top{display:flex;justify-content:center}
+.land-ring{width:min(190px,50vw);margin:0 auto 6px}
+.land .land-h{font-size:28px;line-height:1.45;text-align:right;margin:6px 0 10px}
+.land .land-p{text-align:right;max-width:none;margin:0 0 4px}
+.proof{list-style:none;padding:0;margin:14px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.proof li{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 6px;text-align:center;font-size:12.5px;color:var(--ink-2)}
+.proof b{display:block;font-family:var(--font-num);font-size:26px;color:var(--ink);line-height:1.2}
+.pricebox{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 16px;margin-bottom:14px;text-align:center}
+.pricebox .old{text-decoration:line-through;opacity:.6;font-size:14px;margin-inline-end:8px}
+.pricebox .price{font-size:36px;vertical-align:middle;margin-inline-end:6px}
 </style></head><body>
 
 <div class="app" id="app">
@@ -520,17 +532,21 @@ function renderCurrent(){ if(S.step===1) renderQuick(); else if(S.step===3) rend
 /* ---------- screens ---------- */
 function s0(){ setStage(0,0);
   html(`<div class="land">
-    <div class="ringwrap land-ring"><canvas id="landCv"></canvas><div class="center"><div><div class="num" style="font-size:84px">؟</div><div class="cap" style="font-family:var(--font-display);font-weight:700;font-size:14px;letter-spacing:.16em;color:#fff">WELL AGE</div></div></div></div>
-    <h1 class="land-h">طال عمرك…<br>كم عمرك فعلاً؟</h1>
-    <div class="land-q">شاب ولا شايب؟</div>
-    <p class="land-p">جاوب على أسئلة بسيطة في ٣ دقايق، ونطلع لك عمرك الصحي وثلاث ملاحظات على جسمك. مجاناً.</p>
+    <div class="land-top"><div class="ringwrap land-ring"><canvas id="landCv"></canvas><div class="center"><div><div class="num" style="font-size:60px">؟</div><div class="cap" style="font-family:var(--font-display);font-weight:700;font-size:11px;letter-spacing:.16em;color:#fff">WELL AGE</div></div></div></div></div>
+    <h1 class="land-h">اعرف عمرك الصحي من ١٠١ مؤشر في دمك، واحصل على خطة سنة كاملة مع طبيبك.</h1>
+    <p class="land-p">فحصين في السنة في بيتك، وطبيب مرخّص يراجع نتايجك ويكتب خطتك، وفريق طبي يتابعك طول السنة.</p>
   </div>
-  <button class="btn primary" id="go">اعرف عمرك الصحي مجاناً</button>
-  <p class="small" style="text-align:center;margin:12px 0 0">بدون تسجيل، بدون دفع، وجواباتك خاصة</p>
-  <p style="text-align:center;font-weight:700;color:var(--ink);margin:22px 0 0">عِش بعافية، عِش أفضل.</p>
+  <ul class="proof"><li><b>١٠١</b>مؤشر من الدم</li><li><b>٢</b>سحب في البيت بالسنة</li><li><b>١٠</b>قياسات في الزيارة</li></ul>
+  <div class="pricebox"><div><span class="old">٢١٩٠ ريال</span><span class="price">١٩٩٩</span><span class="small">ريال سنوياً</span></div>
+    <p class="small" style="margin:6px 0 0">٤ دفعات مع تابي، كل دفعة ٥٠٠ ريال، وتمارا متاحة</p>
+    <p class="small" style="margin:2px 0 0">استرجاع كامل للمبلغ قبل أول سحب</p></div>
+  <button class="btn primary" id="go">ابدأ بالفحص المجاني: شاب ولا شايب؟</button><div style="height:10px"></div>
+  <button class="btn ghost" id="join0">انضم إلى عضوية طال عمرك</button>
+  <p style="text-align:center;font-weight:700;color:var(--ink);margin:22px 0 0">طال عمرك… مو كلمة تنقال وبس، هي أسلوب حياة.</p>
+  <p class="small" style="text-align:center;margin:8px 0 0">مختبرات معتمدة، وأطباء مرخّصين، وجواباتك ونتايجك خاصة</p>
   <p class="small" style="margin-top:16px">هذا نموذج تجريبي لرحلة العضو. القائمة اللي تحت تنقلك بين المراحل.</p>`);
   drawRing($('#landCv'),4242,'mid');
-  $('#go').onclick=()=>{S.qi=0;renderQuick()};
+  $('#go').onclick=()=>{S.qi=0;renderQuick()}; $('#join0').onclick=()=>{ensureDefaults();s5()};
 }
 function renderQuick(){ setStage(1,S.qi/QUICK.length*20); const q=QUICK[S.qi]; hint.textContent=`${n2a(S.qi+1)} / ${n2a(QUICK.length)}`;
   const next=()=>{S.qi++; if(S.qi>=QUICK.length) s2(); else renderQuick()};
