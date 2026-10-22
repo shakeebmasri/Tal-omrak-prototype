@@ -314,6 +314,34 @@ h1{font-size:30px;line-height:1.35;font-family:var(--font-head);font-weight:700}
 .pricebox{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 16px;margin-bottom:14px;text-align:center}
 .pricebox .old{text-decoration:line-through;opacity:.6;font-size:14px;margin-inline-end:8px}
 .pricebox .price{font-size:36px;vertical-align:middle;margin-inline-end:6px}
+
+/* landing v3 */
+.hero2{position:relative;overflow:hidden;text-align:center;border-radius:28px;padding:20px 18px 22px;margin:0 0 22px;background:radial-gradient(110% 70% at 50% 0%,#3A2CB8 0%,#221196 55%,#160D5C 100%);box-shadow:0 24px 60px rgba(10,6,40,.5)}
+.h2ring{width:min(240px,62vw);margin:0 auto -4px}
+.qmark{font-family:var(--font-head);font-size:88px;font-weight:700;color:#fff;line-height:1;text-shadow:0 0 34px rgba(169,139,255,.6)}
+.h2eyebrow{font-size:13px;letter-spacing:.08em;color:#C9B8FF;margin-bottom:4px}
+.h2title{font-family:var(--font-head);font-size:44px;line-height:1.15;margin:0 0 10px;color:#fff;text-wrap:balance}
+.h2sub{font-size:16.5px;line-height:1.7;color:#E6DEFF;max-width:30ch;margin:0 auto 18px}
+.hero2 .btn.primary{background:#fff;color:#221196;box-shadow:0 10px 30px rgba(0,0,0,.35);font-size:18px}
+.h2note{font-size:13px;color:#C9B8FF;margin:10px 0 0}
+.sec{margin:0 0 22px}
+.sec-h{font-size:22px;margin:0 0 12px}
+.feat{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.feat:last-child{border-bottom:0}
+.feat .fi{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(143,107,255,.3),rgba(143,107,255,.1));color:#C9B8FF}
+.feat .fi svg{width:22px;height:22px}
+.feat b{display:block;font-size:16px;color:var(--ink)}
+.feat span{display:block;font-size:13.5px;color:var(--muted);margin-top:1px}
+.offer{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px;margin-bottom:18px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.offer-top{display:flex;justify-content:space-between;align-items:center}
+.offer-l{font-size:13px;color:var(--muted)}
+.offer .old{text-decoration:line-through;opacity:.55;font-family:var(--font-num)}
+.offer-price{display:flex;align-items:baseline;gap:8px;margin:4px 0 6px}
+.offer-price .price{font-size:52px;line-height:1}
+.offer-price span:last-child{font-size:18px;color:var(--ink-2)}
+.offer-s{font-size:13.5px;color:var(--ink-2);margin:0 0 4px}
+.offer .btn{margin-top:12px}
+.tagl{text-align:center;font-family:var(--font-head);font-weight:700;font-size:18px;color:var(--ink);margin:10px 0 0}
 </style></head><body>
 
 <div class="app" id="app">
@@ -531,20 +559,33 @@ function renderCurrent(){ if(S.step===1) renderQuick(); else if(S.step===3) rend
 
 /* ---------- screens ---------- */
 function s0(){ setStage(0,0);
-  html(`<div class="land">
-    <div class="land-top"><div class="ringwrap land-ring"><canvas id="landCv"></canvas><div class="center"><div><div class="num" style="font-size:72px">؟</div></div></div></div></div>
-    <h1 class="land-h">اعرف عمرك الصحي من ١٠١ مؤشر في دمك، واحصل على خطة سنة كاملة مع طبيبك.</h1>
-    <p class="land-p">فحصين في السنة في بيتك، وطبيب مرخّص يراجع نتايجك ويكتب خطتك، وفريق طبي يتابعك طول السنة.</p>
-  </div>
-  <ul class="proof"><li><b>١٠١</b>مؤشر من الدم</li><li><b>٢</b>سحب في البيت بالسنة</li><li><b>١٠</b>قياسات في الزيارة</li></ul>
-  <div class="pricebox"><div><span class="old">٢١٩٠ ريال</span><span class="price">١٩٩٩</span><span class="small">ريال سنوياً</span></div>
-    <p class="small" style="margin:6px 0 0">٤ دفعات مع تابي، كل دفعة ٥٠٠ ريال، وتمارا متاحة</p>
-    <p class="small" style="margin:2px 0 0">استرجاع كامل للمبلغ قبل أول سحب</p></div>
-  <button class="btn primary" id="go">ابدأ بالفحص المجاني: شاب ولا شايب؟</button><div style="height:10px"></div>
-  <button class="btn ghost" id="join0">انضم إلى عضوية طال عمرك</button>
-  <p style="text-align:center;font-weight:700;color:var(--ink);margin:22px 0 0">طال عمرك… مو كلمة تنقال وبس، هي أسلوب حياة.</p>
-  <p class="small" style="text-align:center;margin:8px 0 0">مختبرات معتمدة، وأطباء مرخّصين، وجواباتك ونتايجك خاصة</p>
-  <p class="small" style="margin-top:16px">هذا نموذج تجريبي لرحلة العضو. القائمة اللي تحت تنقلك بين المراحل.</p>`);
+  const IC={drop:'<path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/>',home:'<path d="M3 11l9-7 9 7M5 10v10h14V10"/><path d="M10 20v-5h4v5"/>',doc:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/>',chart:'<path d="M4 19h16M6 16l4-5 3 3 5-7"/>'};
+  const row=(i,t,d)=>`<div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${IC[i]}</svg></div><div><b>${t}</b><span>${d}</span></div></div>`;
+  html(`<section class="hero2">
+    <div class="ringwrap h2ring"><canvas id="landCv"></canvas><div class="center"><div class="qmark">؟</div></div></div>
+    <div class="h2eyebrow">عضوية طال عمرك</div>
+    <h1 class="h2title">كم عمرك فعلاً؟</h1>
+    <p class="h2sub">اعرف عمرك الصحي من ١٠١ مؤشر في دمك، وخلّ طبيبك يكتب خطتك للسنة كاملة.</p>
+    <button class="btn primary" id="go">ابدأ الفحص المجاني</button>
+    <p class="h2note">٣ دقايق، بدون تسجيل وبدون دفع</p>
+  </section>
+  <section class="sec">
+    <h2 class="sec-h">وش تشمل العضوية</h2>
+    ${row('drop','١٠١ مؤشر من دمك','قلب، سكر، كبد، كلى، غدة، فيتامينات، ومعادن')}
+    ${row('home','فحصين في السنة في بيتك','فريق طبي متخصص يجيك، الآن وبعد ستة شهور')}
+    ${row('doc','طبيب يشرح لك ويكتب خطتك','مكالمتين مع طبيب مرخّص، ومدير رعاية باسمك')}
+    ${row('chart','عمرك الصحي يتحسن قدامك','متابعة شهرية، وتشوف الفرق بالأرقام')}
+  </section>
+  <section class="offer">
+    <div class="offer-top"><span class="offer-l">السعر السنوي</span><span class="old">٢١٩٠</span></div>
+    <div class="offer-price"><span class="price">١٩٩٩</span><span>ريال</span></div>
+    <p class="offer-s">٤ دفعات مع تابي، كل دفعة ٥٠٠ ريال، وتمارا متاحة</p>
+    <p class="offer-s">استرجاع كامل للمبلغ قبل أول سحب</p>
+    <button class="btn ghost" id="join0">انضم إلى عضوية طال عمرك</button>
+  </section>
+  <p class="tagl">طال عمرك… مو كلمة تنقال وبس، هي أسلوب حياة.</p>
+  <p class="small" style="text-align:center;margin:6px 0 0">مختبرات معتمدة، وأطباء مرخّصين، ونتايجك خاصة</p>
+  <p class="small" style="margin-top:18px;opacity:.7">نموذج تجريبي. القائمة اللي تحت تنقلك بين المراحل.</p>`);
   drawRing($('#landCv'),4242,'mid');
   $('#go').onclick=()=>{S.qi=0;renderQuick()}; $('#join0').onclick=()=>{ensureDefaults();s5()};
 }
