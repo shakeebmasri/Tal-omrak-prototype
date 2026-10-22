@@ -6,7 +6,7 @@
 :root{
   --bg:#F6F0E3; --surface:#FFFDF8; --ink:#1D1069; --ink-2:#4A4480; --muted:#7C78A3;
   --accent:#7E57FD; --lav:#ACA6E1; --line:#E3DDD0;
-  --good:#2E8B6B; --warn:#C98A1B; --act:#C2473F;
+  --good:#2E8B6B; --warn:#C98A1B; --act:#C2473F; --hero-bg:#1D1069; --hero-fg:#F6F0E3; --hero-sub:#ACA6E1;
   --font-body:"Noto Naskh Arabic","Noto Naskh Arabic UI",Georgia,serif;
   --font-num:"Playfair Display",Georgia,serif;
 }
@@ -83,9 +83,10 @@ p{margin:0 0 12px;color:var(--ink-2)}
 .back{background:none;border:0;color:var(--muted);font:inherit;cursor:pointer;padding:8px}
 .dev{position:fixed;bottom:max(10px,env(safe-area-inset-bottom,0px));left:max(10px,env(safe-area-inset-left,0px));z-index:5}
 .dev select{font:inherit;font-size:12px;padding:6px 8px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
-.hero{background:var(--ink);color:var(--bg);border-radius:22px;padding:26px 20px;margin-bottom:16px}
-.hero h1{color:var(--bg);font-size:34px}
-.hero p{color:var(--lav)}
+.hero{background:var(--hero-bg);color:var(--hero-fg);border-radius:22px;padding:26px 20px;margin-bottom:16px}
+.hero h1{color:var(--hero-fg);font-size:34px}
+.hero p{color:var(--hero-sub)}
+.hero .tag{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25);color:var(--hero-fg)}
 .tag{display:inline-block;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:13px;color:var(--ink-2);margin:0 0 6px 6px}
 .safety{background:color-mix(in srgb,var(--accent) 8%,var(--surface));border:1.5px solid var(--accent)}
 .vital{display:grid;grid-template-columns:1fr 1fr;gap:10px}
