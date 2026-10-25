@@ -366,6 +366,56 @@ h1{font-size:30px;line-height:1.35;font-family:var(--font-head);font-weight:700}
 .closing>p:first-child{font-family:var(--font-head);font-size:19px;line-height:1.7;color:var(--ink);max-width:28ch;margin:0 auto 10px}
 .cl-wm .wm{font-size:34px}
 
+/* landing v6 (after-plan, tracking, sticky) */
+.lnav{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 0 14px;padding:2px 0}
+.lnav::-webkit-scrollbar{display:none}
+.lnav button{flex:none;font:inherit;font-size:13.5px;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer}
+.mk{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px;margin-top:10px}
+.mk-h{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);margin-bottom:8px}
+.mk-h b{font-size:15px;color:var(--ink)}
+.tagm{font-size:11px;padding:2px 9px;border-radius:999px;background:rgba(143,107,255,.18);color:#C9B8FF;white-space:nowrap}
+.tagm.ok{background:rgba(92,199,157,.16);color:var(--good)}
+.tagm.lo{background:rgba(230,176,90,.16);color:var(--warn)}
+.mrow{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line);font-size:14px}
+.mrow:first-of-type{border-top:0}
+.mrow span{color:var(--muted);font-size:12.5px}
+.drow{display:grid;grid-template-columns:62px 1fr;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.drow:first-of-type{border-top:0}
+.drow b{color:#C9B8FF;font-size:13px}
+.ap{margin-bottom:22px}
+.ap-t{display:flex;gap:12px;align-items:center}
+.ap-t .fi{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(143,107,255,.3),rgba(143,107,255,.1));color:#C9B8FF;flex:none}
+.ap-t .fi svg{width:20px;height:20px}
+.ap-t b{display:block;font-size:17px}
+.ap-t span{display:block;font-size:13.5px;color:var(--muted)}
+.chat{display:flex;flex-direction:column;gap:8px}
+.bub{max-width:82%;padding:9px 13px;border-radius:16px;font-size:14px;line-height:1.6}
+.bub.me{align-self:flex-start;background:linear-gradient(135deg,#7E57FD,#5B3DF0);color:#fff;border-bottom-right-radius:4px}
+.bub.them{align-self:flex-end;background:#2A2470;color:var(--ink);border-bottom-left-radius:4px}
+.bub small{display:block;font-size:11px;color:var(--muted);margin-bottom:2px}
+.sumbars{display:flex;height:10px;border-radius:999px;overflow:hidden;gap:3px;margin:10px 0 8px}
+.sumbars i{display:block}
+.sumleg{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink-2)}
+.sumleg b{font-family:var(--font-num);font-size:20px;display:block;color:var(--ink)}
+.trend{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.trend div{border-radius:14px;padding:10px 12px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+.trend b{font-family:var(--font-num);font-size:26px;display:block;line-height:1.2}
+.trend span{font-size:12px;color:var(--muted)}
+.excl{list-style:none;padding:0;margin:0}
+.excl li{position:relative;padding:8px 22px 8px 0;font-size:14px;color:var(--ink-2);border-top:1px solid var(--line)}
+.excl li:first-child{border-top:0}
+.excl li::before{content:"×";position:absolute;right:2px;top:7px;color:var(--muted);font-size:16px}
+.value2{font-size:14.5px;line-height:1.75;color:var(--ink-2);background:rgba(92,199,157,.08);border:1px solid rgba(92,199,157,.28);border-radius:14px;padding:10px 12px;margin:2px 0 10px}.value2 b{color:var(--good)}
+.recap{list-style:none;padding:0;margin:0 0 12px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.recap li{font-size:13.5px;color:var(--ink-2);background:rgba(255,255,255,.04);border-radius:12px;padding:8px 10px}
+#stickyCta{position:fixed;left:0;right:0;bottom:0;z-index:6;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(20,13,77,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .3s ease}
+#stickyCta.on{transform:none}
+#stickyCta .sp b{font-family:var(--font-num);font-size:22px;color:#fff}
+#stickyCta .sp span{display:block;font-size:12px;color:var(--muted)}
+#stickyCta button{font:inherit;font-weight:700;font-size:15px;border:0;border-radius:14px;padding:11px 18px;color:#fff;background:linear-gradient(135deg,#7E57FD,#5B3DF0);cursor:pointer}
+body.sticky-on .dev{bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+body.has-sticky #app{padding-bottom:80px}
+
 /* landing v4 sections */
 .steps{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
 .steps li{display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:start}
@@ -585,7 +635,7 @@ function animGauge(total){const r=120,L=Math.PI*r,k=(total+12)/24;setTimeout(()=
 const STAGES=['الحملة','الفحص السريع','النتيجة الأولى','الاستبيان الكامل','تقريرك المجاني','العضوية','الحجز','الزيارة المنزلية','نتائجك','خطتك','سنتك مع ول.'];
 function setStage(i,p){S.step=i;stageLbl.textContent=STAGES[i];bar.style.width=(p??(i/(STAGES.length-1)*100))+'%';hint.textContent='';backBtn.hidden=(i===0);window.scrollTo(0,0)}
 const t=h=>h.replace(/\{([^|}]*)\|([^}]*)\}/g,(m,a,b)=>A.sex==='امرأة'?b:a);
-function html(h){screen.innerHTML=t(h);screen.classList.remove('flash');void screen.offsetWidth;screen.classList.add('flash')}
+function html(h){const sc=document.getElementById('stickyCta'); if(sc) sc.remove(); document.body.classList.remove('has-sticky','sticky-on'); screen.innerHTML=t(h);screen.classList.remove('flash');void screen.offsetWidth;screen.classList.add('flash')}
 function opts(q,cur,on){
   const sel=q.multi?(cur||[]):cur;
   return `<div class="opts">${q.opts.map(o=>`<button class="opt ${q.multi?sel.includes(o):sel===o?'sel':''}" data-o="${o}"><span>${o}</span><span class="tick">${(q.multi?sel.includes(o):sel===o)?'✓':''}</span></button>`).join('')}</div>`;
@@ -622,7 +672,9 @@ function s0(){ setStage(0,0);
   const faq=(q,a)=>`<details class="faq"><summary>${q}</summary><p>${a}</p></details>`;
   const pil=(t,d)=>`<div class="pil"><b>${t}</b><span>${d}</span></div>`;
   const svc=(t,d,soon)=>`<div class="svc${soon?' soon':''}"><b>${t}${soon?'<em>قريباً</em>':''}</b><span>${d}</span></div>`;
-  html(`<section class="hero2">
+  const ap=(i,t,d,body)=>`<div class="ap"><div class="ap-t"><div class="fi">${svg(i)}</div><div><b>${t}</b><span>${d}</span></div></div>${body}</div>`;
+  html(`<nav class="lnav">${[['how','كيف نشتغل'],['incl','وش تشمل'],['after','بعد خطتك'],['price','السعر'],['faqs','الأسئلة']].map(x=>`<button data-to="${x[0]}">${x[1]}</button>`).join('')}</nav>
+  <section class="hero2">
     <div class="h2brand">الاطمئنان خيرٌ من الانتظار.</div>
     <h1 class="h2title">كم عمرك فعلاً؟</h1>
     <div class="ringwrap h2ring"><canvas id="landCv"></canvas><div class="center"><div class="qmark">؟</div></div></div>
@@ -654,7 +706,7 @@ function s0(){ setStage(0,0);
 
   <section class="mbr-intro"><div class="h2eyebrow" style="margin:0">نقطة البداية مع ول.</div><h2 class="sec-h" style="margin:2px 0 4px">عضوية طال عمرك</h2><p>سنة كاملة من الرعاية: فحصين في بيتك، وطبيب يكتب خطتك، ومتابعة شهرية.</p></section>
 
-  <section class="sec"><h2 class="sec-h">كيف تمشي الرحلة</h2>
+  <section class="sec" id="how"><h2 class="sec-h">كيف تمشي الرحلة</h2>
     <ol class="steps">
       ${step('١','فحص مجاني في ٣ دقايق','تجاوب على أسئلة بسيطة، ويطلع لك عمرك الصحي من جواباتك')}
       ${step('٢','تنضم ونجيك البيت','فريق طبي متخصص يسحب العينة ويقيس ضغطك ووزنك وخصرك وقوة قبضتك')}
@@ -662,12 +714,18 @@ function s0(){ setStage(0,0);
       ${step('٤','خطتك ومتابعتك','٣ أولويات تشتغل عليها، ومتابعة شهرية، وسحب ثاني بعد ستة شهور')}
     </ol></section>
 
-  <section class="sec"><h2 class="sec-h">وش تشمل العضوية</h2>
+  <section class="sec" id="incl"><h2 class="sec-h">وش تشمل العضوية</h2>
     ${row('drop','١٠١ مؤشر من دمك','قلب، سكر، كبد، كلى، غدة، فيتامينات، ومعادن')}
     ${row('home','فحصين في السنة في بيتك','فريق طبي متخصص يجيك الآن وبعد ستة شهور، والسحب للسيدات بواسطة ممرضة')}
     ${row('doc','طبيب يشرح لك ويكتب خطتك','مكالمتين مع طبيب مرخّص، ومدير رعاية باسمك طول السنة')}
     ${row('mind','راحة بالك جزء من صحتك','أسئلة عن النوم والمزاج والتوتر، وجلسات مع فريقنا النفسي إذا احتجت')}
     ${row('chart','تابع عمرك الصحي شهر بعد شهر','تسجيل شهري وقراءات ساعتك الذكية، وتشوف أرقامك بنفسك')}
+    <details class="faq" style="margin-top:12px"><summary>وش ما تشمله العضوية؟</summary><ul class="excl" style="padding:0 14px 12px">
+      <li>الإضافات المتخصصة مثل صحة الرجل وصحة المرأة، برسوم منفصلة</li>
+      <li>المحاليل الوريدية، بعد تقييم الطبيب وبرسوم منفصلة</li>
+      <li>العلاج والأدوية وزيارات الطوارئ</li>
+      <li>فحص الجينوم، قريباً كخدمة مستقلة</li>
+    </ul></details>
   </section>
 
   <section class="sec"><h2 class="sec-h">شوف وش بتستلم</h2>
@@ -675,6 +733,48 @@ function s0(){ setStage(0,0);
       <div class="ringwrap pv-ring"><canvas id="pvCv"></canvas><div class="center"><div><div class="num" style="font-size:52px">٤٣٫٢</div><div class="cap" style="font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:.14em;color:#fff">WELL AGE</div></div></div></div>
       <p style="text-align:center;color:#C9B8FF;font-weight:600;margin:4px 0 0">أكبر من عمرك بالهوية (٣٨) بـ٥ سنوات</p>
       <p class="foot" style="text-align:center">عمرك البيولوجي من ٩ مؤشرات في دمك، و١٠ فئات صحية، وتقرير يشرحه لك طبيبك</p></div>
+    <div class="mk"><div class="mk-h"><b>مؤشراتك الـ١٠١</b><span class="tagm">مثال توضيحي</span></div>
+      <div class="sumbars"><i style="flex:84;background:var(--good)"></i><i style="flex:11;background:#8F6BFF"></i><i style="flex:6;background:var(--warn)"></i></div>
+      <div class="sumleg"><div><b>٨٤</b>ضمن المثالي</div><div><b>١١</b>طبيعي</div><div><b>٦</b>تحتاج متابعة</div></div></div>
+  </section>
+
+  <section class="sec"><h2 class="sec-h">تابع صحتك مع الوقت</h2>
+    <p class="mf-p" style="margin-bottom:4px">سحبين في السنة يعني تشوف الفرق بعينك، مو تخمّن.</p>
+    <div class="mk"><div class="mk-h"><b>فيتامين د</b><span class="tagm">مثال توضيحي</span></div>
+      <div class="trend"><div><span>الشهر الأول</span><b style="color:var(--warn)">١٨</b><span>ng/mL منخفض</span></div><div><span>بعد ٦ شهور</span><b style="color:var(--good)">٣٤</b><span>ng/mL ضمن الطبيعي</span></div></div></div>
+    <div class="mk"><div class="mk-h"><b>Well Age</b><span class="tagm">مثال توضيحي</span></div>
+      <div class="trend"><div><span>الشهر الأول</span><b>٤٣٫٢</b><span>سنة</span></div><div><span>بعد ٦ شهور</span><b style="color:#C9B8FF">٤١٫٨</b><span>سنة</span></div></div></div>
+    <p class="small" style="margin-top:8px">أمثلة للتوضيح، والنتائج تختلف من شخص لآخر.</p>
+  </section>
+
+  <section class="sec" id="after"><h2 class="sec-h">بعد خطتك الصحية، نوجّهك للي تحتاجه</h2>
+    <p class="mf-p" style="margin-bottom:14px">الخطة ما تنتهي عند الورق. كل خطوة فيها مبنية على نتايجك، ونمشيها معك طول السنة.</p>
+    ${ap('drop','مكمّلاتك','بالجرعة والتوقيت، حسب نتايجك',`<div class="mk">
+      <div class="mrow"><b>فيتامين د٣</b><span>١٠٠٠ وحدة</span><span class="tagm">مع الغداء</span></div>
+      <div class="mrow"><b>أوميغا ٣</b><span>كبسولة</span><span class="tagm">مع العشاء</span></div>
+      <div class="mrow"><b>مغنيسيوم</b><span>كبسولة</span><span class="tagm">قبل النوم</span></div>
+      <p class="small" style="margin:8px 0 0">مثال توضيحي، وطبيبك يحدد الجرعة حسب نتايجك.</p></div>`)}
+    ${ap('chart','يومك','أكل وحركة ونوم، بخطوات صغيرة تقدر عليها',`<div class="mk">
+      <div class="drow"><b>الصبح</b><span>مشي ٢٠ دقيقة بعد الفطور</span></div>
+      <div class="drow"><b>الظهر</b><span>نص صحنك خضار، وبروتين في كل وجبة</span></div>
+      <div class="drow"><b>العصر</b><span>تمارين مقاومة مرتين بالأسبوع</span></div>
+      <div class="drow"><b>الليل</b><span>نوم قبل ١١، وبدون جوال آخر ساعة</span></div></div>`)}
+    ${ap('home','فحوصات المتابعة','نعيد اللي يحتاج، ونقيس الفرق',`<div class="mk"><div class="mk-h"><b>سحبك الثاني بعد ٦ شهور</b><span class="tagm ok">مشمول بالعضوية</span></div>
+      <div class="mrow"><b>فيتامين د</b><span>كان منخفض</span><span class="tagm lo">نعيده</span></div>
+      <div class="mrow"><b>السكر التراكمي</b><span>على الحد</span><span class="tagm lo">نعيده</span></div>
+      <div class="mrow"><b>الفيريتين</b><span>كان منخفض</span><span class="tagm lo">نعيده</span></div></div>`)}
+    ${ap('doc','فريق رعايتك','مدير رعاية باسمك، تسأله أي وقت طول السنة',`<div class="mk chat">
+      <div class="bub me">وش أركز عليه هالشهر؟</div>
+      <div class="bub them"><small>مدير رعايتك</small>نومك أولاً. خلنا نراجع خطتك سوا يوم الخميس؟</div></div>`)}
+    <h3 style="font-size:17px;margin:4px 0 10px">وإذا احتجت أكثر، خدمات ول.</h3>
+    <div class="svcs">
+      ${svc('التغذية','خطة غذائية مع أخصائي')}
+      ${svc('الدعم النفسي','جلسات مع فريقنا النفسي')}
+      ${svc('صحة الرجل','مسار متخصص للهرمونات والحيوية')}
+      ${svc('صحة المرأة','مسار يناسب كل مرحلة')}
+      ${svc('المحاليل الوريدية','بعد تقييم الطبيب فقط')}
+      ${svc('الجينوم','بصمتك الجينية',true)}
+    </div>
   </section>
 
   <section class="sec"><h2 class="sec-h">الفرق عن التحليل المعتاد</h2>
@@ -683,6 +783,9 @@ function s0(){ setStage(0,0);
       <tr><td>مكان السحب</td><td>المختبر</td><td>بيتك</td></tr>
       <tr><td>بعد النتيجة</td><td>أرقام</td><td>طبيب يشرحها ويكتب خطتك</td></tr>
       <tr><td>بين الفحصين</td><td>لا شي</td><td>متابعة شهرية ومدير رعاية</td></tr>
+      <tr><td>السحب الثاني بعد ٦ شهور</td><td>تدفعه لحالك</td><td>مشمول</td></tr>
+      <tr><td>المكمّلات</td><td>تخمين</td><td>بالجرعة والتوقيت</td></tr>
+      <tr><td>الصحة النفسية</td><td>لا</td><td>جزء من تقييمك</td></tr>
       <tr><td>عمرك البيولوجي</td><td>لا</td><td>Well Age قبل وبعد</td></tr>
     </tbody></table></div>
   </section>
@@ -698,9 +801,10 @@ function s0(){ setStage(0,0);
     ${grp('الغدة والعضلات وعمرك البيولوجي','٦','TSH، FT4، FT3، إنزيم العضلات CK، وWell Age')}
   </section>
 
-  <section class="offer">
+  <section class="offer" id="price">
     <div class="offer-top"><span class="offer-l">السعر السنوي</span><span class="old">٢١٩٠</span></div>
     <div class="offer-price"><span class="price">١٩٩٩</span><span>ريال</span></div><div class="perday">أقل من ٦ ريال باليوم</div>
+    <div class="value2"><b>سحبين، مو سحب واحد.</b> سحبك الثاني بعد ٦ شهور، والزيارتين في بيتك، ومكالمتين مع طبيبك، كلها داخل السعر. ما تدفع ريال زيادة عشان تشوف الفرق.</div>
     <p class="offer-s">٤ دفعات مع تابي، كل دفعة ٥٠٠ ريال، وتمارا متاحة</p>
     <p class="offer-s">استرجاع كامل للمبلغ قبل أول سحب</p>
     <p class="offer-s">متاح حالياً في الرياض</p>
@@ -710,26 +814,17 @@ function s0(){ setStage(0,0);
 
   <section class="giftcard"><div class="fi">${svg('gift')}</div><div><b>نعتني بك وبمن تحب</b><span>أهدِ العضوية لأبوك أو أمك، أو ضيف زوجتك بسعر الأعضاء، ونفس الفريق يعتني بالبيت كله.</span></div></section>
 
-  <section class="sec"><h2 class="sec-h">خدمات ول. المبنية على نتائجك</h2>
-    <p class="mf-p" style="margin-bottom:12px">بعد نتائجك، يقترح طبيبك ما يناسبك فقط من خدماتنا.</p>
-    <div class="svcs">
-      ${svc('التغذية','خطة غذائية مع أخصائي')}
-      ${svc('الدعم النفسي','جلسات مع فريقنا النفسي')}
-      ${svc('صحة الرجل','مسار متخصص للهرمونات والحيوية')}
-      ${svc('صحة المرأة','مسار يناسب كل مرحلة')}
-      ${svc('المحاليل الوريدية','بعد تقييم الطبيب فقط')}
-      ${svc('الجينوم','بصمتك الجينية',true)}
-    </div>
-  </section>
-
   <section class="sec"><h2 class="sec-h">فريقنا الطبي</h2>
     <div class="docs"><div class="doc-slot"><div class="ph"></div><b>الاسم قريباً</b><span>طب الأسرة</span></div><div class="doc-slot"><div class="ph"></div><b>الاسم قريباً</b><span>صحة الرجل</span></div><div class="doc-slot"><div class="ph"></div><b>الاسم قريباً</b><span>الصحة النفسية</span></div></div>
     <p class="small" style="margin-top:8px">أطباء مرخّصين ومختبرات معتمدة. الأسماء والصور تُضاف قريباً.</p>
   </section>
 
-  <section class="sec"><h2 class="sec-h">أسئلة شائعة</h2>
+  <section class="sec" id="faqs"><h2 class="sec-h">أسئلة شائعة</h2>
     ${faq('لازم أصوم قبل السحب؟','إيه، ٨ ساعات بس، والماء مسموح. نرسل لك التذكير قبل الموعد بيوم وقبله بساعتين.')}
     ${faq('مين يجي البيت؟','فريق ول. الطبي المتخصص، والسحب للسيدات بواسطة ممرضة. الزيارة ربع ساعة تقريباً.')}
+    ${faq('وش يصير وقت السحب؟','عدة أنابيب صغيرة في زيارة قصيرة، وأغلب الناس يحسون بوخزة سريعة بس. ونقيس معها ضغطك ونبضك ووزنك وخصرك وقوة قبضتك.')}
+    ${faq('وش أسوي بعد السحب؟','خلّ اللزقة كم ساعة، واشرب ماء، وأجّل التمرين القوي لبكرة. نتايجك توصلك خلال ٣ إلى ٥ أيام.')}
+    ${faq('المختبرات والأطباء معتمدين؟','إيه، نتعامل مع مختبرات معتمدة، وأطباؤنا مرخّصون للممارسة في المملكة.')}
     ${faq('وين الخدمة متاحة؟','حالياً في الرياض، ومدن ثانية قريباً.')}
     ${faq('وش يصير لو نتيجتي ما كانت زينة؟','طبيبك يكلمك ويشرحها لك قبل ما تقرأ أي رقم لحالك، ويكتب لك ٣ أولويات تشتغل عليها، ونرجع نقيسها بعد ستة شهور.')}
     ${faq('مين يشوف بياناتي؟','طبيبك وفريق رعايتك فقط. بياناتك محفوظة داخل المملكة، وما نستخدمها للتسويق.')}
@@ -737,6 +832,12 @@ function s0(){ setStage(0,0);
     ${faq('كيف أسترجع المبلغ؟','تقدر تطلب استرجاع كامل المبلغ في أي وقت قبل أول سحب.')}
     ${faq('هل يغني عن طبيبي أو الطوارئ؟','لا. طال عمرك رعاية وقائية مكمّلة، ومو بديل عن طبيبك أو الطوارئ.')}
   </section>
+
+  <section class="offer" style="margin-top:6px"><h2 class="sec-h" style="margin-bottom:10px">سنة كاملة معك، من أول سحب لآخر خطوة</h2>
+    <ul class="recap"><li>١٠١ مؤشر من دمك</li><li>سحبين في بيتك، الثاني مشمول</li><li>طبيب يكتب خطتك</li><li>مدير رعاية باسمك</li></ul>
+    <div class="offer-price"><span class="price">١٩٩٩</span><span>ريال بالسنة</span></div>
+    <p class="offer-s">٤ دفعات مع تابي أو تمارا، واسترجاع كامل قبل أول سحب</p>
+    <button class="btn primary" id="join1">انضم إلى عضوية طال عمرك</button></section>
 
   <section class="closing"><p>العافية عندنا أسلوب حياة، تعيشه بصحتك وحيويتك يومًا بعد يوم.</p>
     <div class="cl-wm logo" style="justify-content:center"><span class="wm">Well<span class="dot">.</span></span></div>
@@ -746,7 +847,11 @@ function s0(){ setStage(0,0);
   drawRing($('#landCv'),4242,'mid'); drawRing($('#pvCv'),2718,'act');
   (function loopQ(){ const q=screen.querySelector('.qmark'); if(!q||matchMedia('(prefers-reduced-motion: reduce)').matches) return; const ages=[27,52,34,46,31,58,39,44]; let i=0; const iv=setInterval(()=>{ if(!document.body.contains(q)){clearInterval(iv);return} if(i<ages.length){q.textContent=n2a(ages[i]);q.style.opacity=.85;i++} else {q.textContent='؟';q.style.opacity=1; if(i++>ages.length+12) i=0} },140); })();
   (function loopPv(){ const n=screen.querySelector('.pv-ring .num'); if(!n||matchMedia('(prefers-reduced-motion: reduce)').matches) return; const run=()=>{ if(!document.body.contains(n)) return; countUp(n,38,43.2,1600,1); setTimeout(run,5000)}; run(); })();
-  $('#go').onclick=$('#go2').onclick=$('#go3').onclick=()=>{S.qi=0;renderQuick()}; $('#join0').onclick=()=>{ensureDefaults();s5()};
+  $('#go').onclick=$('#go2').onclick=$('#go3').onclick=()=>{S.qi=0;renderQuick()}; $('#join0').onclick=$('#join1').onclick=()=>{ensureDefaults();s5()};
+  screen.querySelectorAll('.lnav button').forEach(b=>b.onclick=()=>{const el=document.getElementById(b.dataset.to); if(el) window.scrollTo({top:el.getBoundingClientRect().top+scrollY-12,behavior:'smooth'})});
+  const sc=document.createElement('div'); sc.id='stickyCta'; sc.innerHTML='<div class="sp"><b>١٩٩٩ ريال</b><span>سحبين في السنة، داخل السعر</span></div><button>انضم الحين</button>'; document.body.appendChild(sc); document.body.classList.add('has-sticky');
+  sc.querySelector('button').onclick=()=>{ensureDefaults();s5()};
+  stickyCheck();
 }
 function renderQuick(){ setStage(1,S.qi/QUICK.length*20); const q=QUICK[S.qi]; hint.textContent=`${n2a(S.qi+1)} / ${n2a(QUICK.length)}`;
   const next=()=>{S.qi++; if(S.qi>=QUICK.length) s2(); else renderQuick()};
@@ -940,6 +1045,8 @@ function s10(){ setStage(10,100);
 }
 
 /* ---------- navigation ---------- */
+function stickyCheck(){const sc=document.getElementById('stickyCta'), h=screen.querySelector('.hero2'); if(!sc||!h) return; const on=h.getBoundingClientRect().bottom<0; sc.classList.toggle('on',on); document.body.classList.toggle('sticky-on',on)}
+addEventListener('scroll',stickyCheck,{passive:true});
 const GO=[s0,()=>{S.qi=0;renderQuick()},s2,()=>{S.di=0;renderDeep()},s4,s5,s6,s7,s8,s9,s10];
 function ensureDefaults(){ const d={name:'سعد',arch:'أبي أعرف جسمي بالتفصيل',age:38,sex:'رجل',height:172,weight:84,waist:96,sleep:'٥–٦',active:'١–٢',sweet:'كل يوم',smoke:'لا، أبداً',stress:'كثير',fam:['سكري'],sl_reg:'يتغير كثير',sl_lat:'١٥–٣٠',sl_fresh:'أحياناً',sl_snore:'لا',sl_apnea:'لا',sl_day:'أحياناً',mv_vig:'١',mv_mod:'٢',mv_sit:'٨–١٠',mv_res:'لا',nu_veg:'١',nu_fruit:'١',nu_meat:'٣–٥',nu_fish:'١',nu_out:'٣–٥',nu_dates:'١–٣',ps1:'أحياناً',ps2:'كثير',ps3:'أحياناً',phq1:'عدة أيام',phq2:'أبداً',gad1:'عدة أيام',gad2:'أبداً',lo1:'نادراً',lo2:'نادراً',lo3:'أحياناً',dx:['ولا واحد'],meds:['لا'],last:'أكثر من سنتين',bp:'ما أدري',goals:['طاقة أكثر','وزن','نوم'],m_conf:'عالية',m_firm:'أغلب الأوقات',m_keep:'أغلب الأوقات',m_energy:'نعم، شوي',m_noct:'مرة'}; for(const k in d) if(A[k]===undefined) A[k]=d[k]; if(!S.vitals.sbp) S.vitals={sbp:128,dbp:82,hr:74,spo2:97,wt:84,wa:96,neck:40,grip:42}; }
 backBtn.onclick=()=>{ if(S.step===1&&S.qi>0){S.qi--;renderQuick()} else if(S.step===3&&S.di>0){S.di--;renderDeep()} else if(S.step>0){GO[S.step-1]()} };
