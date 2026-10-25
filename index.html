@@ -345,6 +345,27 @@ h1{font-size:30px;line-height:1.35;font-family:var(--font-head);font-weight:700}
 .tagl{text-align:center;font-family:var(--font-head);font-weight:700;font-size:18px;color:var(--ink);margin:10px 0 0}
 .hdr-tag{font-family:var(--font-head);font-weight:700;font-size:15px;color:var(--ink-2)}
 
+/* landing v5 brand */
+.h2brand{font-family:var(--font-head);font-weight:700;font-size:17px;color:#C9B8FF;margin:4px 0 6px}
+.hero2 .h2title{font-size:44px;margin:0 0 4px}
+.hero2 .h2sub{margin:6px auto 8px}
+.h2sub2{font-size:15px;color:#E6DEFF;margin:0 0 16px}
+.mf-h{font-family:var(--font-head);font-size:26px;line-height:1.45;margin:0 0 10px;text-wrap:balance}
+.mf-h span{color:#C9B8FF;font-size:21px}
+.mf-p{font-size:15.5px;line-height:1.8;color:var(--ink-2);margin:0 0 6px}
+.pillars,.svcs{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.pil,.svc{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 14px}
+.pil b,.svc b{display:flex;align-items:center;gap:8px;font-size:15.5px;color:var(--ink)}
+.pil span,.svc span{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+.pil{border-top:3px solid #7E57FD}
+.svc.soon{opacity:.75;border-style:dashed}
+.svc em{font-style:normal;font-size:11px;color:#fff;background:#F86080;border-radius:999px;padding:1px 8px}
+.mbr-intro{border-radius:22px;padding:18px;margin:0 0 22px;background:linear-gradient(135deg,rgba(126,87,253,.32),rgba(34,17,150,.25));border:1px solid rgba(201,184,255,.3)}
+.mbr-intro p{margin:0;font-size:14.5px;color:var(--ink-2)}
+.closing{text-align:center;padding:22px 8px 6px;margin-top:6px;border-top:1px solid var(--line)}
+.closing>p:first-child{font-family:var(--font-head);font-size:19px;line-height:1.7;color:var(--ink);max-width:28ch;margin:0 auto 10px}
+.cl-wm .wm{font-size:34px}
+
 /* landing v4 sections */
 .steps{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
 .steps li{display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:start}
@@ -375,7 +396,7 @@ details.bm p,details.faq p{margin:0;padding:0 14px 14px;font-size:14px;color:var
 .doc-slot{background:var(--surface);border:1px dashed var(--line);border-radius:16px;padding:12px 8px;text-align:center}
 .doc-slot .ph{width:56px;height:56px;border-radius:50%;margin:0 auto 8px;background:linear-gradient(135deg,rgba(143,107,255,.35),rgba(143,107,255,.1))}
 .doc-slot b{display:block;font-size:13px}.doc-slot span{display:block;font-size:12px;color:var(--muted)}
-</style></head><body>
+</style>
 
 <div class="app" id="app">
   <div class="top"><div class="hdr-tag">عِش بعافية، عِش أفضل.</div><div class="logo"><span class="wm">Well<span class="dot">.</span></span></div><div class="stage" id="stageLbl" hidden></div></div>
@@ -599,14 +620,39 @@ function s0(){ setStage(0,0);
   const step=(n,t,d)=>`<li><span class="sn">${n}</span><div><b>${t}</b><span>${d}</span></div></li>`;
   const grp=(t,n,list)=>`<details class="bm"><summary><b>${t}</b><span>${n} مؤشر</span></summary><p>${list}</p></details>`;
   const faq=(q,a)=>`<details class="faq"><summary>${q}</summary><p>${a}</p></details>`;
+  const pil=(t,d)=>`<div class="pil"><b>${t}</b><span>${d}</span></div>`;
+  const svc=(t,d,soon)=>`<div class="svc${soon?' soon':''}"><b>${t}${soon?'<em>قريباً</em>':''}</b><span>${d}</span></div>`;
   html(`<section class="hero2">
-    <div class="ringwrap h2ring"><canvas id="landCv"></canvas><div class="center"><div class="qmark">؟</div></div></div>
-    <div class="h2eyebrow">عضوية طال عمرك</div>
+    <div class="h2brand">الاطمئنان خيرٌ من الانتظار.</div>
     <h1 class="h2title">كم عمرك فعلاً؟</h1>
-    <p class="h2sub">اعرف عمرك الصحي من ١٠١ مؤشر في دمك، وخلّ طبيبك يكتب خطتك للسنة كاملة.</p>
+    <div class="ringwrap h2ring"><canvas id="landCv"></canvas><div class="center"><div class="qmark">؟</div></div></div>
+    <p class="h2sub">فريقٌ طبيٌّ متخصص يقرأ بصمتك الصحية — فحوصًا ونمطَ حياة — ليصمّم لك رعايةً تشبهك وحدك.</p>
+    <p class="h2sub2">ابدأ بعمرك الصحي، من جواباتك في ٣ دقايق، مجاناً.</p>
     <button class="btn primary" id="go">ابدأ الفحص المجاني</button>
-    <p class="h2note">٣ دقايق، بدون تسجيل وبدون دفع</p>
+    <p class="h2note">بدون تسجيل وبدون دفع</p>
   </section>
+
+  <section class="sec manifesto">
+    <h2 class="mf-h">أنت لا تشبه أحدًا…<br><span>فلماذا تشبه رعايتُك الصحية رعايةَ كلِّ الناس؟</span></h2>
+    <p class="mf-p">في ول.، نبدأ منك أنت. نقرأ بصمتك الصحية، ونكشف معك المؤشرات المبكرة، ونرافقك خطوةً بخطوة في العناية بعافيتك يومًا بعد يوم.</p>
+    ${row('drop','فحوصٌ دقيقة','تقرأ ما لا تراه العين')}
+    ${row('doc','فريقٌ يعرفك بالاسم','لا برقم الملف')}
+    ${row('chart','رعايةٌ تشبهك وحدك','خطةٌ مبنية على نتائجك ونمط حياتك')}
+  </section>
+
+  <section class="sec"><h2 class="sec-h">طولُ العمر الصحي يبدأ من ستة أركان</h2>
+    <p class="mf-p" style="margin-bottom:12px">العافية لا يقيسها تحليلٌ واحد. ننظر إليك كاملاً، ونتابع كل ركنٍ منها.</p>
+    <div class="pillars">
+      ${pil('الدم والمؤشرات','١٠١ مؤشر وعمرك البيولوجي')}
+      ${pil('النوم','جودته وانتظامه')}
+      ${pil('الحركة','النشاط وقوة العضلات')}
+      ${pil('التغذية','ما تأكله وكيف يؤثر فيك')}
+      ${pil('الصحة النفسية','المزاج والتوتر وراحة البال')}
+      ${pil('العلاقات','قربك ممن تحب')}
+    </div>
+  </section>
+
+  <section class="mbr-intro"><div class="h2eyebrow" style="margin:0">نقطة البداية مع ول.</div><h2 class="sec-h" style="margin:2px 0 4px">عضوية طال عمرك</h2><p>سنة كاملة من الرعاية: فحصين في بيتك، وطبيب يكتب خطتك، ومتابعة شهرية.</p></section>
 
   <section class="sec"><h2 class="sec-h">كيف تمشي الرحلة</h2>
     <ol class="steps">
@@ -664,6 +710,18 @@ function s0(){ setStage(0,0);
 
   <section class="giftcard"><div class="fi">${svg('gift')}</div><div><b>نعتني بك وبمن تحب</b><span>أهدِ العضوية لأبوك أو أمك، أو ضيف زوجتك بسعر الأعضاء، ونفس الفريق يعتني بالبيت كله.</span></div></section>
 
+  <section class="sec"><h2 class="sec-h">خدمات ول. المبنية على نتائجك</h2>
+    <p class="mf-p" style="margin-bottom:12px">بعد نتائجك، يقترح طبيبك ما يناسبك فقط من خدماتنا.</p>
+    <div class="svcs">
+      ${svc('التغذية','خطة غذائية مع أخصائي')}
+      ${svc('الدعم النفسي','جلسات مع فريقنا النفسي')}
+      ${svc('صحة الرجل','مسار متخصص للهرمونات والحيوية')}
+      ${svc('صحة المرأة','مسار يناسب كل مرحلة')}
+      ${svc('المحاليل الوريدية','بعد تقييم الطبيب فقط')}
+      ${svc('الجينوم','بصمتك الجينية',true)}
+    </div>
+  </section>
+
   <section class="sec"><h2 class="sec-h">فريقنا الطبي</h2>
     <div class="docs"><div class="doc-slot"><div class="ph"></div><b>الاسم قريباً</b><span>طب الأسرة</span></div><div class="doc-slot"><div class="ph"></div><b>الاسم قريباً</b><span>صحة الرجل</span></div><div class="doc-slot"><div class="ph"></div><b>الاسم قريباً</b><span>الصحة النفسية</span></div></div>
     <p class="small" style="margin-top:8px">أطباء مرخّصين ومختبرات معتمدة. الأسماء والصور تُضاف قريباً.</p>
@@ -680,12 +738,15 @@ function s0(){ setStage(0,0);
     ${faq('هل يغني عن طبيبي أو الطوارئ؟','لا. طال عمرك رعاية وقائية مكمّلة، ومو بديل عن طبيبك أو الطوارئ.')}
   </section>
 
-  <p class="tagl">طال عمرك… مو كلمة تنقال وبس، هي أسلوب حياة.</p>
+  <section class="closing"><p>العافية عندنا ليست غيابَ المرض فحسب، بل حياةٌ تعيشها بكامل صحتك وحيويتك.</p>
+    <div class="cl-wm logo" style="justify-content:center"><span class="wm">Well<span class="dot">.</span></span></div>
+    <p class="tagl" style="margin-top:4px">عِش بعافية، عِش أفضل.</p>
+    <button class="btn primary" id="go3" style="margin-top:14px">اعرف عمرك الصحي</button></section>
   <p class="small" style="margin-top:18px;opacity:.7">نسخة أولية. القائمة اللي تحت تنقلك بين المراحل.</p>`);
   drawRing($('#landCv'),4242,'mid'); drawRing($('#pvCv'),2718,'act');
   (function loopQ(){ const q=screen.querySelector('.qmark'); if(!q||matchMedia('(prefers-reduced-motion: reduce)').matches) return; const ages=[27,52,34,46,31,58,39,44]; let i=0; const iv=setInterval(()=>{ if(!document.body.contains(q)){clearInterval(iv);return} if(i<ages.length){q.textContent=n2a(ages[i]);q.style.opacity=.85;i++} else {q.textContent='؟';q.style.opacity=1; if(i++>ages.length+12) i=0} },140); })();
   (function loopPv(){ const n=screen.querySelector('.pv-ring .num'); if(!n||matchMedia('(prefers-reduced-motion: reduce)').matches) return; const run=()=>{ if(!document.body.contains(n)) return; countUp(n,38,43.2,1600,1); setTimeout(run,5000)}; run(); })();
-  $('#go').onclick=$('#go2').onclick=()=>{S.qi=0;renderQuick()}; $('#join0').onclick=()=>{ensureDefaults();s5()};
+  $('#go').onclick=$('#go2').onclick=$('#go3').onclick=()=>{S.qi=0;renderQuick()}; $('#join0').onclick=()=>{ensureDefaults();s5()};
 }
 function renderQuick(){ setStage(1,S.qi/QUICK.length*20); const q=QUICK[S.qi]; hint.textContent=`${n2a(S.qi+1)} / ${n2a(QUICK.length)}`;
   const next=()=>{S.qi++; if(S.qi>=QUICK.length) s2(); else renderQuick()};
@@ -886,4 +947,5 @@ const jump=$('#jump'); STAGES.forEach((s,i)=>{const o=document.createElement('op
 jump.onchange=e=>{const i=+e.target.value; if(isNaN(i)||e.target.value==='')return; if(i>=2) ensureDefaults(); GO[i](); e.target.value=''};
 s0();
 </script>
+
 </body></html>
