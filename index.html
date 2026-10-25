@@ -366,6 +366,22 @@ h1{font-size:30px;line-height:1.35;font-family:var(--font-head);font-weight:700}
 .closing>p:first-child{font-family:var(--font-head);font-size:19px;line-height:1.7;color:var(--ink);max-width:28ch;margin:0 auto 10px}
 .cl-wm .wm{font-size:34px}
 
+/* contact capture */
+.ct-f{margin:14px 0}
+.ct-f label{display:block;margin-bottom:6px;font-size:14px;color:var(--ink-2)}
+.ct-f input{width:100%;box-sizing:border-box;background:var(--surface);color:var(--ink);border:1.5px solid var(--line);outline:none}
+.ct-mob input{background:transparent!important;flex:1;min-width:0}
+.ct-f>input:focus{border-color:var(--accent)}
+.ct-mob{display:flex;align-items:stretch;border:1.5px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.ct-mob span{display:grid;place-items:center;padding:0 12px;font-family:var(--font-latin);font-size:15px;color:var(--muted);border-right:1px solid var(--line)}
+.ct-mob input{border:0;border-radius:0;font-family:var(--font-latin);font-size:17px;letter-spacing:.04em;padding:12px}
+.ct-mob:focus-within{border-color:var(--accent)}
+.ct-f>input{padding:12px;border-radius:12px;font-family:var(--font-latin)}
+.ct-err{font-size:12.5px;color:var(--act);margin-top:6px}
+.ct-chk{display:flex;gap:10px;align-items:center;font-size:14px;color:var(--ink-2);margin:4px 0 18px;cursor:pointer}
+.ct-chk input{width:20px;height:20px;accent-color:var(--accent);flex:none;margin:0}
+.ct-legal{margin-top:12px;line-height:1.7}
+
 /* landing v6 (after-plan, tracking, sticky) */
 .lnav{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 0 14px;padding:2px 0}
 .lnav::-webkit-scrollbar{display:none}
@@ -681,7 +697,7 @@ function s0(){ setStage(0,0);
     <p class="h2sub">فريقٌ طبيٌّ متخصص يقرأ بصمتك الصحية، من فحوصٍ ونمطِ حياة، ليصمّم لك رعايةً تشبهك وحدك.</p>
     <p class="h2sub2">ابدأ بعمرك الصحي، من جواباتك في ٣ دقايق، مجاناً.</p>
     <button class="btn primary" id="go">ابدأ الفحص المجاني</button>
-    <p class="h2note">بدون تسجيل وبدون دفع</p>
+    <p class="h2note">بدون دفع وبدون بطاقة</p>
   </section>
 
   <section class="sec manifesto">
@@ -880,7 +896,7 @@ function s2(){ setStage(2,22);
   $('#join').onclick=s5; $('#deep').onclick=()=>{S.di=0;renderDeep()};
 }
 function visibleDeep(){ return DEEP.filter(x=>{ if(x.only&&x.only!==A.sex) return false; if(x.sk&&S.skipMen) return false; if(x.gate==='phq'&&idx('phq1')+idx('phq2')<3) return false; if(x.gate==='gad'&&idx('gad1')+idx('gad2')<3) return false; return true; }); }
-function renderDeep(){ const list=visibleDeep(); if(S.di>=list.length) return s4(); const q=list[S.di]; setStage(3,25+S.di/list.length*20);
+function renderDeep(){ const list=visibleDeep(); if(S.di>=list.length) return S.contact?s4():sContact(); const q=list[S.di]; setStage(3,25+S.di/list.length*20);
   hint.textContent=`${n2a(S.di+1)} / ${n2a(list.length)}`;
   const next=()=>{S.di++;renderDeep()};
   if(q.mod){ html(`<div class="modintro"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="120" cy="120" r="80" fill="var(--lav)" opacity=".5"/><circle cx="70" cy="90" r="46" fill="var(--accent)" opacity=".35"/><circle cx="150" cy="60" r="26" fill="var(--surface)" opacity=".9"/></svg><span class="tag">${n2a(DEEP.filter(x=>x.mod).indexOf(q)+1)} من ${n2a(DEEP.filter(x=>x.mod).length)}</span><h1>${q.mod}</h1><p class="why" style="margin:0">${q.why}</p></div><button class="btn primary" id="cont">{يلا نبدأ|يلا نبدأ}</button>${q.skippable?'<div style="height:10px"></div><button class="btn ghost" id="skip">تخطّي هالجزء</button>':''}`); $('#cont').onclick=next; if(q.skippable)$('#skip').onclick=()=>{S.skipMen=true;next()}; return; }
@@ -888,6 +904,20 @@ function renderDeep(){ const list=visibleDeep(); if(S.di>=list.length) return s4
   bindOpts(q,()=>{ if(q.safety&&A.phq9&&A.phq9!=='أبداً') return safety(next); next(); });
 }
 function safety(next){ html(`<div class="card safety"><h3>نبي نطمّن عليك</h3><p>إجابتك مهمة لنا. أحد من فريق ول. الطبي بيكلمك خلال ساعة في أوقات الدوام. وإذا تحتاج أحد الحين، الخط الوطني للصحة النفسية: <b dir="ltr">920033360</b>.</p></div><p>{تقدر تكمّل|تقدرين تكمّلين} الاستبيان متى ما {تبي|تبين}.</p><button class="btn primary" id="cont">أكمل</button>`); $('#cont').onclick=next; }
+function sContact(){ setStage(4,46); hint.textContent='';
+  html(`<h1>تقريرك جاهز${NM()}. وين نرسله لك؟</h1>
+  <p class="why">نرسل لك نسخة على واتساب، عشان {ترجع|ترجعين} لها متى ما {تبي|تبين}.</p>
+  <div class="ct-f"><label for="mob">رقم الجوال</label><div class="ct-mob" dir="ltr"><span>+966</span><input id="mob" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="5X XXX XXXX" value="${S.contact?.mob||''}"></div><div class="ct-err" id="mobErr" hidden>اكتب رقم جوال سعودي صحيح يبدأ بـ5</div></div>
+  <div class="ct-f"><label for="eml">الإيميل <span style="opacity:.7">(اختياري)</span></label><input id="eml" type="email" dir="ltr" autocomplete="email" placeholder="name@example.com"></div>
+  <label class="ct-chk"><input type="checkbox" id="mkt"><span>{أبي أوصلني|أبي توصلني} عروض ول. وجديدها</span></label>
+  <button class="btn primary" id="send" disabled>أرسل تقريري</button>
+  <p class="small ct-legal">بالمتابعة، {توافق|توافقين} على تواصلنا معك بخصوص عضويتك. نحترم خصوصيتك ولا نشارك بياناتك.</p>`);
+  const norm=v=>v.replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/\D/g,'').replace(/^966/,'').replace(/^0/,'');
+  const ok=()=>/^5\d{8}$/.test(norm($('#mob').value));
+  $('#mob').oninput=()=>{ $('#send').disabled=!ok(); $('#mobErr').hidden=true };
+  $('#mob').onblur=()=>{ if($('#mob').value.trim()) $('#mobErr').hidden=ok() };
+  $('#send').onclick=()=>{ if(!ok()) return; S.contact={mob:norm($('#mob').value),email:$('#eml').value.trim(),mkt:$('#mkt').checked}; s4(); };
+}
 function s4(){ setStage(4,48); const sc=scores(); const g=sc.filter(x=>x[1]==='good').length;
   html(`<h1>تقريرك المجاني${NM()}</h1><p class="why">${n2a(sc.length)} مؤشر من جواباتك، ${n2a(g)} منها في المدى الصحي. هذي الأشياء اللي {تقدر تغيّرها|تقدرين تغيّرينها}، والدم يبيّن لك أثرها.</p>
   <div class="card">${sc.map(x=>`<div class="score"><div><div class="name">${x[0]}</div><div class="sub">${x[2]}</div></div><span class="pill ${x[1]}">${x[1]==='good'?'مثالي':x[1]==='warn'?'للمتابعة':'يحتاج انتباه'}</span></div>`).join('')}</div>
