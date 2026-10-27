@@ -366,6 +366,27 @@ h1{font-size:30px;line-height:1.35;font-family:var(--font-head);font-weight:700}
 .closing>p:first-child{font-family:var(--font-head);font-size:19px;line-height:1.7;color:var(--ink);max-width:28ch;margin:0 auto 10px}
 .cl-wm .wm{font-size:34px}
 
+/* add-on picker */
+.ao{background:var(--surface);border:1.5px solid var(--line);border-radius:18px;padding:14px;margin-bottom:10px}
+.ao.sug{border-color:rgba(143,107,255,.6);background:linear-gradient(135deg,rgba(143,107,255,.14),var(--surface))}
+.ao.on{border-color:var(--good)}
+.ao-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.ao-h b{font-size:17px;color:var(--ink)}
+.ao-h em{display:inline-block;font-style:normal;font-size:11px;color:#fff;background:linear-gradient(135deg,#7E57FD,#5B3DF0);border-radius:999px;padding:2px 9px;margin-top:4px}
+.ao-h>div{display:flex;flex-direction:column;align-items:flex-start}
+.ao-p{font-family:var(--font-num);font-size:18px;color:#C9B8FF;white-space:nowrap}
+.ao-w{font-size:14px;color:var(--ink-2);margin:6px 0 2px}
+.ao-t{font-size:12.5px;color:var(--muted);margin:0 0 10px}
+.ao .btn{padding:10px;font-size:15px}
+.card.free{border-color:rgba(92,199,157,.35)}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.fr div{background:rgba(92,199,157,.08);border-radius:12px;padding:8px 10px}
+.fr b{display:block;font-size:13.5px;color:var(--ink)}
+.fr span{font-size:12px;color:var(--muted)}
+.tot .tot-r{display:flex;justify-content:space-between;font-size:14.5px;padding:5px 0;color:var(--ink-2)}
+.tot .tot-r.sum{border-top:1px solid var(--line);margin-top:4px;padding-top:9px;font-weight:700;color:var(--ink);font-size:16px}
+.tot .tot-r span:last-child{font-family:var(--font-num)}
+
 /* contact capture */
 .ct-f{margin:14px 0}
 .ct-f label{display:block;margin-bottom:6px;font-size:14px;color:var(--ink-2)}
@@ -603,6 +624,12 @@ function scores(){
   if(A.sex==='رجل'&&A.m_conf){const ii=['m_conf','m_firm','m_keep'].reduce((s,k)=>s+idx(k)+1,0)*5/3; out.push(['صحة الرجل',ii>=21?'good':ii>=17?'warn':'act','IIEF-5 تقريبي: '+n2a(Math.round(ii))+' من ٢٥، يشوفه طبيبك فقط'])}
   return out;
 }
+const ADDONS=[
+  {id:'men',  name:'صحة الرجل',   price:499, when:'للرجال فوق ٣٥، أو إذا الطاقة والرغبة والخصوبة من أهدافك', tests:'تستوستيرون كلي وحر، SHBG، LH، FSH، برولاكتين، إستراديول، DHEA-S، وPSA من ٤٥', sex:'رجل'},
+  {id:'women',name:'صحة المرأة',  price:499, when:'لو الدورة غير منتظمة، أو الخصوبة هدفك، أو عمرك فوق ٤٠', tests:'إستراديول، بروجستيرون، FSH، LH، برولاكتين، تستوستيرون، DHEA-S، وأجسام الغدة. وAMH لو الخصوبة هدفك', sex:'امرأة'},
+  {id:'heart',name:'القلب المتقدم',price:599, when:'لو في تاريخ عائلي لجلطات مبكرة، أو تدخين، أو سكري، أو كولسترول عالي', tests:'ApoB، Lp(a)، وهوموسيستين. Lp(a) مرة وحدة بالعمر'},
+  {id:'stress',name:'التوتر والنوم',price:149, when:'لو توترك عالي أو نومك مو زين، أو تحس بالاحتراق', tests:'كورتيزول الصباح وDHEA-S، ويُسحب قبل ٩ الصباح'}];
+const FREE_REPORTS=[['مقاومة الإنسولين','HOMA-IR والسكر التراكمي'],['النشاط والحيوية','الحديد والغدة وفيتامين د'],['تساقط الشعر','الزنك والحديد وB12 والغدة'],['الفيتامينات والمعادن','د، B12، زنك، مغنيسيوم، حديد']];
 function addonSuggest(){
   const f=A.fam||[]; const sc=Object.fromEntries(scores().map(x=>[x[0],x[1]]));
   if(A.sex==='رجل'&&(A.age>=35||sc['صحة الرجل']!=='good'||(A.goals||[]).includes('هرمونات وخصوبة'))) return ['صحة الرجل','تستوستيرون، SHBG، LH، FSH، برولاكتين، DHEA-S'];
@@ -782,12 +809,24 @@ function s0(){ setStage(0,0);
     ${ap('doc','فريق رعايتك','مدير رعاية باسمك، تسأله أي وقت طول السنة',`<div class="mk chat">
       <div class="bub me">وش أركز عليه هالشهر؟</div>
       <div class="bub them"><small>مدير رعايتك</small>نومك أولاً. خلنا نراجع خطتك سوا يوم الخميس؟</div></div>`)}
-    <h3 style="font-size:17px;margin:4px 0 10px">وإذا احتجت أكثر، خدمات ول.</h3>
+    <h3 style="font-size:17px;margin:4px 0 10px">إضافات اختيارية، تُسحب في نفس الزيارة</h3>
+    <div class="svcs">
+      ${svc('صحة الرجل','٩ هرمونات، ٤٩٩ ريال')}
+      ${svc('صحة المرأة','٩ هرمونات، ٤٩٩ ريال')}
+      ${svc('القلب المتقدم','ApoB وLp(a)، ٥٩٩ ريال')}
+      ${svc('التوتر والنوم','كورتيزول وDHEA-S، ١٤٩ ريال')}
+    </div>
+    <h3 style="font-size:17px;margin:16px 0 10px">مشمول في عضويتك: ٤ تقارير تركيز</h3>
+    <div class="svcs">
+      ${svc('مقاومة الإنسولين','من نفس السحب، بدون زيادة')}
+      ${svc('النشاط والحيوية','من نفس السحب، بدون زيادة')}
+      ${svc('تساقط الشعر','من نفس السحب، بدون زيادة')}
+      ${svc('الفيتامينات والمعادن','من نفس السحب، بدون زيادة')}
+    </div>
+    <h3 style="font-size:17px;margin:16px 0 10px">وإذا احتجت أكثر، خدمات ول.</h3>
     <div class="svcs">
       ${svc('التغذية','خطة غذائية مع أخصائي')}
       ${svc('الدعم النفسي','جلسات مع فريقنا النفسي')}
-      ${svc('صحة الرجل','مسار متخصص للهرمونات والحيوية')}
-      ${svc('صحة المرأة','مسار يناسب كل مرحلة')}
       ${svc('المحاليل الوريدية','بعد تقييم الطبيب فقط')}
       ${svc('الجينوم','بصمتك الجينية',true)}
     </div>
@@ -930,10 +969,18 @@ function s5(){ setStage(5,58); const ad=addonSuggest(); const first=(A.goals||[]
   <div class="mcard"><div class="l1"><div class="brand"><span class="en">Well<span style="color:#ACA6E1">.</span></span></div><div class="chip"></div></div><div><div class="name">عضوية طال عمرك</div><div class="big">${(A.name||'').trim()||(A.sex==='امرأة'?'عضوة':'عضو')}، ${n2a(A.age)} سنة</div></div><div class="l3"><span>٢٠٢٦ إلى ٢٠٢٧</span><span>N° 00001</span></div></div>
   <div class="card"><div class="price">١٩٩٩ <span style="font-size:18px;color:var(--muted)">ريال/سنة</span></div><p class="small">أقل من ٦ ريال باليوم، ٤ دفعات مع تابي أو تمارا، واسترجاع كامل قبل أول سحب</p>
   <ul class="list"><li>فحصين في السنة: كامل الآن، ومتابعة بعد ٦ أشهر لكل اللي يتغيّر</li><li>فريق طبي متخصص يجيك البيت في الزيارتين، ما تروح لأي مختبر</li><li>طبيب ول. يشرح لك نتايجك مرتين ويكتب لك خطتك</li><li>مدير رعاية باسمك على الواتساب طول السنة</li><li>عمرك البيولوجي من دمك، وتشوفه يتغيّر قدام عينك</li></ul></div>
-  <div class="card"><h3>إضافة مقترحة لك: ${ad[0]}</h3><p class="small">${ad[1]}، تُسحب في نفس الزيارة. ${ad[0]==='التوتر والنوم'?'١٤٩':ad[0]==='القلب المتقدم'?'٥٩٩':'٤٩٩'} ريال</p><div style="height:8px"></div><button class="btn ghost" id="addon">${S.chosenAddon?'انضافت ✓':'أضفها'}</button></div>
+  <h2 style="font-size:20px;margin:6px 0 4px">إضافات تُسحب في نفس الزيارة</h2>
+  <p class="small" style="margin:0 0 10px">نقترح لك وحدة على حسب جواباتك، والباقي اختياري. تضيف أو تشيل متى ما {تبي|تبين}.</p>
+  ${ADDONS.filter(x=>!x.sex||x.sex===A.sex).map(x=>{const on=(S.addons||[]).includes(x.id), sug=x.name===ad[0]; return `<div class="ao${on?' on':''}${sug?' sug':''}" data-id="${x.id}">
+    <div class="ao-h"><div><b>${x.name}</b>${sug?'<em>مقترحة لك</em>':''}</div><span class="ao-p">${n2a(x.price)} ريال</span></div>
+    <p class="ao-w">${x.when}</p><p class="ao-t">${x.tests}</p>
+    <button class="btn ${on?'primary':'ghost'} ao-b">${on?'انضافت ✓':'أضفها'}</button></div>`}).join('')}
+  <div class="card free"><h3 style="margin-top:0">مشمول في عضويتك، بدون زيادة</h3><p class="small">٤ تقارير تركيز من نفس السحب، يفعّلها طبيبك لما يشوف إنك {تحتاجها|تحتاجينها}:</p>
+    <div class="fr">${FREE_REPORTS.map(r=>`<div><b>${r[0]}</b><span>${r[1]}</span></div>`).join('')}</div></div>
+  ${(()=>{const sel=ADDONS.filter(x=>(S.addons||[]).includes(x.id)); const tot=1999+sel.reduce((a,x)=>a+x.price,0); return sel.length?`<div class="card tot"><div class="tot-r"><span>عضوية طال عمرك</span><span>١٩٩٩</span></div>${sel.map(x=>`<div class="tot-r"><span>${x.name}</span><span>${n2a(x.price)}</span></div>`).join('')}<div class="tot-r sum"><span>المجموع</span><span>${n2a(tot)} ريال</span></div><p class="small" style="margin:6px 0 0">أو ٤ دفعات، كل دفعة ${n2a(Math.ceil(tot/4))} ريال</p></div>`:''})()}
   <button class="btn primary" id="book">{فعّل عضويتك واحجز|فعّلي عضويتك واحجزي} زيارتك</button>
   <p class="small" style="margin-top:10px">طال عمرك… مو كلمة تنقال وبس، هي أسلوب حياة.</p>`);
-  $('#addon').onclick=()=>{S.chosenAddon=S.chosenAddon?null:ad[0];s5()}; $('#book').onclick=s6;
+  screen.querySelectorAll('.ao-b').forEach(b=>b.onclick=e=>{const id=e.target.closest('.ao').dataset.id; S.addons=S.addons||[]; S.addons=S.addons.includes(id)?S.addons.filter(x=>x!==id):[...S.addons,id]; S.chosenAddon=S.addons.length?ADDONS.find(x=>x.id===S.addons[0]).name:null; const y=scrollY; s5(); scrollTo(0,y)}); $('#book').onclick=s6;
 }
 function s6(){ setStage(6,66); const days=['السبت ٢٥ أكتوبر','الأحد ٢٦ أكتوبر','الاثنين ٢٧ أكتوبر','الثلاثاء ٢٨ أكتوبر']; const slots=['٦:٣٠ ص','٧:٣٠ ص','٨:٣٠ ص','٩:٣٠ ص'];
   html(`<h1>نجيك البيت</h1><p class="why">{اختر|اختاري} اليوم والوقت اللي يناسبك. صيام ٨ ساعات بس، والماء مسموح.</p>
@@ -1034,7 +1081,7 @@ function s9(){ setStage(9,92); const R=results(); const flagged=R.cats.flatMap(c
   while(pri.length<3) pri.push([['قوة العضل','تمرينين مقاومة بالأسبوع','قوة القبضة وCK بعد ٦ شهور'],['الأكل','حصتين خضار كل يوم','MEDAS بعد ٦ شهور'],['الماء','٨ أكواب كل يوم','كثافة البول بعد ٦ شهور']][pri.length]);
   html(`<h1>خطتك${NM()}: ٣ أشياء بس هالشهر</h1><p class="why">د. فيصل، طبيب ول.: ${n2a(flagged.length)} مؤشر يبي متابعة من ${n2a(101)}، وكل أولوية لها مؤشر نرجع نقيسه.</p>
   ${pri.slice(0,3).map((p,i)=>`<div class="card"><h3>${n2a(i+1)}. ${p[0]}</h3><p>${p[1]}</p><p class="small" style="margin-top:6px">نقيسه: ${p[2]}</p></div>`).join('')}
-  ${S.chosenAddon?`<div class="card"><h3>إضافة ${S.chosenAddon}</h3><p class="small">نتايجها مع الطبيب بنفس المكالمة.</p></div>`:''}
+  ${(S.addons||[]).length?`<div class="card"><h3>${(S.addons||[]).length>1?'إضافاتك':'إضافة'} ${ADDONS.filter(x=>S.addons.includes(x.id)).map(x=>x.name).join(' و')}</h3><p class="small">نتايجها مع الطبيب بنفس المكالمة.</p></div>`:''}
   <h2>خدمات ول. المقترحة لك</h2><p class="why">طبيبك اختارها من نتايجك. كل خدمة لها مؤشر نرجع نقيسه بعد ٦ شهور.</p>
   ${services(R).map((x,i)=>`<div class="svc"><div><div class="t">${x[0]}</div><div class="d">${x[1]}</div><span class="why">ليش: ${x[2]}</span></div><div class="p"><b>${x[3]}</b><small>${x[4]}</small><button data-i="${i}">${x[3]==='بعد التقييم'?'اسأل طبيبك':'احجز'}</button></div></div>`).join('')}
   <div class="card"><h3>كلمة من طبيبك</h3><p class="small">"أرقامك أحسن من اللي {تتوقع|تتوقعين} في أشياء، وفيها ثلاث فرص واضحة. بنشوف الفرق بعد ستة شهور، مو بعد سنة."</p></div>
@@ -1071,7 +1118,7 @@ function s10(){ setStage(10,100);
   </ul>
   <div class="card"><h3>نعتني بك وبمن تحب لتبقوا بخير</h3><p class="small">{أضف زوجتك أو والدك|أضيفي زوجك أو والدتك} بسعر الأعضاء، ونفس الفريق يعتني بالبيت كله.</p></div>
   <button class="btn ghost" id="restart">{ابدأ|ابدئي} من جديد بإجابات ثانية</button>`);
-  $('#restart').onclick=()=>{for(const k in A)delete A[k];S.vitals={};S.booking={};S.chosenAddon=null;S.skipMen=false;s0()};
+  $('#restart').onclick=()=>{for(const k in A)delete A[k];S.vitals={};S.booking={};S.chosenAddon=null;S.addons=[];S.skipMen=false;s0()};
 }
 
 /* ---------- navigation ---------- */
