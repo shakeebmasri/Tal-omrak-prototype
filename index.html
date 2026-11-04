@@ -515,7 +515,6 @@ const SCALE5=['أبداً','نادراً','أحياناً','كثير','دايم�
 const SCALE4=['أبداً','كم يوم','أكثر من نص الأيام','تقريباً كل يوم'];
 
 const QUICK=[
- Q('mob','شرّفنا برقم جوالك، طال عمرك',null,{type:'tel',why:'نرسل لك تقريرك على واتساب، وما نشارك رقمك مع أحد.'}),
  Q('arch','وش أقرب وصف لك اليوم؟',['أبي أعرف جسمي بالتفصيل','أبي أحد يقول لي وش أسوي','أحس جسمي يبي انتباه','بدأت أهتم بصحتي وأبي أبدأ صح'],{why:'ما فيه جواب غلط.'}),
  Q('age','كم عمرك؟',null,{type:'slider',min:18,max:80,def:38,unit:'سنة',why:'كل مؤشر نقراه على قد عمرك.'}),
  Q('sex','أنت؟',['رجل','امرأة']),
@@ -734,7 +733,7 @@ function telQ(q,next){ const v=A[q.id]||'';
   const ok=()=>/^5\d{8}$/.test(norm($('#mob').value));
   html(`<h1>${q.q}</h1>${q.why?`<p class="why">${q.why}</p>`:''}
   <div class="ct-f" style="margin-top:4px"><div class="ct-mob" dir="ltr"><span>+966</span><input id="mob" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="5X XXX XXXX" value="${v}"></div><div class="ct-err" id="mobErr" hidden>اكتب رقم جوال سعودي صحيح يبدأ بـ5</div></div>
-  <button class="btn primary" id="cont" ${/^5\d{8}$/.test(norm(v))?'':'disabled'}>{كمّل|كمّلي}</button>
+  <button class="btn primary" id="cont" ${/^5\d{8}$/.test(norm(v))?'':'disabled'}>{شوف|شوفي} نتيجتك</button>
   <p class="small ct-legal">بالمتابعة، {توافق|توافقين} على تواصلنا معك بخصوص تقريرك وعضويتك. نحترم خصوصيتك ولا نشارك بياناتك.</p>`);
   const i=$('#mob'); i.focus();
   i.oninput=()=>{A[q.id]=i.value; $('#cont').disabled=!ok(); $('#mobErr').hidden=true};
@@ -954,12 +953,17 @@ function s0(){ setStage(0,0);
   stickyCheck();
 }
 function renderQuick(){ setStage(1,S.qi/QUICK.length*20); const q=QUICK[S.qi]; hint.textContent=`${n2a(S.qi+1)} / ${n2a(QUICK.length)}`;
-  const next=()=>{S.qi++; if(S.qi>=QUICK.length) s2(); else renderQuick()};
+  const next=()=>{S.qi++; if(S.qi>=QUICK.length) sMob(); else renderQuick()};
   if(q.type==='slider') return sliderQ(q,next);
   if(q.type==='text') return textQ(q,next); if(q.type==='tel') return telQ(q,next);
   html(`<h1>${q.q}</h1>${q.why?`<p class="why">${q.why}</p>`:''}${opts(q,A[q.id])}${q.multi?`<button class="btn primary" id="cont" ${(A[q.id]||[]).length?'':'disabled'}>{كمّل|كمّلي}</button>`:''}`);
   bindOpts(q,next);
 }
+function sMob(){ setStage(1,20); if(S.contact&&S.contact.mob) return s2();
+  html(`<div class="ringwrap h2ring" style="margin:0 auto 10px"><canvas id="mobCv"></canvas><div class="center"><div class="qmark">؟</div></div></div>`);
+  const ring=screen.innerHTML;
+  telQ({id:'mob',q:'نتيجتك جاهزة. وين نرسلها؟',why:'{اكتب|اكتبي} رقم جوالك و{شوف|شوفي} نتيجتك الحين، ونرسل لك نسخة على واتساب. ما نشارك رقمك مع أحد.'},s2);
+  screen.insertAdjacentHTML('afterbegin',ring); const cv=$('#mobCv'); if(cv&&typeof drawRing==='function') drawRing(cv,1234,'mid'); $('#mob').focus(); }
 function s2(){ setStage(2,22);
   const r=lifestyleAge(); const est=A.age+r.total; const top=r.adj.slice(0,3); const allGood=top.every(x=>x[1]<=0);
   const d=r.total; const dcls=d>0?'up':d<0?'down':''; const dtxt=d>0?`أكبر من عمرك بـ${n2a(d)} سنة`:d<0?`أصغر من عمرك بـ${n2a(-d)} سنة`:'نفس عمرك بالهوية';
@@ -1202,14 +1206,14 @@ function s10(){ setStage(10,100);
   </ul>
   <div class="card"><h3>نعتني بك وبمن تحب لتبقوا بخير</h3><p class="small">{أضف زوجتك أو والدك|أضيفي زوجك أو والدتك} بسعر الأعضاء، ونفس الفريق يعتني بالبيت كله.</p></div>
   <button class="btn ghost" id="restart">{ابدأ|ابدئي} من جديد بإجابات ثانية</button>`);
-  $('#restart').onclick=()=>{for(const k in A)delete A[k];S.vitals={};S.booking={};S.chosenAddon=null;S.addons=[];S.contact=null;S.skipMen=false;s0()};
+  $('#restart').onclick=()=>{for(const k in A)delete A[k];S.vitals={};S.booking={};S.chosenAddon=null;S.addons=[];S.contact=null;delete A.mob;delete A.mobN;S.skipMen=false;s0()};
 }
 
 /* ---------- navigation ---------- */
 function stickyCheck(){const sc=document.getElementById('stickyCta'), h=screen.querySelector('.hero2'); if(!sc||!h) return; const on=h.getBoundingClientRect().bottom<0; sc.classList.toggle('on',on); document.body.classList.toggle('sticky-on',on)}
 addEventListener('scroll',stickyCheck,{passive:true});
 const GO=[s0,()=>{S.qi=0;renderQuick()},s2,()=>{S.di=0;renderDeep()},s4,s5,s6,s7,s8,s9,s10];
-function ensureDefaults(){ const d={mob:'0551234567',arch:'أبي أعرف جسمي بالتفصيل',age:38,sex:'رجل',height:172,weight:84,waist:96,sleep:'٥–٦',active:'١–٢',sweet:'كل يوم',smoke:'لا، أبداً',stress:'كثير',fam:['سكري'],sl_reg:'يتغير كثير',sl_lat:'١٥–٣٠',sl_fresh:'أحياناً',sl_snore:'لا',sl_apnea:'لا',sl_day:'أحياناً',mv_vig:'١',mv_mod:'٢',mv_sit:'٨–١٠',mv_res:'لا',nu_veg:'١',nu_fruit:'١',nu_meat:'٣–٥',nu_fish:'١',nu_out:'٣–٥',nu_dates:'١–٣',ps1:'أحياناً',ps2:'كثير',ps3:'أحياناً',phq1:'كم يوم',phq2:'كم يوم',phq3:'كم يوم',phq4:'أكثر من نص الأيام',phq5:'أبداً',phq6:'أبداً',phq7:'كم يوم',phq8:'أبداً',phq9:'أبداً',gad1:'كم يوم',gad2:'أبداً',lo1:'نادراً',lo2:'نادراً',lo3:'أحياناً',dx:['ولا واحد'],meds:['لا'],last:'أكثر من سنتين',bp:'ما أدري',goals:['طاقة أكثر','وزن','نوم'],m_conf:'عالية',m_firm:'أغلب الأوقات',m_keep:'أغلب الأوقات',m_energy:'نعم، شوي',m_noct:'مرة'}; for(const k in d) if(A[k]===undefined) A[k]=d[k]; if(!S.vitals.sbp) S.vitals={sbp:128,dbp:82,hr:74,spo2:97,wt:84,wa:96,neck:40,grip:42}; }
+function ensureDefaults(){ const d={arch:'أبي أعرف جسمي بالتفصيل',age:38,sex:'رجل',height:172,weight:84,waist:96,sleep:'٥–٦',active:'١–٢',sweet:'كل يوم',smoke:'لا، أبداً',stress:'كثير',fam:['سكري'],sl_reg:'يتغير كثير',sl_lat:'١٥–٣٠',sl_fresh:'أحياناً',sl_snore:'لا',sl_apnea:'لا',sl_day:'أحياناً',mv_vig:'١',mv_mod:'٢',mv_sit:'٨–١٠',mv_res:'لا',nu_veg:'١',nu_fruit:'١',nu_meat:'٣–٥',nu_fish:'١',nu_out:'٣–٥',nu_dates:'١–٣',ps1:'أحياناً',ps2:'كثير',ps3:'أحياناً',phq1:'كم يوم',phq2:'كم يوم',phq3:'كم يوم',phq4:'أكثر من نص الأيام',phq5:'أبداً',phq6:'أبداً',phq7:'كم يوم',phq8:'أبداً',phq9:'أبداً',gad1:'كم يوم',gad2:'أبداً',lo1:'نادراً',lo2:'نادراً',lo3:'أحياناً',dx:['ولا واحد'],meds:['لا'],last:'أكثر من سنتين',bp:'ما أدري',goals:['طاقة أكثر','وزن','نوم'],m_conf:'عالية',m_firm:'أغلب الأوقات',m_keep:'أغلب الأوقات',m_energy:'نعم، شوي',m_noct:'مرة'}; for(const k in d) if(A[k]===undefined) A[k]=d[k]; if(!S.vitals.sbp) S.vitals={sbp:128,dbp:82,hr:74,spo2:97,wt:84,wa:96,neck:40,grip:42}; }
 backBtn.onclick=()=>{ if(S.step===1&&S.qi>0){S.qi--;renderQuick()} else if(S.step===3&&S.di>0){S.di--;renderDeep()} else if(S.step>0){GO[S.step-1]()} };
 const jump=$('#jump'); STAGES.forEach((s,i)=>{const o=document.createElement('option');o.value=i;o.textContent=n2a(i)+'. '+s;jump.appendChild(o)});
 jump.onchange=e=>{const i=+e.target.value; if(isNaN(i)||e.target.value==='')return; if(i>=2) ensureDefaults(); GO[i](); e.target.value=''};
