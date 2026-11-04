@@ -650,6 +650,12 @@ const APP_FEATURES=[
   ['doc','محادثة مع فريقك','{تكلم|تكلمي} طبيبك وفريق رعايتك في التطبيق، بالصور والملفات'],
   ['chart','مساعد ول. الذكي','{اسأل|اسألي} أي سؤال صحي، ويتابع معك بعد ما تسجل عرض أو مزاج'],
   ['home','العائلة','{أضف|أضيفي} أهلك في نفس الحساب و{تابع|تابعي} رعايتهم']];
+const MIND=[
+  {id:'mind_start',  tier:'Start',  price:99,  what:'رسائل غير محدودة مع مختصك النفسي، وجلستين في السنة، وموعد خلال ٤٨ ساعة'},
+  {id:'mind_plus',   tier:'Plus',   price:199, what:'٦ جلسات في السنة مع مختص ثابت، وتقييم شامل، وموعد خلال ٢٤ ساعة'},
+  {id:'mind_control',tier:'Control',price:399, what:'جلسة كل شهر مع نفس المختص، وإعادة التقييم كل ٣ أشهر، ومتابعة طبيب نفسي لو احتجت'}];
+function mindSuggest(){ const m=mental(); const lvl=Math.max(m.rows[0][1][0],m.rows[1][1][0]);
+  if(lvl>=3) return MIND[2]; if(lvl===2) return MIND[1]; if(lvl===1||m.rows[2][1][0]>=1||m.rows[3][1][0]>=1||m.rows[4][1][0]>=1) return MIND[0]; return null; }
 const FREE_REPORTS=[['مقاومة الإنسولين','HOMA-IR والسكر التراكمي'],['النشاط والحيوية','الحديد والغدة وفيتامين د'],['تساقط الشعر','الزنك والحديد وB12 والغدة'],['الفيتامينات والمعادن','د، B12، زنك، مغنيسيوم، حديد']];
 function addonSuggest(){
   const f=A.fam||[]; const sc=Object.fromEntries(scores().map(x=>[x[0],x[1]]));
@@ -854,6 +860,7 @@ function s0(){ setStage(0,0);
       ${svc('صحة المرأة','٩ هرمونات، ٤٩٩ ريال')}
       ${svc('القلب المتقدم','ApoB وLp(a)، ٥٩٩ ريال')}
       ${svc('التوتر والنوم','كورتيزول وDHEA-S، ١٤٩ ريال')}
+      ${svc('Well Mind','باقة نفسية شهرية، تظهر لك بعد أسئلة راحة البال، من ٩٩ ريال/شهر')}
     </div>
     <h3 style="font-size:17px;margin:16px 0 10px">مشمول في عضويتك: ٤ تقارير تركيز</h3>
     <div class="svcs">
@@ -865,7 +872,6 @@ function s0(){ setStage(0,0);
     <h3 style="font-size:17px;margin:16px 0 10px">وإذا احتجت أكثر، خدمات ول.</h3>
     <div class="svcs">
       ${svc('التغذية','خطة غذائية مع أخصائي')}
-      ${svc('الدعم النفسي','جلسات مع فريقنا النفسي')}
       ${svc('المحاليل الوريدية','بعد تقييم الطبيب فقط')}
       ${svc('الجينوم','بصمتك الجينية',true)}
     </div>
@@ -1022,15 +1028,20 @@ function mentalCard(){ const m=mental(); const cls=l=>l===0?'good':l===1?'warn':
   <div class="card">${m.rows.map(r=>`<div class="score"><div><div class="name">${r[0]}: <span class="mh-${cls(r[1][0])}">${r[1][1]}</span></div><div class="sub">${r[1][2]}</div></div><span class="pill ${cls(r[1][0])}">${r[1][0]===0?'مثالي':r[1][0]===1?'للمتابعة':'يحتاج انتباه'}</span></div>`).join('')}</div>
   <div class="card prog ${m.prog.cls}"><div class="prog-k">البرنامج المناسب لك</div><h3 style="margin:2px 0 8px">${m.prog.name}</h3>
     <ul class="list">${m.prog.what.map(x=>`<li>${x}</li>`).join('')}</ul>
-    ${m.prog.lab?`<p class="small" style="margin:8px 0 0"><b>ومن دمك:</b> ${m.prog.lab}</p>`:''}
-    <p class="small" style="margin:8px 0 0">مشمول في عضوية طال عمرك مع فريق ول. النفسي.</p></div>`; }
+    ${m.prog.lab?`<p class="small" style="margin:8px 0 0"><b>ومن دمك:</b> ${m.prog.lab}</p>`:''}</div>
+  ${(()=>{const t=mindSuggest(); if(!t) return `<p class="small" style="margin:4px 0 0">تمارين التنفس والتأمل وتسجيل المزاج في التطبيق مشمولة في عضويتك.</p>`;
+    const on=(S.addons||[]).includes(t.id);
+    return `<div class="ao sug${on?' on':''}" data-id="${t.id}"><div class="ao-h"><div><b>Well Mind ${t.tier}</b><em>مقترحة لك</em></div><span class="ao-p">${n2a(t.price)} ريال/شهر</span></div>
+    <p class="ao-w">${t.what}</p><p class="ao-t">باقة نفسية منفصلة عن العضوية، اشتراك شهري {تلغيه|تلغينه} متى ما {تبي|تبين}. المختص يشوف جواباتك هنا قبل أول جلسة.</p>
+    <button class="btn ${on?'primary':'ghost'} ao-b">${on?'انضافت ✓':'أضفها'}</button></div>`})()}`; }
 function s4(){ setStage(4,48); const sc=scores(); const g=sc.filter(x=>x[1]==='good').length;
   html(`<h1>تقريرك المجاني${NM()}</h1><p class="why">${n2a(sc.length)} مؤشر من جواباتك، ${n2a(g)} منها في المدى الصحي. هذي الأشياء اللي {تقدر تغيّرها|تقدرين تغيّرينها}، والدم يبيّن لك أثرها.</p>
   <div class="card">${sc.filter(x=>!MH_KEYS.includes(x[0])).map(x=>`<div class="score"><div><div class="name">${x[0]}</div><div class="sub">${x[2]}</div></div><span class="pill ${x[1]}">${x[1]==='good'?'مثالي':x[1]==='warn'?'للمتابعة':'يحتاج انتباه'}</span></div>`).join('')}</div>
   ${mentalCard()}
   <button class="btn primary" id="join">{انضم|انضمي} إلى عضوية طال عمرك من ول.</button>`);
-  $('#join').onclick=s5;
+  $('#join').onclick=s5; bindAddonBtns(s4);
 }
+function bindAddonBtns(rerender){ screen.querySelectorAll('.ao-b').forEach(b=>b.onclick=e=>{const id=e.target.closest('.ao').dataset.id; S.addons=S.addons||[]; S.addons=S.addons.includes(id)?S.addons.filter(x=>x!==id):[...S.addons,id]; const first=ADDONS.find(x=>S.addons.includes(x.id)); S.chosenAddon=first?first.name:null; const y=scrollY; rerender(); scrollTo(0,y)}); }
 function s5(){ setStage(5,58); const ad=addonSuggest(); const first=(A.goals||[])[0]||'';
   html(`<span class="tag">عضوية طال عمرك</span><h1>{انضم|انضمي} إلى عضوية طال عمرك${NM()}</h1><h2 style="margin:0 0 6px;font-size:20px">عمرك الحقيقي من دمك، ورعايتك من بيتك.</h2><p class="why">اعرف عمرك الصحي اليوم، وشوفه يتحسن شهر بعد شهر: ١٠١ مؤشر، فحصين في السنة، طبيب يشرح لك ويكتب خطتك، وفريق طبي يجيك البيت.</p>
   <p>على حسب جواباتك، هذي الفئات اللي نبدأ فيها: <b>${[first?('هدفك: '+first):'',A.sex==='رجل'?'القلب والدهون':'الحديد والفيتامينات','السكر والأيض','عمرك البيولوجي'].filter(Boolean).join('، ')}</b>.</p>
@@ -1043,14 +1054,17 @@ function s5(){ setStage(5,58); const ad=addonSuggest(); const first=(A.goals||[]
     <div class="ao-h"><div><b>${x.name}</b>${sug?'<em>مقترحة لك</em>':''}</div><span class="ao-p">${n2a(x.price)} ريال</span></div>
     <p class="ao-w">${x.when}</p><p class="ao-t">${x.tests}</p>
     <button class="btn ${on?'primary':'ghost'} ao-b">${on?'انضافت ✓':'أضفها'}</button></div>`}).join('')}
+  ${(()=>{const t=mindSuggest(); if(!t) return ''; const on=(S.addons||[]).includes(t.id); return `<div class="ao sug${on?' on':''}" data-id="${t.id}"><div class="ao-h"><div><b>Well Mind ${t.tier}</b><em>مقترحة لك</em></div><span class="ao-p">${n2a(t.price)} ريال/شهر</span></div>
+    <p class="ao-w">${t.what}</p><p class="ao-t">باقة نفسية منفصلة، اشتراك شهري {تلغيه|تلغينه} متى ما {تبي|تبين}.</p>
+    <button class="btn ${on?'primary':'ghost'} ao-b">${on?'انضافت ✓':'أضفها'}</button></div>`})()}
   <div class="card free"><h3 style="margin-top:0">مشمول في عضويتك، بدون زيادة</h3><p class="small">٤ تقارير تركيز من نفس السحب، يفعّلها طبيبك لما يشوف إنك {تحتاجها|تحتاجينها}:</p>
     <div class="fr">${FREE_REPORTS.map(r=>`<div><b>${r[0]}</b><span>${r[1]}</span></div>`).join('')}</div></div>
   <div class="card free"><h3 style="margin-top:0">وتطبيق ول. كامل، مشمول</h3><p class="small">عضويتك تفتح لك كل التطبيق طول السنة:</p>
     <div class="appf">${APP_FEATURES.map(f=>`<div><b>${f[1]}</b><span>${f[2]}</span></div>`).join('')}</div></div>
-  ${(()=>{const sel=ADDONS.filter(x=>(S.addons||[]).includes(x.id)); const tot=1999+sel.reduce((a,x)=>a+x.price,0); return sel.length?`<div class="card tot"><div class="tot-r"><span>عضوية طال عمرك</span><span>١٩٩٩</span></div>${sel.map(x=>`<div class="tot-r"><span>${x.name}</span><span>${n2a(x.price)}</span></div>`).join('')}<div class="tot-r sum"><span>المجموع</span><span>${n2a(tot)} ريال</span></div><p class="small" style="margin:6px 0 0">أو ٤ دفعات، كل دفعة ${n2a(Math.ceil(tot/4))} ريال</p></div>`:''})()}
+  ${(()=>{const sel=ADDONS.filter(x=>(S.addons||[]).includes(x.id)); const mind=MIND.find(x=>(S.addons||[]).includes(x.id)); const tot=1999+sel.reduce((a,x)=>a+x.price,0); return (sel.length||mind)?`<div class="card tot"><div class="tot-r"><span>عضوية طال عمرك</span><span>١٩٩٩</span></div>${sel.map(x=>`<div class="tot-r"><span>${x.name}</span><span>${n2a(x.price)}</span></div>`).join('')}<div class="tot-r sum"><span>المجموع السنوي</span><span>${n2a(tot)} ريال</span></div><p class="small" style="margin:6px 0 0">أو ٤ دفعات، كل دفعة ${n2a(Math.ceil(tot/4))} ريال</p>${mind?`<div class="tot-r" style="margin-top:8px;border-top:1px solid var(--line);padding-top:9px"><span>Well Mind ${mind.tier}، اشتراك منفصل</span><span>${n2a(mind.price)} ريال/شهر</span></div>`:''}</div>`:''})()}
   <button class="btn primary" id="book">{فعّل عضويتك واحجز|فعّلي عضويتك واحجزي} زيارتك</button>
   <p class="small" style="margin-top:10px">طال عمرك… مو كلمة تنقال وبس، هي أسلوب حياة.</p>`);
-  screen.querySelectorAll('.ao-b').forEach(b=>b.onclick=e=>{const id=e.target.closest('.ao').dataset.id; S.addons=S.addons||[]; S.addons=S.addons.includes(id)?S.addons.filter(x=>x!==id):[...S.addons,id]; S.chosenAddon=S.addons.length?ADDONS.find(x=>x.id===S.addons[0]).name:null; const y=scrollY; s5(); scrollTo(0,y)}); $('#book').onclick=s6;
+  bindAddonBtns(s5); $('#book').onclick=s6;
 }
 function s6(){ setStage(6,66); const days=['السبت ٢٥ أكتوبر','الأحد ٢٦ أكتوبر','الاثنين ٢٧ أكتوبر','الثلاثاء ٢٨ أكتوبر']; const slots=['٦:٣٠ ص','٧:٣٠ ص','٨:٣٠ ص','٩:٣٠ ص'];
   html(`<h1>نجيك البيت</h1><p class="why">{اختر|اختاري} اليوم والوقت اللي يناسبك. صيام ٨ ساعات بس، والماء مسموح.</p>
@@ -1151,7 +1165,7 @@ function s9(){ setStage(9,92); const R=results(); const flagged=R.cats.flatMap(c
   while(pri.length<3) pri.push([['قوة العضل','تمرينين مقاومة بالأسبوع','قوة القبضة وCK بعد ٦ شهور'],['الأكل','حصتين خضار كل يوم','MEDAS بعد ٦ شهور'],['الماء','٨ أكواب كل يوم','كثافة البول بعد ٦ شهور']][pri.length]);
   html(`<h1>خطتك${NM()}: ٣ أشياء بس هالشهر</h1><p class="why">د. فيصل، طبيب ول.: ${n2a(flagged.length)} مؤشر يبي متابعة من ${n2a(101)}، وكل أولوية لها مؤشر نرجع نقيسه.</p>
   ${pri.slice(0,3).map((p,i)=>`<div class="card"><h3>${n2a(i+1)}. ${p[0]}</h3><p>${p[1]}</p><p class="small" style="margin-top:6px">نقيسه: ${p[2]}</p></div>`).join('')}
-  ${(S.addons||[]).length?`<div class="card"><h3>${(S.addons||[]).length>1?'إضافاتك':'إضافة'} ${ADDONS.filter(x=>S.addons.includes(x.id)).map(x=>x.name).join(' و')}</h3><p class="small">نتايجها مع الطبيب بنفس المكالمة.</p></div>`:''}
+  ${ADDONS.some(x=>(S.addons||[]).includes(x.id))?`<div class="card"><h3>${ADDONS.filter(x=>S.addons.includes(x.id)).length>1?'إضافاتك':'إضافة'} ${ADDONS.filter(x=>S.addons.includes(x.id)).map(x=>x.name).join(' و')}</h3><p class="small">نتايجها مع الطبيب بنفس المكالمة.</p></div>`:''}
   <h2>خدمات ول. المقترحة لك</h2><p class="why">طبيبك اختارها من نتايجك. كل خدمة لها مؤشر نرجع نقيسه بعد ٦ شهور.</p>
   ${services(R).map((x,i)=>`<div class="svc"><div><div class="t">${x[0]}</div><div class="d">${x[1]}</div><span class="why">ليش: ${x[2]}</span></div><div class="p"><b>${x[3]}</b><small>${x[4]}</small><button data-i="${i}">${x[3]==='بعد التقييم'?'اسأل طبيبك':'احجز'}</button></div></div>`).join('')}
   <div class="card"><h3>كلمة من طبيبك</h3><p class="small">"أرقامك أحسن من اللي {تتوقع|تتوقعين} في أشياء، وفيها ثلاث فرص واضحة. بنشوف الفرق بعد ستة شهور، مو بعد سنة."</p></div>
