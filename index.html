@@ -366,6 +366,13 @@ h1{font-size:30px;line-height:1.35;font-family:var(--font-head);font-weight:700}
 .closing>p:first-child{font-family:var(--font-head);font-size:19px;line-height:1.7;color:var(--ink);max-width:28ch;margin:0 auto 10px}
 .cl-wm .wm{font-size:34px}
 
+/* checkout */
+.tot .tot-r>span:last-child{white-space:nowrap}
+.opt.pm{text-align:start}.opt.pm b{font-size:15.5px}
+.paytoday .tot-r{display:flex;justify-content:space-between;align-items:baseline;font-size:15px;color:var(--ink-2)}
+.paytoday .tot-r b{font-family:var(--font-num);font-size:26px;color:#fff}
+.ct-chk u{text-decoration-color:rgba(255,255,255,.4);text-underline-offset:3px}
+
 /* chapters and findings */
 .chap{display:flex;gap:4px;margin:0 0 6px}
 .chap i{flex:1;height:5px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden;display:block}
@@ -1247,12 +1254,44 @@ function s5(){ setStage(5,58); const ad=addonSuggest(); const first=(A.goals||[]
     <button class="btn ${on?'primary':'ghost'} ao-b">${on?'انضافت ✓':'أضفها'}</button></div>`})()}
   <div class="card free"><h3 style="margin-top:0">مشمول في عضويتك، بدون زيادة</h3><p class="small">4 تقارير تركيز من نفس السحب، يفعّلها طبيبك لما يشوف إنك {تحتاجها|تحتاجينها}:</p>
     <div class="fr">${FREE_REPORTS.map(r=>`<div><b>${r[0]}</b><span>${r[1]}</span></div>`).join('')}</div></div>
-  <div class="card free"><h3 style="margin-top:0">كل تطبيقاتك الصحية في تطبيق واحد، مجاناً</h3><p class="small">اللي {تدفع|تدفعين} عليه اشتراكات في تطبيقات متفرقة، كله في تطبيق ول. مجاناً. وعضويتك تضيف له نتايج دمك، وWell Age الحقيقي، وخطة طبيبك، وفريق رعايتك:</p>
-    <div class="appf">${APP_FEATURES.map(f=>`<div><b>${f[1]}</b><span>${f[2]}</span></div>`).join('')}</div></div>
-  ${(()=>{const sel=ADDONS.filter(x=>(S.addons||[]).includes(x.id)); const mind=MIND.find(x=>(S.addons||[]).includes(x.id)); const tot=1999+sel.reduce((a,x)=>a+x.price,0); return (sel.length||mind)?`<div class="card tot"><div class="tot-r"><span>عضوية طال عمرك</span><span>1999</span></div>${sel.map(x=>`<div class="tot-r"><span>${x.name}</span><span>${n2a(x.price)}</span></div>`).join('')}<div class="tot-r sum"><span>المجموع السنوي</span><span>${n2a(tot)} ريال</span></div><p class="small" style="margin:6px 0 0">أو 4 دفعات، كل دفعة ${n2a(Math.ceil(tot/4))} ريال</p>${mind?`<div class="tot-r" style="margin-top:8px;border-top:1px solid var(--line);padding-top:9px"><span>باقة Well Mind، اشتراك منفصل</span><span>${n2a(mind.price)} ريال/شهر</span></div>`:''}</div>`:''})()}
-  <button class="btn primary" id="book">{فعّل عضويتك واحجز|فعّلي عضويتك واحجزي} زيارتك</button>
+  <details class="faq" style="margin-bottom:12px"><summary>كل تطبيقاتك الصحية في تطبيق واحد، مجاناً</summary><div style="padding:0 14px 12px"><p class="small">اللي {تدفع|تدفعين} عليه اشتراكات في تطبيقات متفرقة، كله في تطبيق ول. مجاناً. وعضويتك تضيف له نتايج دمك، وWell Age الحقيقي، وخطة طبيبك، وفريق رعايتك:</p>
+    <div class="appf">${APP_FEATURES.map(f=>`<div><b>${f[1]}</b><span>${f[2]}</span></div>`).join('')}</div></div></details>
   <p class="small" style="margin-top:10px">طال عمرك… مو كلمة تنقال وبس، هي أسلوب حياة.</p>`);
-  bindAddonBtns(s5); $('#book').onclick=s6;
+  bindAddonBtns(s5);
+  const o=order(); const sc=document.createElement('div'); sc.id='stickyCta'; sc.className='on';
+  sc.innerHTML=t(`<div class="sp"><b>${n2a(o.tot)} ريال</b><span>${o.sel.length?'العضوية و'+(o.sel.length===1?'إضافة':n2a(o.sel.length)+' إضافات'):'عضوية طال عمرك، سنة كاملة'}${o.mind?'، وWell Mind '+n2a(o.mind.price)+'/شهر':''}</span></div><button>{كمّل|كمّلي} للدفع</button>`);
+  document.body.appendChild(sc); document.body.classList.add('has-sticky','sticky-on'); sc.querySelector('button').onclick=sPay;
+}
+function order(){ const sel=ADDONS.filter(x=>(S.addons||[]).includes(x.id)); const mind=MIND.find(x=>(S.addons||[]).includes(x.id)); return {sel,mind,tot:1999+sel.reduce((a,x)=>a+x.price,0)}; }
+function sPay(){ setStage(5,62); const o=order(); const q4=Math.ceil(o.tot/4); S.pay=S.pay||'card';
+  const M=[['card','بطاقة، مدى أو Apple Pay','دفعة وحدة',o.tot],['tabby','تابي','4 دفعات بدون فوائد، كل دفعة '+n2a(q4)+' ريال',q4],['tamara','تمارا','4 دفعات بدون فوائد، كل دفعة '+n2a(q4)+' ريال',q4]];
+  const today=M.find(m=>m[0]===S.pay)[3]+(o.mind?o.mind.price:0);
+  html(`<span class="hint-eyebrow">الخطوة الأخيرة</span><h1>ملخص طلبك</h1>
+  <div class="card tot"><div class="tot-r"><span><b>عضوية طال عمرك، سنة كاملة</b><br><small>فحصين في بيتك (الثاني بعد 6 شهور)، 101 مؤشر، Well Age من دمك، مكالمتين مع طبيبك، ومدير رعاية باسمك</small></span><span>1999</span></div>
+    ${o.sel.map(x=>`<div class="tot-r"><span><b>إضافة ${x.name}</b><br><small>تُسحب في نفس الزيارة</small></span><span>${n2a(x.price)}</span></div>`).join('')}
+    <div class="tot-r sum"><span>المجموع السنوي</span><span>${n2a(o.tot)} ريال</span></div>
+    ${o.mind?`<div class="tot-r" style="margin-top:8px;border-top:1px solid var(--line);padding-top:9px"><span><b>باقة Well Mind</b><br><small>اشتراك شهري منفصل، يُخصم من بطاقتك كل شهر، و{تلغيه|تلغينه} متى ما {تبي|تبين}</small></span><span>${n2a(o.mind.price)}/شهر</span></div>`:''}
+    <button class="btn ghost" id="edit" style="margin-top:12px;padding:9px;font-size:14px">{عدّل|عدّلي} الإضافات</button></div>
+  <h2>طريقة الدفع</h2>
+  <div class="opts">${M.map(m=>`<button class="opt pm ${S.pay===m[0]?'sel':''}" data-m="${m[0]}"><span><b>${m[1]}</b><br><small style="color:var(--muted)">${m[2]}</small></span><span class="tick">${S.pay===m[0]?'✓':''}</span></button>`).join('')}</div>
+  <div class="card paytoday"><div class="tot-r"><span>{تدفع|تدفعين} اليوم</span><b>${n2a(today)} ريال</b></div>
+    ${S.pay!=='card'?`<p class="small" style="margin:4px 0 0">والباقي على 3 دفعات شهرية، كل دفعة ${n2a(q4)} ريال${o.mind?'. باقة Well Mind تُخصم من بطاقتك':''}.</p>`:''}
+    <p class="small" style="margin:6px 0 0">استرجاع كامل للمبلغ قبل أول سحب.</p></div>
+  <label class="ct-chk"><input type="checkbox" id="agree" ${S.agree?'checked':''}><span>{أوافق|أوافق} على <u>شروط العضوية</u> و<u>سياسة الخصوصية</u></span></label>
+  <button class="btn primary" id="payb" ${S.agree?'':'disabled'}>{ادفع|ادفعي} ${n2a(today)} ريال</button>
+  <p class="small" style="text-align:center;margin-top:10px">نسخة تجريبية: ما فيه دفع فعلي.</p>`);
+  $('#edit').onclick=s5; $('#agree').onchange=e=>{S.agree=e.target.checked; $('#payb').disabled=!S.agree};
+  screen.querySelectorAll('.pm').forEach(b=>b.onclick=()=>{S.pay=b.dataset.m; const y=scrollY; sPay(); scrollTo(0,y)});
+  $('#payb').onclick=sPaid;
+}
+function sPaid(){ setStage(5,65); const o=order();
+  html(`<div class="ringwrap h2ring" style="margin-top:14px"><canvas id="pdCv"></canvas><div class="center"><div class="num" style="font-size:54px">✓</div></div></div>
+  <h1 style="text-align:center;margin-top:8px">حيّاك في طال عمرك</h1>
+  <p class="why" style="text-align:center">عضويتك مفعّلة من اليوم ولمدة سنة. وصلك الإيصال على واتساب.</p>
+  <div class="mcard"><div class="l1"><div class="brand"><span class="en">Well<span style="color:#ACA6E1">.</span></span></div><div class="chip"></div></div><div><div class="name">عضوية طال عمرك</div><div class="big">${A.sex==='امرأة'?'عضوة':'عضو'}، ${n2a(A.age)} سنة</div></div><div class="l3"><span>2026 إلى 2027</span><span>N° 00001</span></div></div>
+  <div class="card"><h3 style="margin-top:0">وش يصير الحين؟</h3><ul class="list"><li>{تحجز|تحجزين} زيارتك الأولى في بيتك، الحين</li><li>مدير رعايتك يكلمك خلال 24 ساعة</li><li>{نزّل|نزّلي} تطبيق ول. و{اربط|اربطي} ساعتك</li>${o.mind?'<li>مختص Well Mind يتواصل معك لتحديد أول جلسة</li>':''}</ul></div>
+  <button class="btn primary" id="book">{احجز|احجزي} زيارتك الأولى</button>`);
+  drawRing($('#pdCv'),0,'good',-0.5); $('#book').onclick=s6;
 }
 function s6(){ setStage(6,66); const days=['السبت 25 أكتوبر','الأحد 26 أكتوبر','الاثنين 27 أكتوبر','الثلاثاء 28 أكتوبر']; const slots=['6:30 ص','7:30 ص','8:30 ص','9:30 ص'];
   html(`<h1>نجيك البيت</h1><p class="why">{اختر|اختاري} اليوم والوقت اللي يناسبك. صيام 8 ساعات بس، والماء مسموح.</p>
