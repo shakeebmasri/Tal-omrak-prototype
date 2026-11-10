@@ -559,34 +559,34 @@ const QUICK=[
  Q('height','طولك؟',null,{type:'slider',min:140,max:210,def:172,unit:'سم'}),
  Q('weight','وزنك تقريباً؟',null,{type:'slider',min:40,max:180,def:84,unit:'كجم'}),
  Q('waist','محيط خصرك؟ إذا ما تدري، تخطّاه ونقيسه لك بالزيارة',null,{type:'slider',min:60,max:150,def:95,unit:'سم',skip:true,why:'الخصر يقول أكثر من الوزن.'}),
- Q('sleep','كم ساعة {تنام|تنامين} فعلياً بالليل، أغلب الأيام؟',['أقل من ٥','٥–٦','٦–٧','٧–٨','أكثر من ٨'],{why:'النوم يبان بالسكر والهرمونات قبل لا يبان على وجهك.'}),
- Q('active','كم يوم في الأسبوع {تتحرك|تتحركين} حركة ترفع نبضك نص ساعة أو أكثر؟',['٠','١–٢','٣–٤','٥+']),
- Q('sweet','كم مرة في الأسبوع {تشرب|تشربين} غازيات أو عصائر محلاة أو مشروبات طاقة؟',['ولا مرة','١–٢','٣–٥','كل يوم','أكثر من مرة في اليوم']),
+ Q('sleep','كم ساعة {تنام|تنامين} فعلياً بالليل، أغلب الأيام؟',['أقل من 5','5–6','6–7','7–8','أكثر من 8'],{why:'النوم يبان بالسكر والهرمونات قبل لا يبان على وجهك.'}),
+ Q('active','كم يوم في الأسبوع {تتحرك|تتحركين} حركة ترفع نبضك نص ساعة أو أكثر؟',['0','1–2','3–4','5+']),
+ Q('sweet','كم مرة في الأسبوع {تشرب|تشربين} غازيات أو عصائر محلاة أو مشروبات طاقة؟',['ولا مرة','1–2','3–5','كل يوم','أكثر من مرة في اليوم']),
  Q('smoke','{تدخن|تدخنين}؟ (سجائر، شيشة، فيب)',['لا، أبداً','تركت','أحياناً','كل يوم'],{why:'بدون حكم، بس عشان نقرا نتايجك صح.'}),
  Q('stress','في آخر شهر، كم مرة {حسيت|حسيتي} إن الأمور أكثر من طاقتك؟',SCALE5),
- Q('fam','أحد من أهلك القريبين (أبوك، أمك، إخوانك) عنده:',['سكري','جلطة قلب أو دماغ قبل سن ٦٠','ضغط','كولسترول عالي','سرطان','فقر دم وراثي','ولا واحد'],{multi:true,why:'ما تقدر تغيّره، بس تقدر تراقبه قبلهم.'}),
+ Q('fam','أحد من أهلك القريبين (أبوك، أمك، إخوانك) عنده:',['سكري','جلطة قلب أو دماغ قبل سن 60','ضغط','كولسترول عالي','سرطان','فقر دم وراثي','ولا واحد'],{multi:true,why:'ما تقدر تغيّره، بس تقدر تراقبه قبلهم.'}),
 ];
 
 const DEEP=[
  {mod:'نومك', why:'ليش نسأل: عشان نفهم نومك، مو بس كم ساعة.'},
  Q('sl_reg','{تنام وتصحى|تنامين وتصحين} في نفس الوقت تقريباً؟',['دايماً','أغلب الأيام','يتغير كثير','ما فيه نظام']),
- Q('sl_lat','كم {تاخذ|تاخذين} لين {تغفى|تغفين}؟',['أقل من ١٥ دقيقة','١٥–٣٠','٣٠–٦٠','أكثر من ساعة']),
+ Q('sl_lat','كم {تاخذ|تاخذين} لين {تغفى|تغفين}؟',['أقل من 15 دقيقة','15–30','30–60','أكثر من ساعة']),
  Q('sl_fresh','{تصحى مرتاح|تصحين مرتاحة}؟',['دايماً','غالباً','أحياناً','نادراً']),
  Q('sl_snore','أحد قال لك إن شخيرك عالي؟',['نعم','لا','ما أدري']),
  Q('sl_apnea','أحد لاحظ {إنك توقف التنفس وأنت نايم|إنك توقفين التنفس وأنتِ نايمة}؟',['نعم','لا','ما أدري']),
  Q('sl_day','{تحس|تحسين} بنعاس أو تعب في النهار حتى لو {نمت|نمتي} زين؟',['كل يوم','أغلب الأيام','أحياناً','نادراً']),
  {mod:'حركتك', why:'ليش نسأل: الحركة تحرّك الأنسولين والدهون والمزاج، كلهم مع بعض.'},
- Q('mv_vig','كم يوم في الأسبوع {تسوي|تسوين} نشاط قوي (جري، كرة، تمرين شديد)؟',['٠','١','٢','٣','٤','٥+']),
- Q('mv_mod','كم يوم {تسوي|تسوين} نشاط متوسط (مشي سريع، سباحة، دراجة)؟',['٠','١','٢','٣','٤','٥+']),
- Q('mv_sit','كم ساعة {تقعد|تقعدين} في اليوم (مكتب، سيارة، جوال، تلفزيون)؟',['أقل من ٤','٤–٦','٦–٨','٨–١٠','أكثر من ١٠']),
- Q('mv_res','{تسوي|تسوين} تمارين مقاومة (أوزان، أجهزة، وزن الجسم)؟',['لا','مرة في الأسبوع','٢–٣','٤+']),
+ Q('mv_vig','كم يوم في الأسبوع {تسوي|تسوين} نشاط قوي (جري، كرة، تمرين شديد)؟',['0','1','2','3','4','5+']),
+ Q('mv_mod','كم يوم {تسوي|تسوين} نشاط متوسط (مشي سريع، سباحة، دراجة)؟',['0','1','2','3','4','5+']),
+ Q('mv_sit','كم ساعة {تقعد|تقعدين} في اليوم (مكتب، سيارة، جوال، تلفزيون)؟',['أقل من 4','4–6','6–8','8–10','أكثر من 10']),
+ Q('mv_res','{تسوي|تسوين} تمارين مقاومة (أوزان، أجهزة، وزن الجسم)؟',['لا','مرة في الأسبوع','2–3','4+']),
  {mod:'أكلك', why:'ليش نسأل: الأكل أكبر شي يحرّك نتايجك في ستة شهور.'},
- Q('nu_veg','كم حصة خضار {تاكل|تاكلين} في اليوم؟ (الحصة = قد كف يدك)',['٠','١','٢','٣+']),
- Q('nu_fruit','وكم حصة فواكه؟',['٠','١','٢','٣+']),
- Q('nu_meat','لحم أحمر أو لحوم مصنعة، كم مرة في الأسبوع؟',['أقل من مرة','١–٢','٣–٥','كل يوم']),
- Q('nu_fish','سمك، كم مرة في الأسبوع؟',['ولا مرة','١','٢','٣+']),
- Q('nu_out','أكل من برا أو توصيل، كم مرة بالأسبوع؟',['أقل من مرة','١–٢','٣–٥','كل يوم','أكثر من مرة في اليوم']),
- Q('nu_dates','التمر، كم حبة في اليوم تقريباً؟',['ولا واحدة','١–٣','٤–٧','أكثر من ٧']),
+ Q('nu_veg','كم حصة خضار {تاكل|تاكلين} في اليوم؟ (الحصة = قد كف يدك)',['0','1','2','3+']),
+ Q('nu_fruit','وكم حصة فواكه؟',['0','1','2','3+']),
+ Q('nu_meat','لحم أحمر أو لحوم مصنعة، كم مرة في الأسبوع؟',['أقل من مرة','1–2','3–5','كل يوم']),
+ Q('nu_fish','سمك، كم مرة في الأسبوع؟',['ولا مرة','1','2','3+']),
+ Q('nu_out','أكل من برا أو توصيل، كم مرة بالأسبوع؟',['أقل من مرة','1–2','3–5','كل يوم','أكثر من مرة في اليوم']),
+ Q('nu_dates','التمر، كم حبة في اليوم تقريباً؟',['ولا واحدة','1–3','4–7','أكثر من 7']),
  {mod:'راحة بالك', why:'ليش نسأل: التوتر والمزاج يبانون بالغدة والسكر والنوم، وجواباتك هنا ما يشوفها إلا طبيبك.'},
  Q('ps1','في آخر شهر، كم مرة {حسيت إنك ما تقدر تتحكم|حسيتي إنك ما تقدرين تتحكمين} في الأشياء المهمة في حياتك؟',SCALE5),
  Q('ps2','كم مرة {حسيت بثقة إنك قادر تتعامل|حسيتي بثقة إنك قادرة تتعاملين} مع مشاكلك؟',SCALE5,{rev:true}),
@@ -613,7 +613,7 @@ const DEEP=[
  {mod:'تاريخك الصحي', why:'ليش نسأل: عشان طبيبك يقرا نتايجك على وضعك أنت، مو على وضع أحد ثاني.'},
  Q('dx','عندك تشخيص من قبل بأي وحدة من هذي؟',['سكري','ما قبل السكري','ضغط','كولسترول','غدة درقية','فقر دم','كبد دهني','تكيس مبايض','ولا واحد'],{multi:true}),
  Q('meds','{تاخذ|تاخذين} أدوية على طول؟',['لا','ضغط','سكر (ميتفورمين)','كولسترول (ستاتين)','غدة','حموضة','أخرى'],{multi:true}),
- Q('last','متى آخر تحليل دم شامل {سويته|سويتيه}؟',['ما عمري','أكثر من سنتين','١–٢ سنة','هذي السنة']),
+ Q('last','متى آخر تحليل دم شامل {سويته|سويتيه}؟',['ما عمري','أكثر من سنتين','1–2 سنة','هذي السنة']),
  Q('bp','{تدري|تدرين} ضغطك عادةً كم؟',['طبيعي','مرتفع','منخفض','ما أدري']),
  Q('w_cycle','دورتك منتظمة؟',['منتظمة','غير منتظمة','انقطعت (سن اليأس)','ما تجي بسبب مانع حمل'],{only:'امرأة'}),
  Q('w_preg','ناوية على حمل السنة الجاية؟',['نعم','لا','ما أدري'],{only:'امرأة'}),
@@ -622,9 +622,9 @@ const DEEP=[
  Q('m_firm','عند الإثارة، كم مرة يكون الانتصاب كافياً للإيلاج؟',['أبداً أو تقريباً أبداً','قليلاً','أحياناً','أغلب الأوقات','دايماً'],{only:'رجل',sk:'men'}),
  Q('m_keep','كم مرة تقدر تحافظ على الانتصاب حتى النهاية؟',['أبداً أو تقريباً أبداً','قليلاً','أحياناً','أغلب الأوقات','دايماً'],{only:'رجل',sk:'men'}),
  Q('m_energy','تحس إن طاقتك أو رغبتك أو قوتك قلّت عن قبل؟',['لا','نعم، شوي','نعم، واضح'],{only:'رجل',sk:'men'}),
- Q('m_noct','تقوم تتبول بالليل أكثر من مرة؟',['لا','مرة','٢–٣','أكثر'],{only:'رجل',sk:'men'}),
+ Q('m_noct','تقوم تتبول بالليل أكثر من مرة؟',['لا','مرة','2–3','أكثر'],{only:'رجل',sk:'men'}),
  {mod:'أهدافك', why:''},
- Q('goals','وش أهم ٣ أشياء {تبي تشتغل|تبين تشتغلين} عليها هالسنة؟',['طاقة أكثر','وزن','نوم','توتر أقل','لياقة وعضل','قلب وسكر','هرمونات وخصوبة','أبي أعرف أرقامي بس'],{multi:true,max:3}),
+ Q('goals','وش أهم 3 أشياء {تبي تشتغل|تبين تشتغلين} عليها هالسنة؟',['طاقة أكثر','وزن','نوم','توتر أقل','لياقة وعضل','قلب وسكر','هرمونات وخصوبة','أبي أعرف أرقامي بس'],{multi:true,max:3}),
 ];
 
 /* ---------- scoring ---------- */
@@ -635,50 +635,50 @@ function lifestyleAge(){
   let bAdj = b<25?-1:b<30?1:b<35?3:5; let wAdj=0;
   if(A.waist&&A.height){const r=A.waist/A.height; wAdj=r>0.6?4:r>0.5?2:0}
   if(wAdj>bAdj) adj.push(['waist',wAdj,'محيط خصرك أعلى من نص طولك','الأنسولين، HOMA-IR، الدهون الثلاثية']); else adj.push(['bmi',bAdj,b<25?'وزنك في المدى الصحي':'وزنك فوق المدى الصحي','الأنسولين، HOMA-IR، الدهون']);
-  const sl=[2.5,1.5,0,-1,2.5][idx('sleep')]; adj.push(['sleep',sl,sl>0?'نومك أقل من ٦ ساعات (أو أكثر من ٩)':'نومك في المدى الصحي','HbA1c، hs-CRP']);
+  const sl=[2.5,1.5,0,-1,2.5][idx('sleep')]; adj.push(['sleep',sl,sl>0?'نومك أقل من 6 ساعات (أو أكثر من 9)':'نومك في المدى الصحي','HbA1c، hs-CRP']);
   const ac=[2.5,0.5,-1.5,-3][idx('active')]; adj.push(['active',ac,ac>0?'حركتك أقل من اللي يحتاجه جسمك':'حركتك ممتازة','HDL، الدهون الثلاثية، الأنسولين']);
   const sw=[-0.5,0,1,2,2][idx('sweet')]; adj.push(['sweet',sw,sw>0?'المشروبات المحلاة في يومك':'{ما تشرب|ما تشربين} مشروبات محلاة','HbA1c، حمض اليوريك، الدهون الثلاثية']);
   const sm=[0,0.5,2,6][idx('smoke')]; adj.push(['smoke',sm,sm>=2?'التدخين':'{ما تدخن|ما تدخنين}','hs-CRP، الدهون، CK']);
   const st=[-0.5,-0.5,0,1.5,1.5][idx('stress')]; adj.push(['stress',st,st>0?'التوتر اللي ما يروح':'توترك تحت السيطرة','hs-CRP، الكورتيزول، الغدة']);
-  const f=A.fam||[]; let fa=0; if(f.includes('سكري'))fa+=1; if(f.includes('جلطة قلب أو دماغ قبل سن ٦٠'))fa+=1.5;
+  const f=A.fam||[]; let fa=0; if(f.includes('سكري'))fa+=1; if(f.includes('جلطة قلب أو دماغ قبل سن 60'))fa+=1.5;
   let total=adj.reduce((s,x)=>s+x[1],0); total=Math.max(-12,Math.min(12,total+fa));
   return {total:Math.round(total*2)/2, adj:adj.sort((p,q)=>q[1]-p[1]), fam:fa};
 }
-const n2a=n=>String(n).replace(/[0-9]/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+const n2a=n=>String(n);
 function scores(){
   const out=[]; const b=bmi();
   const psqi=[idx('sl_lat'),3-idx('sl_fresh'),[3,2,1,0,2][idx('sleep')]].reduce((s,x)=>s+Math.max(0,x),0);
   out.push(['نومك',psqi<=2?'good':psqi<=4?'warn':'act','مؤشر جودة النوم المختصر']);
   const sb=(A.sl_snore==='نعم')+(idx('sl_day')<=1)+(A.sl_apnea==='نعم')+(A.bp==='مرتفع')+(b>35)+(A.age>50)+(A.sex==='رجل');
-  out.push(['تنفسك بالنوم',sb<3?'good':sb<5?'warn':'act','STOP-Bang: '+n2a(sb)+' من ٨']);
+  out.push(['تنفسك بالنوم',sb<3?'good':sb<5?'warn':'act','STOP-Bang: '+n2a(sb)+' من 8']);
   const met=[0,1,2,3,4,5][idx('mv_vig')]*8*30+[0,1,2,3,4,5][idx('mv_mod')]*4*30;
   out.push(['حركتك',met>=1500?'good':met>=600?'warn':'act','IPAQ ≈ '+n2a(met)+' MET-دقيقة/أسبوع']);
   const med=(idx('nu_veg')>=2)+(idx('nu_fruit')>=2)+(idx('nu_meat')<=1)+(idx('nu_fish')>=1)+(idx('nu_out')<=1)+(idx('sweet')<=1)+(idx('nu_dates')===1);
-  out.push(['أكلك',med>=5?'good':med>=3?'warn':'act','MEDAS مُعدَّل: '+n2a(med)+' من ٧']);
+  out.push(['أكلك',med>=5?'good':med>=3?'warn':'act','MEDAS مُعدَّل: '+n2a(med)+' من 7']);
   const pss=idx('stress')+idx('ps1')+(4-idx('ps2'))+(4-idx('ps3'));
-  out.push(['ضغطك النفسي',pss<=5?'good':pss<=9?'warn':'act','PSS-4: '+n2a(pss)+' من ١٦']);
+  out.push(['ضغطك النفسي',pss<=5?'good':pss<=9?'warn':'act','PSS-4: '+n2a(pss)+' من 16']);
   const phq2=idx('phq1')+idx('phq2'); const phq9=phq2+['phq3','phq4','phq5','phq6','phq7','phq8','phq9'].reduce((s,k)=>s+Math.max(0,idx(k)),0);
   out.push(['مزاجك',phq2<3?'good':phq9<10?'warn':'act',phq2<3?'PHQ-2 ضمن الطبيعي':'PHQ-9: '+n2a(phq9)]);
   const gad2=idx('gad1')+idx('gad2'); const gad7=gad2+['gad3','gad4','gad5','gad6','gad7'].reduce((s,k)=>s+Math.max(0,idx(k)),0);
   out.push(['قلقك',gad2<3?'good':gad7<10?'warn':'act',gad2<3?'GAD-2 ضمن الطبيعي':'GAD-7: '+n2a(gad7)]);
   const lo=3+idx('lo1')+idx('lo2')+idx('lo3');
-  out.push(['تواصلك',lo<6?'good':'warn','UCLA-3: '+n2a(lo)+' من ٩']);
+  out.push(['تواصلك',lo<6?'good':'warn','UCLA-3: '+n2a(lo)+' من 9']);
   let fr=(A.age<45?0:A.age<55?2:A.age<65?3:4)+(b<25?0:b<30?1:3)+(A.waist?(A.sex==='رجل'?(A.waist<94?0:A.waist<102?3:4):(A.waist<80?0:A.waist<88?3:4)):0)+(idx('active')===0?2:0)+(idx('nu_veg')<1?1:0)+((A.meds||[]).includes('ضغط')?2:0)+((A.dx||[]).includes('ما قبل السكري')?5:0)+((A.fam||[]).includes('سكري')?3:0);
-  out.push(['خطر السكري',fr<7?'good':fr<12?'warn':'act','FINDRISC: '+n2a(fr)+' من ٢٦']);
+  out.push(['خطر السكري',fr<7?'good':fr<12?'warn':'act','FINDRISC: '+n2a(fr)+' من 26']);
   const le8=Math.round(([0,0.5,1,1][Math.min(3,idx('smoke'))]===0?100:idx('smoke')===1?75:idx('smoke')===2?50:0)*.25+([0,25,60,100][idx('active')])*.25+([25,50,75,100,75][idx('sleep')])*.25+(Math.min(100,med*14))*.25);
-  out.push(['قلبك (نصف LE8)',le8>=80?'good':le8>=50?'warn':'act','Life\'s Essential 8: '+n2a(le8)+' من ١٠٠، النصف الثاني من الدم']);
+  out.push(['قلبك (نصف LE8)',le8>=80?'good':le8>=50?'warn':'act','Life\'s Essential 8: '+n2a(le8)+' من 100، النصف الثاني من الدم']);
   out.push(['التدخين',idx('smoke')<=1?'good':idx('smoke')===2?'warn':'act',idx('smoke')===3?'اعتماد يومي':idx('smoke')===2?'أحياناً':'لا تدخن']);
-  if(A.sex==='رجل'&&A.m_conf){const ii=['m_conf','m_firm','m_keep'].reduce((s,k)=>s+idx(k)+1,0)*5/3; out.push(['صحة الرجل',ii>=21?'good':ii>=17?'warn':'act','IIEF-5 تقريبي: '+n2a(Math.round(ii))+' من ٢٥، يشوفه طبيبك فقط'])}
+  if(A.sex==='رجل'&&A.m_conf){const ii=['m_conf','m_firm','m_keep'].reduce((s,k)=>s+idx(k)+1,0)*5/3; out.push(['صحة الرجل',ii>=21?'good':ii>=17?'warn':'act','IIEF-5 تقريبي: '+n2a(Math.round(ii))+' من 25، يشوفه طبيبك فقط'])}
   return out;
 }
 const ADDONS=[
-  {id:'men',  name:'صحة الرجل',   price:499, when:'للرجال فوق ٣٥، أو إذا الطاقة والرغبة والخصوبة من أهدافك', tests:'تستوستيرون كلي وحر، SHBG، LH، FSH، برولاكتين، إستراديول، DHEA-S، وPSA من ٤٥', sex:'رجل'},
-  {id:'women',name:'صحة المرأة',  price:499, when:'لو الدورة غير منتظمة، أو الخصوبة هدفك، أو عمرك فوق ٤٠', tests:'إستراديول، بروجستيرون، FSH، LH، برولاكتين، تستوستيرون، DHEA-S، وأجسام الغدة. وAMH لو الخصوبة هدفك', sex:'امرأة'},
+  {id:'men',  name:'صحة الرجل',   price:499, when:'للرجال فوق 35، أو إذا الطاقة والرغبة والخصوبة من أهدافك', tests:'تستوستيرون كلي وحر، SHBG، LH، FSH، برولاكتين، إستراديول، DHEA-S، وPSA من 45', sex:'رجل'},
+  {id:'women',name:'صحة المرأة',  price:499, when:'لو الدورة غير منتظمة، أو الخصوبة هدفك، أو عمرك فوق 40', tests:'إستراديول، بروجستيرون، FSH، LH، برولاكتين، تستوستيرون، DHEA-S، وأجسام الغدة. وAMH لو الخصوبة هدفك', sex:'امرأة'},
   {id:'heart',name:'القلب المتقدم',price:599, when:'لو في تاريخ عائلي لجلطات مبكرة، أو تدخين، أو سكري، أو كولسترول عالي', tests:'ApoB، Lp(a)، وهوموسيستين. Lp(a) مرة وحدة بالعمر'},
-  {id:'stress',name:'التوتر والنوم',price:149, when:'لو توترك عالي أو نومك مو زين، أو تحس بالاحتراق', tests:'كورتيزول الصباح وDHEA-S، ويُسحب قبل ٩ الصباح'}];
+  {id:'stress',name:'التوتر والنوم',price:149, when:'لو توترك عالي أو نومك مو زين، أو تحس بالاحتراق', tests:'كورتيزول الصباح وDHEA-S، ويُسحب قبل 9 الصباح'}];
 const APP_FEATURES=[
   ['chart','Well Age وعلاماتك الحيوية','عمرك البيولوجي مع تفصيله وتاريخه، والتعافي والنوم ونبض القلب من ساعتك'],
-  ['home','ساعتك متصلة','Apple Health وWHOOP وOura وGarmin وFitbit وWithings، و٢٣ مصدر غيرها'],
+  ['home','ساعتك متصلة','Apple Health وWHOOP وOura وGarmin وFitbit وWithings، و23 مصدر غيرها'],
   ['doc','نتايجك في جيبك','كل تحاليلك ووصفاتك وتقاريرك في سجلك الطبي، وتشاركها مع طبيب بثواني'],
   ['drop','أكلك بصورة','{صوّر|صوّري} وجبتك والتطبيق يحسب السعرات والبروتين'],
   ['chart','مدرب الجيم','خطة تمارين لك، وجلسات موجّهة بمؤقت راحة'],
@@ -688,9 +688,9 @@ const APP_FEATURES=[
   ['chart','مساعد ول. الذكي','{اسأل|اسألي} أي سؤال صحي، ويتابع معك بعد ما تسجل عرض أو مزاج'],
   ['home','العائلة','{أضف|أضيفي} أهلك في نفس الحساب و{تابع|تابعي} رعايتهم']];
 const MIND=[
-  {id:'mind_start',  tier:'Start',  price:99,  what:'رسائل غير محدودة مع مختصك النفسي، وجلستين في السنة، وموعد خلال ٤٨ ساعة'},
-  {id:'mind_plus',   tier:'Plus',   price:199, what:'٦ جلسات في السنة مع مختص ثابت، وتقييم شامل، وموعد خلال ٢٤ ساعة'},
-  {id:'mind_control',tier:'Control',price:399, what:'جلسة كل شهر مع نفس المختص، وإعادة التقييم كل ٣ أشهر، ومتابعة طبيب نفسي لو احتجت'}];
+  {id:'mind_start',  tier:'Start',  price:99,  what:'رسائل غير محدودة مع مختصك النفسي، وجلستين في السنة، وموعد خلال 48 ساعة'},
+  {id:'mind_plus',   tier:'Plus',   price:199, what:'6 جلسات في السنة مع مختص ثابت، وتقييم شامل، وموعد خلال 24 ساعة'},
+  {id:'mind_control',tier:'Control',price:399, what:'جلسة كل شهر مع نفس المختص، وإعادة التقييم كل 3 أشهر، ومتابعة طبيب نفسي لو احتجت'}];
 function mindSuggest(){ const m=mental(); const lvl=Math.max(m.rows[0][1][0],m.rows[1][1][0]);
   if(lvl>=3) return MIND[2]; if(lvl===2) return MIND[1]; if(lvl===1||m.rows[2][1][0]>=1||m.rows[3][1][0]>=1||m.rows[4][1][0]>=1) return MIND[0]; return null; }
 const FREE_REPORTS=[['مقاومة الإنسولين','HOMA-IR والسكر التراكمي'],['النشاط والحيوية','الحديد والغدة وفيتامين د'],['تساقط الشعر','الزنك والحديد وB12 والغدة'],['الفيتامينات والمعادن','د، B12، زنك، مغنيسيوم، حديد']];
@@ -698,7 +698,7 @@ function addonSuggest(){
   const f=A.fam||[]; const sc=Object.fromEntries(scores().map(x=>[x[0],x[1]]));
   if(A.sex==='رجل'&&(A.age>=35||sc['صحة الرجل']!=='good'||(A.goals||[]).includes('هرمونات وخصوبة'))) return ['صحة الرجل','تستوستيرون، SHBG، LH، FSH، برولاكتين، DHEA-S'];
   if(A.sex==='امرأة'&&(A.w_cycle==='غير منتظمة'||A.w_preg==='نعم'||A.age>=40)) return ['صحة المرأة','إستراديول، بروجستيرون، FSH، LH، AMH، أجسام الغدة'];
-  if(f.includes('جلطة قلب أو دماغ قبل سن ٦٠')||idx('smoke')===3) return ['القلب المتقدم','ApoB، Lp(a)، هوموسيستين'];
+  if(f.includes('جلطة قلب أو دماغ قبل سن 60')||idx('smoke')===3) return ['القلب المتقدم','ApoB، Lp(a)، هوموسيستين'];
   if(sc['ضغطك النفسي']!=='good'||sc['نومك']!=='good') return ['التوتر والنوم','كورتيزول الصباح، DHEA-S'];
   return A.sex==='رجل'?['صحة الرجل','تستوستيرون، SHBG، LH، FSH، برولاكتين، DHEA-S']:['صحة المرأة','إستراديول، بروجستيرون، FSH، LH، AMH، أجسام الغدة'];
 }
@@ -731,11 +731,11 @@ function labsArc(g,w,a){ const N=g+w+a, segs=40, r=120, cx=150, cy=150; const ou
   return `<svg class="arc" viewBox="0 0 300 170" aria-hidden="true">${out.join('')}<text x="150" y="128" text-anchor="middle" font-size="44" font-weight="700">${n2a(N)}</text><text x="150" y="152" text-anchor="middle" font-size="12" style="fill:var(--muted)">مؤشر من دمك</text></svg>`;
 }
 
-function countUp(el,from,to,ms=1200,dec=0){const t0=performance.now();const step=t=>{const k=Math.min(1,(t-t0)/ms);const e=1-Math.pow(1-k,3);el.textContent=n2a((from+(to-from)*e).toFixed(dec)).replace('.','٫');if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
+function countUp(el,from,to,ms=1200,dec=0){const t0=performance.now();const step=t=>{const k=Math.min(1,(t-t0)/ms);const e=1-Math.pow(1-k,3);el.textContent=n2a((from+(to-from)*e).toFixed(dec));if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
 function gauge(total){ // semicircle -12..+12
   const r=120,cx=150,cy=150; const ang=a=>a*Math.PI/180; const pt=a=>[cx+r*Math.cos(ang(a)),cy+r*Math.sin(ang(a))];
   const [x0,y0]=pt(180),[x1,y1]=pt(0); const L=Math.PI*r; const k=(total+12)/24; const deg=180+k*180;
-  return `<svg class="gauge" viewBox="0 0 300 165" aria-hidden="true"><path class="track" d="M${x0} ${y0} A${r} ${r} 0 0 1 ${x1} ${y1}"/><path class="fill" id="gf" d="M${x0} ${y0} A${r} ${r} 0 0 1 ${x1} ${y1}" stroke-dasharray="0 ${L}"/><line class="needle" id="gn" x1="150" y1="150" x2="150" y2="${150-r+22}" style="transform:rotate(-90deg)"/><circle cx="150" cy="150" r="6" fill="#fff"/><text x="22" y="160" text-anchor="middle">أصغر بـ١٢</text><text x="150" y="20" text-anchor="middle">عمرك</text><text x="278" y="160" text-anchor="middle">أكبر بـ١٢</text></svg>`;
+  return `<svg class="gauge" viewBox="0 0 300 165" aria-hidden="true"><path class="track" d="M${x0} ${y0} A${r} ${r} 0 0 1 ${x1} ${y1}"/><path class="fill" id="gf" d="M${x0} ${y0} A${r} ${r} 0 0 1 ${x1} ${y1}" stroke-dasharray="0 ${L}"/><line class="needle" id="gn" x1="150" y1="150" x2="150" y2="${150-r+22}" style="transform:rotate(-90deg)"/><circle cx="150" cy="150" r="6" fill="#fff"/><text x="22" y="160" text-anchor="middle">أصغر بـ12</text><text x="150" y="20" text-anchor="middle">عمرك</text><text x="278" y="160" text-anchor="middle">أكبر بـ12</text></svg>`;
 }
 function animGauge(total){const r=120,L=Math.PI*r,k=(total+12)/24;setTimeout(()=>{const f=$('#gf'),n=$('#gn');if(f)f.setAttribute('stroke-dasharray',`${L*k} ${L}`);if(n)n.style.transform=`rotate(${-90+k*180}deg)`},60)}
 
@@ -798,7 +798,7 @@ function s0(){ setStage(0,0);
     <h1 class="h2title">كم عمرك فعلاً؟</h1>
     <div class="ringwrap h2ring"><canvas id="landCv"></canvas><div class="center"><div class="qmark">؟</div></div></div>
     <p class="h2sub">فريقٌ طبيٌّ متخصص يقرأ بصمتك الصحية، من فحوصٍ ونمطِ حياة، ليصمّم لك رعايةً تشبهك وحدك.</p>
-    <p class="h2sub2">ابدأ بعمرك الصحي، من جواباتك في ٣ دقايق، مجاناً.</p>
+    <p class="h2sub2">ابدأ بعمرك الصحي، من جواباتك في 3 دقايق، مجاناً.</p>
     <button class="btn primary" id="go">ابدأ الفحص المجاني</button>
     <p class="h2note">بدون دفع وبدون بطاقة</p>
   </section>
@@ -814,7 +814,7 @@ function s0(){ setStage(0,0);
   <section class="sec"><h2 class="sec-h">طولُ العمر الصحي يبدأ من ستة أركان</h2>
     <p class="mf-p" style="margin-bottom:12px">العافية لا يقيسها تحليلٌ واحد. ننظر إليك كاملاً، ونتابع كل ركنٍ منها.</p>
     <div class="pillars">
-      ${pil('الدم والمؤشرات','١٠١ مؤشر وعمرك البيولوجي')}
+      ${pil('الدم والمؤشرات','101 مؤشر وعمرك البيولوجي')}
       ${pil('النوم','جودته وانتظامه')}
       ${pil('الحركة','النشاط وقوة العضلات')}
       ${pil('التغذية','ما تأكله وكيف يؤثر فيك')}
@@ -827,14 +827,14 @@ function s0(){ setStage(0,0);
 
   <section class="sec" id="how"><h2 class="sec-h">كيف تمشي الرحلة</h2>
     <ol class="steps">
-      ${step('١','فحص مجاني في ٣ دقايق','تجاوب على أسئلة بسيطة، ويطلع لك عمرك الصحي من جواباتك')}
-      ${step('٢','تنضم ونجيك البيت','فريق طبي متخصص يسحب العينة ويقيس ضغطك ووزنك وخصرك وقوة قبضتك')}
-      ${step('٣','نتايجك مع طبيبك','خلال ٣ إلى ٥ أيام، وطبيبك يشرحها لك قبل ما تقرأ أي رقم لحالك')}
-      ${step('٤','خطتك ومتابعتك','٣ أولويات تشتغل عليها، ومتابعة شهرية، وسحب ثاني بعد ستة شهور')}
+      ${step('1','فحص مجاني في 3 دقايق','تجاوب على أسئلة بسيطة، ويطلع لك عمرك الصحي من جواباتك')}
+      ${step('2','تنضم ونجيك البيت','فريق طبي متخصص يسحب العينة ويقيس ضغطك ووزنك وخصرك وقوة قبضتك')}
+      ${step('3','نتايجك مع طبيبك','خلال 3 إلى 5 أيام، وطبيبك يشرحها لك قبل ما تقرأ أي رقم لحالك')}
+      ${step('4','خطتك ومتابعتك','3 أولويات تشتغل عليها، ومتابعة شهرية، وسحب ثاني بعد ستة شهور')}
     </ol></section>
 
   <section class="sec" id="incl"><h2 class="sec-h">وش تشمل العضوية</h2>
-    ${row('drop','١٠١ مؤشر من دمك','قلب، سكر، كبد، كلى، غدة، فيتامينات، ومعادن')}
+    ${row('drop','101 مؤشر من دمك','قلب، سكر، كبد، كلى، غدة، فيتامينات، ومعادن')}
     ${row('home','فحصين في السنة في بيتك','فريق طبي متخصص يجيك الآن وبعد ستة شهور، والسحب للسيدات بواسطة ممرضة')}
     ${row('doc','طبيب يشرح لك ويكتب خطتك','مكالمتين مع طبيب مرخّص، ومدير رعاية باسمك طول السنة')}
     ${row('mind','راحة بالك جزء من صحتك','أسئلة عن النوم والمزاج والتوتر، وجلسات مع فريقنا النفسي إذا احتجت')}
@@ -855,36 +855,36 @@ function s0(){ setStage(0,0);
 
   <section class="sec"><h2 class="sec-h">شوف وش بتستلم</h2>
     <div class="bio preview"><div class="eyebrow">مثال توضيحي</div>
-      <div class="ringwrap pv-ring"><canvas id="pvCv"></canvas><div class="center"><div><div class="num" style="font-size:52px">٤٣٫٢</div><div class="cap" style="font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:.14em;color:#fff">WELL AGE</div></div></div></div>
-      <p style="text-align:center;color:#C9B8FF;font-weight:600;margin:4px 0 0">أكبر من عمرك بالهوية (٣٨) بـ٥ سنوات</p>
-      <p class="foot" style="text-align:center">عمرك البيولوجي من ٩ مؤشرات في دمك، و١٠ فئات صحية، وتقرير يشرحه لك طبيبك</p></div>
-    <div class="mk"><div class="mk-h"><b>مؤشراتك الـ١٠١</b><span class="tagm">مثال توضيحي</span></div>
+      <div class="ringwrap pv-ring"><canvas id="pvCv"></canvas><div class="center"><div><div class="num" style="font-size:52px">43.2</div><div class="cap" style="font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:.14em;color:#fff">WELL AGE</div></div></div></div>
+      <p style="text-align:center;color:#C9B8FF;font-weight:600;margin:4px 0 0">أكبر من عمرك بالهوية (38) بـ5 سنوات</p>
+      <p class="foot" style="text-align:center">عمرك البيولوجي من 9 مؤشرات في دمك، و10 فئات صحية، وتقرير يشرحه لك طبيبك</p></div>
+    <div class="mk"><div class="mk-h"><b>مؤشراتك الـ101</b><span class="tagm">مثال توضيحي</span></div>
       <div class="sumbars"><i style="flex:84;background:var(--good)"></i><i style="flex:11;background:#8F6BFF"></i><i style="flex:6;background:var(--warn)"></i></div>
-      <div class="sumleg"><div><b>٨٤</b>ضمن المثالي</div><div><b>١١</b>طبيعي</div><div><b>٦</b>تحتاج متابعة</div></div></div>
+      <div class="sumleg"><div><b>84</b>ضمن المثالي</div><div><b>11</b>طبيعي</div><div><b>6</b>تحتاج متابعة</div></div></div>
   </section>
 
   <section class="sec"><h2 class="sec-h">تابع صحتك مع الوقت</h2>
     <p class="mf-p" style="margin-bottom:4px">سحبين في السنة يعني تشوف الفرق بعينك، مو تخمّن.</p>
     <div class="mk"><div class="mk-h"><b>فيتامين د</b><span class="tagm">مثال توضيحي</span></div>
-      <div class="trend"><div><span>الشهر الأول</span><b style="color:var(--warn)">١٨</b><span>ng/mL منخفض</span></div><div><span>بعد ٦ شهور</span><b style="color:var(--good)">٣٤</b><span>ng/mL ضمن الطبيعي</span></div></div></div>
+      <div class="trend"><div><span>الشهر الأول</span><b style="color:var(--warn)">18</b><span>ng/mL منخفض</span></div><div><span>بعد 6 شهور</span><b style="color:var(--good)">34</b><span>ng/mL ضمن الطبيعي</span></div></div></div>
     <div class="mk"><div class="mk-h"><b>Well Age</b><span class="tagm">مثال توضيحي</span></div>
-      <div class="trend"><div><span>الشهر الأول</span><b>٤٣٫٢</b><span>سنة</span></div><div><span>بعد ٦ شهور</span><b style="color:#C9B8FF">٤١٫٨</b><span>سنة</span></div></div></div>
+      <div class="trend"><div><span>الشهر الأول</span><b>43.2</b><span>سنة</span></div><div><span>بعد 6 شهور</span><b style="color:#C9B8FF">41.8</b><span>سنة</span></div></div></div>
     <p class="small" style="margin-top:8px">أمثلة للتوضيح، والنتائج تختلف من شخص لآخر.</p>
   </section>
 
   <section class="sec" id="after"><h2 class="sec-h">بعد خطتك الصحية، نوجّهك للي تحتاجه</h2>
     <p class="mf-p" style="margin-bottom:14px">الخطة ما تنتهي عند الورق. كل خطوة فيها مبنية على نتايجك، ونمشيها معك طول السنة.</p>
     ${ap('drop','مكمّلاتك','بالجرعة والتوقيت، حسب نتايجك',`<div class="mk">
-      <div class="mrow"><b>فيتامين د٣</b><span>١٠٠٠ وحدة</span><span class="tagm">مع الغداء</span></div>
-      <div class="mrow"><b>أوميغا ٣</b><span>كبسولة</span><span class="tagm">مع العشاء</span></div>
+      <div class="mrow"><b>فيتامين د3</b><span>1000 وحدة</span><span class="tagm">مع الغداء</span></div>
+      <div class="mrow"><b>أوميغا 3</b><span>كبسولة</span><span class="tagm">مع العشاء</span></div>
       <div class="mrow"><b>مغنيسيوم</b><span>كبسولة</span><span class="tagm">قبل النوم</span></div>
       <p class="small" style="margin:8px 0 0">مثال توضيحي، وطبيبك يحدد الجرعة حسب نتايجك.</p></div>`)}
     ${ap('chart','يومك','أكل وحركة ونوم، بخطوات صغيرة تقدر عليها',`<div class="mk">
-      <div class="drow"><b>الصبح</b><span>مشي ٢٠ دقيقة بعد الفطور</span></div>
+      <div class="drow"><b>الصبح</b><span>مشي 20 دقيقة بعد الفطور</span></div>
       <div class="drow"><b>الظهر</b><span>نص صحنك خضار، وبروتين في كل وجبة</span></div>
       <div class="drow"><b>العصر</b><span>تمارين مقاومة مرتين بالأسبوع</span></div>
-      <div class="drow"><b>الليل</b><span>نوم قبل ١١، وبدون جوال آخر ساعة</span></div></div>`)}
-    ${ap('home','فحوصات المتابعة','نعيد اللي يحتاج، ونقيس الفرق',`<div class="mk"><div class="mk-h"><b>سحبك الثاني بعد ٦ شهور</b><span class="tagm ok">مشمول بالعضوية</span></div>
+      <div class="drow"><b>الليل</b><span>نوم قبل 11، وبدون جوال آخر ساعة</span></div></div>`)}
+    ${ap('home','فحوصات المتابعة','نعيد اللي يحتاج، ونقيس الفرق',`<div class="mk"><div class="mk-h"><b>سحبك الثاني بعد 6 شهور</b><span class="tagm ok">مشمول بالعضوية</span></div>
       <div class="mrow"><b>فيتامين د</b><span>كان منخفض</span><span class="tagm lo">نعيده</span></div>
       <div class="mrow"><b>السكر التراكمي</b><span>على الحد</span><span class="tagm lo">نعيده</span></div>
       <div class="mrow"><b>الفيريتين</b><span>كان منخفض</span><span class="tagm lo">نعيده</span></div></div>`)}
@@ -893,13 +893,13 @@ function s0(){ setStage(0,0);
       <div class="bub them"><small>مدير رعايتك</small>نومك أولاً. خلنا نراجع خطتك سوا يوم الخميس؟</div></div>`)}
     <h3 style="font-size:17px;margin:4px 0 10px">إضافات اختيارية، تُسحب في نفس الزيارة</h3>
     <div class="svcs">
-      ${svc('صحة الرجل','٩ هرمونات، ٤٩٩ ريال')}
-      ${svc('صحة المرأة','٩ هرمونات، ٤٩٩ ريال')}
-      ${svc('القلب المتقدم','ApoB وLp(a)، ٥٩٩ ريال')}
-      ${svc('التوتر والنوم','كورتيزول وDHEA-S، ١٤٩ ريال')}
-      ${svc('Well Mind','باقة نفسية شهرية، تظهر لك بعد أسئلة راحة البال، من ٩٩ ريال/شهر')}
+      ${svc('صحة الرجل','9 هرمونات، 499 ريال')}
+      ${svc('صحة المرأة','9 هرمونات، 499 ريال')}
+      ${svc('القلب المتقدم','ApoB وLp(a)، 599 ريال')}
+      ${svc('التوتر والنوم','كورتيزول وDHEA-S، 149 ريال')}
+      ${svc('Well Mind','باقة نفسية شهرية، تظهر لك بعد أسئلة راحة البال، من 99 ريال/شهر')}
     </div>
-    <h3 style="font-size:17px;margin:16px 0 10px">مشمول في عضويتك: ٤ تقارير تركيز</h3>
+    <h3 style="font-size:17px;margin:16px 0 10px">مشمول في عضويتك: 4 تقارير تركيز</h3>
     <div class="svcs">
       ${svc('مقاومة الإنسولين','من نفس السحب، بدون زيادة')}
       ${svc('النشاط والحيوية','من نفس السحب، بدون زيادة')}
@@ -927,25 +927,25 @@ function s0(){ setStage(0,0);
     </tbody></table></div>
   </section>
 
-  <section class="sec"><h2 class="sec-h">الـ١٠١ مؤشر</h2>
-    ${grp('الدم والمناعة والالتهاب','٢١','تعداد الدم الكامل بأنواع الكريات، الصفائح، سرعة الترسيب، CRP، ونسب الالتهاب NLR وPLR وSII')}
-    ${grp('القلب والدهون','١٠','الكولسترول، HDL، LDL، الدهون الثلاثية، الكولسترول غير HDL، ونسب الخطورة')}
-    ${grp('السكر والأيض','٨','السكر الصائم، السكر التراكمي HbA1c، الأنسولين، HOMA-IR، TyG، وحمض اليوريك')}
-    ${grp('الكبد والبنكرياس','١٤','ALT، AST، GGT، ALP، البيليروبين، الألبومين، البروتين، والليباز')}
-    ${grp('الكلى والبول','٢٣','الكرياتينين، eGFR، اليوريا، وتحليل البول الكامل')}
-    ${grp('الأملاح والمعادن','١٤','الصوديوم، البوتاسيوم، الكالسيوم، المغنيسيوم، الفسفور، الزنك، والنحاس')}
-    ${grp('الحديد والفيتامينات','٥','الفيريتين، الحديد، سعة ربط الحديد، ونسبة التشبع، وفيتامين د')}
-    ${grp('الغدة والعضلات وعمرك البيولوجي','٦','TSH، FT4، FT3، إنزيم العضلات CK، وWell Age')}
+  <section class="sec"><h2 class="sec-h">الـ101 مؤشر</h2>
+    ${grp('الدم والمناعة والالتهاب','21','تعداد الدم الكامل بأنواع الكريات، الصفائح، سرعة الترسيب، CRP، ونسب الالتهاب NLR وPLR وSII')}
+    ${grp('القلب والدهون','10','الكولسترول، HDL، LDL، الدهون الثلاثية، الكولسترول غير HDL، ونسب الخطورة')}
+    ${grp('السكر والأيض','8','السكر الصائم، السكر التراكمي HbA1c، الأنسولين، HOMA-IR، TyG، وحمض اليوريك')}
+    ${grp('الكبد والبنكرياس','14','ALT، AST، GGT، ALP، البيليروبين، الألبومين، البروتين، والليباز')}
+    ${grp('الكلى والبول','23','الكرياتينين، eGFR، اليوريا، وتحليل البول الكامل')}
+    ${grp('الأملاح والمعادن','14','الصوديوم، البوتاسيوم، الكالسيوم، المغنيسيوم، الفسفور، الزنك، والنحاس')}
+    ${grp('الحديد والفيتامينات','5','الفيريتين، الحديد، سعة ربط الحديد، ونسبة التشبع، وفيتامين د')}
+    ${grp('الغدة والعضلات وعمرك البيولوجي','6','TSH، FT4، FT3، إنزيم العضلات CK، وWell Age')}
   </section>
 
   <section class="offer" id="price">
     <div class="two"><div class="two-k">فحصين في السنة، مو فحص واحد</div>
-      <div class="two-g"><div><span class="two-n">١</span><b>الفحص الأول</b><span>الشهر الأول: ١٠١ مؤشر، وWell Age</span></div><div class="two-x">+</div><div><span class="two-n">٢</span><b>الفحص الثاني</b><span>بعد ٦ شهور: نعيد اللي يحتاج ونقيس الفرق</span></div></div>
+      <div class="two-g"><div><span class="two-n">1</span><b>الفحص الأول</b><span>الشهر الأول: 101 مؤشر، وWell Age</span></div><div class="two-x">+</div><div><span class="two-n">2</span><b>الفحص الثاني</b><span>بعد 6 شهور: نعيد اللي يحتاج ونقيس الفرق</span></div></div>
       <p class="two-s">كل فحص بزيارة في بيتك ومكالمة مع طبيبك. الاثنين داخل السعر.</p></div>
-    <div class="offer-top"><span class="offer-l">السعر السنوي، للفحصين</span><span class="old">٢١٩٠</span></div>
-    <div class="offer-price"><span class="price">١٩٩٩</span><span>ريال</span></div><div class="perday">أقل من ٦ ريال باليوم، أقل من كوب قهوة</div>
+    <div class="offer-top"><span class="offer-l">السعر السنوي، للفحصين</span><span class="old">2190</span></div>
+    <div class="offer-price"><span class="price">1999</span><span>ريال</span></div><div class="perday">أقل من 6 ريال باليوم، أقل من كوب قهوة</div>
     <div class="value2"><b>ليش الفحصين يفرقون؟</b> الفحص الواحد يقول لك وين أنت اليوم. الفحص الثاني يقول لك إذا خطتك تشتغل. أغلب الباقات تبيعك الفحص الثاني بسعر منفصل، وعندنا داخل العضوية.</div>
-    <p class="offer-s">٤ دفعات مع تابي، كل دفعة ٥٠٠ ريال، وتمارا متاحة</p>
+    <p class="offer-s">4 دفعات مع تابي، كل دفعة 500 ريال، وتمارا متاحة</p>
     <p class="offer-s">استرجاع كامل للمبلغ قبل أول سحب</p>
     <p class="offer-s">متاح حالياً في الرياض</p>
     <button class="btn primary" id="join0">انضم إلى عضوية طال عمرك</button>
@@ -960,23 +960,23 @@ function s0(){ setStage(0,0);
   </section>
 
   <section class="sec" id="faqs"><h2 class="sec-h">أسئلة شائعة</h2>
-    ${faq('لازم أصوم قبل السحب؟','إيه، ٨ ساعات بس، والماء مسموح. نرسل لك التذكير قبل الموعد بيوم وقبله بساعتين.')}
+    ${faq('لازم أصوم قبل السحب؟','إيه، 8 ساعات بس، والماء مسموح. نرسل لك التذكير قبل الموعد بيوم وقبله بساعتين.')}
     ${faq('مين يجي البيت؟','فريق ول. الطبي المتخصص، والسحب للسيدات بواسطة ممرضة. الزيارة ربع ساعة تقريباً.')}
     ${faq('وش يصير وقت السحب؟','عدة أنابيب صغيرة في زيارة قصيرة، وأغلب الناس يحسون بوخزة سريعة بس. ونقيس معها ضغطك ونبضك ووزنك وخصرك وقوة قبضتك.')}
-    ${faq('وش أسوي بعد السحب؟','خلّ اللزقة كم ساعة، واشرب ماء، وأجّل التمرين القوي لبكرة. نتايجك توصلك خلال ٣ إلى ٥ أيام.')}
+    ${faq('وش أسوي بعد السحب؟','خلّ اللزقة كم ساعة، واشرب ماء، وأجّل التمرين القوي لبكرة. نتايجك توصلك خلال 3 إلى 5 أيام.')}
     ${faq('المختبرات والأطباء معتمدين؟','إيه، نتعامل مع مختبرات معتمدة، وأطباؤنا مرخّصون للممارسة في المملكة.')}
     ${faq('وين الخدمة متاحة؟','حالياً في الرياض، ومدن ثانية قريباً.')}
-    ${faq('وش يصير لو نتيجتي ما كانت زينة؟','طبيبك يكلمك ويشرحها لك قبل ما تقرأ أي رقم لحالك، ويكتب لك ٣ أولويات تشتغل عليها، ونرجع نقيسها بعد ستة شهور.')}
+    ${faq('وش يصير لو نتيجتي ما كانت زينة؟','طبيبك يكلمك ويشرحها لك قبل ما تقرأ أي رقم لحالك، ويكتب لك 3 أولويات تشتغل عليها، ونرجع نقيسها بعد ستة شهور.')}
     ${faq('مين يشوف بياناتي؟','طبيبك وفريق رعايتك فقط. بياناتك محفوظة داخل المملكة، وما نستخدمها للتسويق.')}
-    ${faq('هل يغطيه التأمين؟','الدفع حالياً مباشر، مع إمكانية التقسيط على ٤ دفعات مع تابي أو تمارا.')}
+    ${faq('هل يغطيه التأمين؟','الدفع حالياً مباشر، مع إمكانية التقسيط على 4 دفعات مع تابي أو تمارا.')}
     ${faq('كيف أسترجع المبلغ؟','تقدر تطلب استرجاع كامل المبلغ في أي وقت قبل أول سحب.')}
     ${faq('هل يغني عن طبيبي أو الطوارئ؟','لا. طال عمرك رعاية وقائية مكمّلة، ومو بديل عن طبيبك أو الطوارئ.')}
   </section>
 
   <section class="offer" style="margin-top:6px"><h2 class="sec-h" style="margin-bottom:10px">فحصين في السنة، وسنة كاملة معك</h2>
-    <ul class="recap"><li>١٠١ مؤشر من دمك</li><li>فحصين في بيتك، الثاني مشمول</li><li>طبيب يكتب خطتك</li><li>مدير رعاية باسمك</li></ul>
-    <div class="offer-price"><span class="price">١٩٩٩</span><span>ريال بالسنة</span></div>
-    <p class="offer-s">٤ دفعات مع تابي أو تمارا، واسترجاع كامل قبل أول سحب</p>
+    <ul class="recap"><li>101 مؤشر من دمك</li><li>فحصين في بيتك، الثاني مشمول</li><li>طبيب يكتب خطتك</li><li>مدير رعاية باسمك</li></ul>
+    <div class="offer-price"><span class="price">1999</span><span>ريال بالسنة</span></div>
+    <p class="offer-s">4 دفعات مع تابي أو تمارا، واسترجاع كامل قبل أول سحب</p>
     <button class="btn primary" id="join1">انضم إلى عضوية طال عمرك</button></section>
 
   <section class="closing"><p>العافية عندنا أسلوب حياة، تعيشه بصحتك وحيويتك يومًا بعد يوم.</p>
@@ -989,7 +989,7 @@ function s0(){ setStage(0,0);
   (function loopPv(){ const n=screen.querySelector('.pv-ring .num'); if(!n||matchMedia('(prefers-reduced-motion: reduce)').matches) return; const run=()=>{ if(!document.body.contains(n)) return; countUp(n,38,43.2,1600,1); setTimeout(run,5000)}; run(); })();
   $('#go').onclick=$('#go2').onclick=$('#go3').onclick=()=>{S.qi=0;renderQuick()}; $('#join0').onclick=$('#join1').onclick=()=>{ensureDefaults();s5()};
   screen.querySelectorAll('.lnav button').forEach(b=>b.onclick=()=>{const el=document.getElementById(b.dataset.to); if(el) window.scrollTo({top:el.getBoundingClientRect().top+scrollY-12,behavior:'smooth'})});
-  const sc=document.createElement('div'); sc.id='stickyCta'; sc.innerHTML='<div class="sp"><b>١٩٩٩ ريال</b><span>فحصين في السنة، مو فحص واحد</span></div><button>انضم الحين</button>'; document.body.appendChild(sc); document.body.classList.add('has-sticky');
+  const sc=document.createElement('div'); sc.id='stickyCta'; sc.innerHTML='<div class="sp"><b>1999 ريال</b><span>فحصين في السنة، مو فحص واحد</span></div><button>انضم الحين</button>'; document.body.appendChild(sc); document.body.classList.add('has-sticky');
   sc.querySelector('button').onclick=()=>{ensureDefaults();s5()};
   stickyCheck();
 }
@@ -1016,26 +1016,26 @@ function s2(){ setStage(2,21);
 function s2b(){ setStage(2,22);
   const r=lifestyleAge(); r.total=Math.round(r.total); const est=A.age+r.total; const top=r.adj.slice(0,3); const allGood=top.every(x=>x[1]<=0);
   const cur=k=>(r.adj.find(x=>x[0]===k)||[0,0])[1];
-  const lev=[['لو {نمت|نمتي} ٧ إلى ٨ ساعات',cur('sleep')-(-1)],['لو {تحركت|تحركتي} ٥ أيام بالأسبوع',cur('active')-(-3)],['لو {وقفت|وقفتي} المشروبات المحلاة',cur('sweet')-(-0.5)],['لو {تركت|تركتي} التدخين',cur('smoke')-0.5]].map(x=>[x[0],Math.round(x[1])]).filter(x=>x[1]>=1);
+  const lev=[['لو {نمت|نمتي} 7 إلى 8 ساعات',cur('sleep')-(-1)],['لو {تحركت|تحركتي} 5 أيام بالأسبوع',cur('active')-(-3)],['لو {وقفت|وقفتي} المشروبات المحلاة',cur('sweet')-(-0.5)],['لو {تركت|تركتي} التدخين',cur('smoke')-0.5]].map(x=>[x[0],Math.round(x[1])]).filter(x=>x[1]>=1);
   const d=r.total; const dcls=d>0?'up':d<0?'down':''; const dtxt=d>0?`أكبر من عمرك بـ${n2a(d)} سنة`:d<0?`أصغر من عمرك بـ${n2a(-d)} سنة`:'نفس عمرك بالهوية';
   const nm=NM()?NM().replace(' يا','يا')+'، ':'طال عمرك، '; const verdictH=d>0?'{تراك شايب|تراكِ خالة}':d<0?'{تراك شاب|تراكِ بنت}':'{لا شاب ولا شايب|لا بنت ولا خالة}';
   html(`<h1>${nm}${verdictH}.</h1>
   <div class="reveal"><div class="lbl">عمرك الصحي من جواباتك</div>
-    <div class="ringwrap h2ring rv-ring"><canvas id="rvCv"></canvas><div class="center"><div><div class="num" id="cnt" style="font-size:64px">${n2a(A.age)}</div><div class="cap">± ٢ سنة</div></div></div></div>
-    <div class="rv-gap ${dcls}"><b dir="ltr">${d>0?'+':d<0?'−':''}${n2a(Math.abs(d)).replace('.','٫')}</b><span>${d===0?'نفس عمرك بالهوية':'سنة عن عمرك بالهوية ('+n2a(A.age)+')'}</span></div>
-    <p class="rv-say">عمرك ${n2a(A.age)}، و${d>0?'جسمك يقول':'جسمك يقول'} <b id="rvSay">${n2a(est).replace('.','٫')}</b>.</p>
-    <div class="lbl" style="margin-top:6px">هذا تقدير من ١٢ سؤال. عمرك البيولوجي الحقيقي يطلع من ١٠١ مؤشر في دمك.</div></div>
+    <div class="ringwrap h2ring rv-ring"><canvas id="rvCv"></canvas><div class="center"><div><div class="num" id="cnt" style="font-size:64px">${n2a(A.age)}</div><div class="cap">± 2 سنة</div></div></div></div>
+    <div class="rv-gap ${dcls}"><b dir="ltr">${d>0?'+':d<0?'−':''}${n2a(Math.abs(d))}</b><span>${d===0?'نفس عمرك بالهوية':'سنة عن عمرك بالهوية ('+n2a(A.age)+')'}</span></div>
+    <p class="rv-say">عمرك ${n2a(A.age)}، و${d>0?'جسمك يقول':'جسمك يقول'} <b id="rvSay">${n2a(est)}</b>.</p>
+    <div class="lbl" style="margin-top:6px">هذا تقدير من 12 سؤال. عمرك البيولوجي الحقيقي يطلع من 101 مؤشر في دمك.</div></div>
   <h2>${allGood?'نقاط قوتك':'وش اللي حرّك عمرك؟'}</h2>
-  ${top.map(x=>`<div class="finding ${x[1]>0?'up':x[1]<0?'down':'neutral'}"><div class="ico">${ICONS[x[0]]||ICONS.bmi}</div><div><h3><span>${x[2]}</span><span class="yrs">${x[1]>0?'+':x[1]<0?'−':''}${x[1]?n2a(Math.abs(x[1])):'٠'} سنة</span></h3><p>أثره الحقيقي يبان في: <b>${x[3]}</b>، وهذا اللي نشوفه في الفحص.</p></div></div>`).join('')}
+  ${top.map(x=>`<div class="finding ${x[1]>0?'up':x[1]<0?'down':'neutral'}"><div class="ico">${ICONS[x[0]]||ICONS.bmi}</div><div><h3><span>${x[2]}</span><span class="yrs">${x[1]>0?'+':x[1]<0?'−':''}${x[1]?n2a(Math.abs(x[1])):'0'} سنة</span></h3><p>أثره الحقيقي يبان في: <b>${x[3]}</b>، وهذا اللي نشوفه في الفحص.</p></div></div>`).join('')}
   ${r.fam?`<div class="finding neutral"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-4 3-6 6-6s6 2 6 6M14 20c0-3 1.5-5 3-5s4 2 4 5"/></svg></div><div><h3><span>تاريخ أهلك</span><span class="yrs">+${n2a(r.fam)} سنة</span></h3><p>{ما تقدر تغيّره، بس تقدر تراقبه|ما تقدرين تغيّرينه، بس تقدرين تراقبينه} قبلهم. تنبيه، مو حكم.</p></div></div>`:''}
   ${lev.length?`<h2>وش يصير لو…؟</h2>
   <div class="card wi"><p class="small" style="margin:0 0 10px">{جرّب|جرّبي}، و{شوف|شوفي} عمرك الصحي يتحرك:</p>
-    <div class="wi-chips">${lev.map((x,i)=>`<button class="wi-c" data-s="${x[1]}"><span>${x[0]}</span><b dir="ltr">−${n2a(x[1]).replace('.','٫')}</b></button>`).join('')}</div>
-    <div class="wi-out"><span>عمرك الصحي يصير</span><b id="wiN">${n2a(est).replace('.','٫')}</b></div>
+    <div class="wi-chips">${lev.map((x,i)=>`<button class="wi-c" data-s="${x[1]}"><span>${x[0]}</span><b dir="ltr">−${n2a(x[1])}</b></button>`).join('')}</div>
+    <div class="wi-out"><span>عمرك الصحي يصير</span><b id="wiN">${n2a(est)}</b></div>
     <p class="small" style="margin:8px 0 0">تقدير من دراسات على آلاف الناس، مو وعد. دمك هو اللي يعطيك الرقم الحقيقي.</p></div>`:''}
   <h2>باقي في تقريرك</h2>
-  <div class="locks">${[['راحة بالك','مزاجك وقلقك وضغطك'],['خطر السكري','خلال ١٠ سنين'],['نومك','جودته وتنفسك فيه']].map(x=>`<div class="lock"><div class="lk-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div><b>${x[0]}</b><span>${x[1]}</span><div class="lk-bar"><i></i><i></i><i></i></div></div>`).join('')}</div>
-  <button class="btn primary" id="deep">{افتح|افتحي} تقريرك الكامل، مجاناً (٨ دقايق)</button><div style="height:14px"></div>
+  <div class="locks">${[['راحة بالك','مزاجك وقلقك وضغطك'],['خطر السكري','خلال 10 سنين'],['نومك','جودته وتنفسك فيه']].map(x=>`<div class="lock"><div class="lk-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div><b>${x[0]}</b><span>${x[1]}</span><div class="lk-bar"><i></i><i></i><i></i></div></div>`).join('')}</div>
+  <button class="btn primary" id="deep">{افتح|افتحي} تقريرك الكامل، مجاناً (8 دقايق)</button><div style="height:14px"></div>
   <div class="card" style="border-color:color-mix(in srgb,var(--accent) 45%,var(--line));background:linear-gradient(135deg,rgba(143,107,255,.16),var(--surface))"><h3>${d>0?'بس لا {تشيل|تشيلين} هم'+NM()+'، حنا معك.':'ممتاز'+NM()+'، حنا معك.'}</h3><p>${d>0?'{نعينك ونساعدك تصير أحسن نسخة من نفسك|نعينك ونساعدك تصيرين أحسن نسخة من نفسك}: أغلب اللي شفناه في جواباتك يتغيّر، وطبيبك وفريقك في ول. يمشون معك خطوة خطوة: نوم أعمق، طاقة أعلى، مزاج أهدى، وأرقام {تشوفها|تشوفينها} تتحسن بعينك بعد ستة شهور.':'جسمك أصغر من عمرك، و{نعينك تحافظ|نعينك تحافظين} عليها: نثبّتها بالأرقام ونمشي معك عشان {تصير|تصيرين} أحسن نسخة من نفسك.'}</p></div>
   <button class="btn primary" id="join">{انضم|انضمي} إلى عضوية طال عمرك من ول.</button><div style="height:10px"></div>
   <button class="btn ghost" id="share">{شارك|شاركي} نتيجتك: شاب ولا شايب؟</button>
@@ -1046,7 +1046,7 @@ function s2b(){ setStage(2,22);
   let shown=est; screen.querySelectorAll('.wi-c').forEach(b=>b.onclick=()=>{ b.classList.toggle('on');
     const save=[...screen.querySelectorAll('.wi-c.on')].reduce((a,x)=>a+ +x.dataset.s,0); const raw=r.adj.reduce((a,x)=>a+x[1],0)+r.fam; const to=Math.min(est,A.age+Math.round(Math.max(-12,Math.min(12,raw-save))));
     countUp($('#cnt'),shown,to,600,to%1?1:0); countUp($('#wiN'),shown,to,600,to%1?1:0); shown=to; });
-  $('#share').onclick=async()=>{ const text=`عمري بالهوية ${n2a(A.age)} وعمري الصحي ${n2a(est)}. شاب ولا شايب؟ اعرف عمرك الصحي في ٣ دقايق:`; const url=location.href.split('?')[0].split('#')[0];
+  $('#share').onclick=async()=>{ const text=`عمري بالهوية ${n2a(A.age)} وعمري الصحي ${n2a(est)}. شاب ولا شايب؟ اعرف عمرك الصحي في 3 دقايق:`; const url=location.href.split('?')[0].split('#')[0];
     try{ if(navigator.share){ await navigator.share({text,url}) } else { await navigator.clipboard.writeText(text+' '+url); $('#share').textContent='انتسخت، الصقها وين ما تبي ✓' } }catch(e){} };
 }
 function visibleDeep(){ return DEEP.filter(x=>{ if(x.only&&x.only!==A.sex) return false; if(x.sk&&S.skipMen) return false; if(x.gate==='phq'&&idx('phq1')+idx('phq2')<3) return false; if(x.gate==='gad'&&idx('gad1')+idx('gad2')<3) return false; return true; }); }
@@ -1085,11 +1085,11 @@ function mental(){
   const slp  = psqi<=2?[0,'نوم زين','']:psqi<=4?[1,'نوم متقطع','نومك يحتاج تنظيم']:[2,'نوم ضعيف','قلة النوم ترفع القلق وتخفض المزاج'];
   const lon  = lo<6?[0,'متواصل','عندك ناس تلجأ لهم']:[1,'وحدة','قلة التواصل تأثر على الصحة مثل التدخين تقريباً'];
   const sev=Math.max(mood[0],anx[0]); let prog;
-  if(mood[0]>=3||anx[0]>=3) prog={name:'موعد مع مختص خلال أيام',cls:'act',what:['مكالمة من فريق ول. النفسي خلال ٢٤ ساعة','تقييم مع مختص، وخطة علاجية معه','متابعة أسبوعية لين تتحسن'],lab:'كورتيزول الصباح، الغدة، فيتامين د وB12 والحديد من سحبك'};
-  else if(sev>=1) prog={name:'برنامج راحة البال',cls:'warn',what:['جلسة تقييم مع مختص نفسي خلال أسبوعين','٤ جلسات على ٦ أسابيع، أونلاين أو في العيادة','نعيد نفس الأسئلة بعد ٦ أسابيع ونقيس الفرق'],lab:'الغدة وفيتامين د وB12 والحديد من سحبك، لأنها تأثر على المزاج مباشرة'};
-  else if(str[0]>=1||slp[0]>=1) prog={name:'برنامج النوم والتوتر',cls:'warn',what:['٦ أسابيع مع مرشد نوم: مواعيد، ضوء، كافيين، وشاشات','تتبع نومك من ساعتك الذكية','تمارين تنفس واسترخاء مسجلة في التطبيق'],lab:'كورتيزول الصباح وDHEA-S (إضافة التوتر والنوم) يبيّنون أثر الضغط على جسمك'};
+  if(mood[0]>=3||anx[0]>=3) prog={name:'موعد مع مختص خلال أيام',cls:'act',what:['مكالمة من فريق ول. النفسي خلال 24 ساعة','تقييم مع مختص، وخطة علاجية معه','متابعة أسبوعية لين تتحسن'],lab:'كورتيزول الصباح، الغدة، فيتامين د وB12 والحديد من سحبك'};
+  else if(sev>=1) prog={name:'برنامج راحة البال',cls:'warn',what:['جلسة تقييم مع مختص نفسي خلال أسبوعين','4 جلسات على 6 أسابيع، أونلاين أو في العيادة','نعيد نفس الأسئلة بعد 6 أسابيع ونقيس الفرق'],lab:'الغدة وفيتامين د وB12 والحديد من سحبك، لأنها تأثر على المزاج مباشرة'};
+  else if(str[0]>=1||slp[0]>=1) prog={name:'برنامج النوم والتوتر',cls:'warn',what:['6 أسابيع مع مرشد نوم: مواعيد، ضوء، كافيين، وشاشات','تتبع نومك من ساعتك الذكية','تمارين تنفس واسترخاء مسجلة في التطبيق'],lab:'كورتيزول الصباح وDHEA-S (إضافة التوتر والنوم) يبيّنون أثر الضغط على جسمك'};
   else if(lon[0]>=1) prog={name:'برنامج التواصل',cls:'warn',what:['جلسة مع مرشد عن العلاقات والعزلة','مجموعة مشي أسبوعية مع أعضاء ول.','متابعة شهرية من مدير رعايتك'],lab:''};
-  else prog={name:'حافظ على راحة بالك',cls:'good',what:['تسجيل شهري قصير للمزاج والنوم في التطبيق','تمارين تنفس وتأمل في التطبيق','نعيد التقييم مع سحبك الثاني بعد ٦ شهور'],lab:''};
+  else prog={name:'حافظ على راحة بالك',cls:'good',what:['تسجيل شهري قصير للمزاج والنوم في التطبيق','تمارين تنفس وتأمل في التطبيق','نعيد التقييم مع سحبك الثاني بعد 6 شهور'],lab:''};
   return {rows:[['مزاجك',mood,'PHQ'],['قلقك',anx,'GAD'],['ضغطك',str,'PSS'],['نومك',slp,'PSQI'],['تواصلك',lon,'UCLA']],prog,sev};
 }
 function mentalCard(){ const m=mental(); const cls=l=>l===0?'good':l===1?'warn':'act';
@@ -1113,11 +1113,11 @@ function s4(){ setStage(4,48); const sc=scores(); const g=sc.filter(x=>x[1]==='g
 }
 function bindAddonBtns(rerender){ screen.querySelectorAll('.ao-b').forEach(b=>b.onclick=e=>{const id=e.target.closest('.ao').dataset.id; S.addons=S.addons||[]; S.addons=S.addons.includes(id)?S.addons.filter(x=>x!==id):[...S.addons,id]; const first=ADDONS.find(x=>S.addons.includes(x.id)); S.chosenAddon=first?first.name:null; const y=scrollY; rerender(); scrollTo(0,y)}); }
 function s5(){ setStage(5,58); const ad=addonSuggest(); const first=(A.goals||[])[0]||'';
-  html(`<span class="tag">عضوية طال عمرك</span><h1>{انضم|انضمي} إلى عضوية طال عمرك${NM()}</h1><h2 style="margin:0 0 6px;font-size:20px">عمرك الحقيقي من دمك، ورعايتك من بيتك.</h2><p class="why">اعرف عمرك الصحي اليوم، وشوفه يتحسن شهر بعد شهر: ١٠١ مؤشر، فحصين في السنة، طبيب يشرح لك ويكتب خطتك، وفريق طبي يجيك البيت.</p>
+  html(`<span class="tag">عضوية طال عمرك</span><h1>{انضم|انضمي} إلى عضوية طال عمرك${NM()}</h1><h2 style="margin:0 0 6px;font-size:20px">عمرك الحقيقي من دمك، ورعايتك من بيتك.</h2><p class="why">اعرف عمرك الصحي اليوم، وشوفه يتحسن شهر بعد شهر: 101 مؤشر، فحصين في السنة، طبيب يشرح لك ويكتب خطتك، وفريق طبي يجيك البيت.</p>
   <p>على حسب جواباتك، هذي الفئات اللي نبدأ فيها: <b>${[first?('هدفك: '+first):'',A.sex==='رجل'?'القلب والدهون':'الحديد والفيتامينات','السكر والأيض','عمرك البيولوجي'].filter(Boolean).join('، ')}</b>.</p>
-  <div class="mcard"><div class="l1"><div class="brand"><span class="en">Well<span style="color:#ACA6E1">.</span></span></div><div class="chip"></div></div><div><div class="name">عضوية طال عمرك</div><div class="big">${(A.name||'').trim()||(A.sex==='امرأة'?'عضوة':'عضو')}، ${n2a(A.age)} سنة</div></div><div class="l3"><span>٢٠٢٦ إلى ٢٠٢٧</span><span>N° 00001</span></div></div>
-  <div class="card"><div class="price">١٩٩٩ <span style="font-size:18px;color:var(--muted)">ريال/سنة</span></div><p class="small">أقل من ٦ ريال باليوم، ٤ دفعات مع تابي أو تمارا، واسترجاع كامل قبل أول سحب</p>
-  <ul class="list"><li>فحصين في السنة: كامل الآن، ومتابعة بعد ٦ أشهر لكل اللي يتغيّر</li><li>فريق طبي متخصص يجيك البيت في الزيارتين، ما تروح لأي مختبر</li><li>طبيب ول. يشرح لك نتايجك مرتين ويكتب لك خطتك</li><li>مدير رعاية باسمك على الواتساب طول السنة</li><li>عمرك البيولوجي من دمك، وتشوفه يتغيّر قدام عينك</li></ul></div>
+  <div class="mcard"><div class="l1"><div class="brand"><span class="en">Well<span style="color:#ACA6E1">.</span></span></div><div class="chip"></div></div><div><div class="name">عضوية طال عمرك</div><div class="big">${(A.name||'').trim()||(A.sex==='امرأة'?'عضوة':'عضو')}، ${n2a(A.age)} سنة</div></div><div class="l3"><span>2026 إلى 2027</span><span>N° 00001</span></div></div>
+  <div class="card"><div class="price">1999 <span style="font-size:18px;color:var(--muted)">ريال/سنة</span></div><p class="small">أقل من 6 ريال باليوم، 4 دفعات مع تابي أو تمارا، واسترجاع كامل قبل أول سحب</p>
+  <ul class="list"><li>فحصين في السنة: كامل الآن، ومتابعة بعد 6 أشهر لكل اللي يتغيّر</li><li>فريق طبي متخصص يجيك البيت في الزيارتين، ما تروح لأي مختبر</li><li>طبيب ول. يشرح لك نتايجك مرتين ويكتب لك خطتك</li><li>مدير رعاية باسمك على الواتساب طول السنة</li><li>عمرك البيولوجي من دمك، وتشوفه يتغيّر قدام عينك</li></ul></div>
   <h2 style="font-size:20px;margin:6px 0 4px">إضافات تُسحب في نفس الزيارة</h2>
   <p class="small" style="margin:0 0 10px">نقترح لك وحدة على حسب جواباتك، والباقي اختياري. تضيف أو تشيل متى ما {تبي|تبين}.</p>
   ${ADDONS.filter(x=>!x.sex||x.sex===A.sex).map(x=>{const on=(S.addons||[]).includes(x.id), sug=x.name===ad[0]; return `<div class="ao${on?' on':''}${sug?' sug':''}" data-id="${x.id}">
@@ -1127,17 +1127,17 @@ function s5(){ setStage(5,58); const ad=addonSuggest(); const first=(A.goals||[]
   ${(()=>{const t=mindSuggest(); if(!t) return ''; const on=(S.addons||[]).includes(t.id); return `<div class="ao sug${on?' on':''}" data-id="${t.id}"><div class="ao-h"><div><b>باقة Well Mind المناسبة لك</b><em>حسب جواباتك</em></div><span class="ao-p">${n2a(t.price)} ريال/شهر</span></div>
     <p class="ao-w">${t.what}</p><p class="ao-t">باقة نفسية منفصلة، اشتراك شهري {تلغيه|تلغينه} متى ما {تبي|تبين}.</p>
     <button class="btn ${on?'primary':'ghost'} ao-b">${on?'انضافت ✓':'أضفها'}</button></div>`})()}
-  <div class="card free"><h3 style="margin-top:0">مشمول في عضويتك، بدون زيادة</h3><p class="small">٤ تقارير تركيز من نفس السحب، يفعّلها طبيبك لما يشوف إنك {تحتاجها|تحتاجينها}:</p>
+  <div class="card free"><h3 style="margin-top:0">مشمول في عضويتك، بدون زيادة</h3><p class="small">4 تقارير تركيز من نفس السحب، يفعّلها طبيبك لما يشوف إنك {تحتاجها|تحتاجينها}:</p>
     <div class="fr">${FREE_REPORTS.map(r=>`<div><b>${r[0]}</b><span>${r[1]}</span></div>`).join('')}</div></div>
   <div class="card free"><h3 style="margin-top:0">وتطبيق ول. كامل، مشمول</h3><p class="small">عضويتك تفتح لك كل التطبيق طول السنة:</p>
     <div class="appf">${APP_FEATURES.map(f=>`<div><b>${f[1]}</b><span>${f[2]}</span></div>`).join('')}</div></div>
-  ${(()=>{const sel=ADDONS.filter(x=>(S.addons||[]).includes(x.id)); const mind=MIND.find(x=>(S.addons||[]).includes(x.id)); const tot=1999+sel.reduce((a,x)=>a+x.price,0); return (sel.length||mind)?`<div class="card tot"><div class="tot-r"><span>عضوية طال عمرك</span><span>١٩٩٩</span></div>${sel.map(x=>`<div class="tot-r"><span>${x.name}</span><span>${n2a(x.price)}</span></div>`).join('')}<div class="tot-r sum"><span>المجموع السنوي</span><span>${n2a(tot)} ريال</span></div><p class="small" style="margin:6px 0 0">أو ٤ دفعات، كل دفعة ${n2a(Math.ceil(tot/4))} ريال</p>${mind?`<div class="tot-r" style="margin-top:8px;border-top:1px solid var(--line);padding-top:9px"><span>باقة Well Mind، اشتراك منفصل</span><span>${n2a(mind.price)} ريال/شهر</span></div>`:''}</div>`:''})()}
+  ${(()=>{const sel=ADDONS.filter(x=>(S.addons||[]).includes(x.id)); const mind=MIND.find(x=>(S.addons||[]).includes(x.id)); const tot=1999+sel.reduce((a,x)=>a+x.price,0); return (sel.length||mind)?`<div class="card tot"><div class="tot-r"><span>عضوية طال عمرك</span><span>1999</span></div>${sel.map(x=>`<div class="tot-r"><span>${x.name}</span><span>${n2a(x.price)}</span></div>`).join('')}<div class="tot-r sum"><span>المجموع السنوي</span><span>${n2a(tot)} ريال</span></div><p class="small" style="margin:6px 0 0">أو 4 دفعات، كل دفعة ${n2a(Math.ceil(tot/4))} ريال</p>${mind?`<div class="tot-r" style="margin-top:8px;border-top:1px solid var(--line);padding-top:9px"><span>باقة Well Mind، اشتراك منفصل</span><span>${n2a(mind.price)} ريال/شهر</span></div>`:''}</div>`:''})()}
   <button class="btn primary" id="book">{فعّل عضويتك واحجز|فعّلي عضويتك واحجزي} زيارتك</button>
   <p class="small" style="margin-top:10px">طال عمرك… مو كلمة تنقال وبس، هي أسلوب حياة.</p>`);
   bindAddonBtns(s5); $('#book').onclick=s6;
 }
-function s6(){ setStage(6,66); const days=['السبت ٢٥ أكتوبر','الأحد ٢٦ أكتوبر','الاثنين ٢٧ أكتوبر','الثلاثاء ٢٨ أكتوبر']; const slots=['٦:٣٠ ص','٧:٣٠ ص','٨:٣٠ ص','٩:٣٠ ص'];
-  html(`<h1>نجيك البيت</h1><p class="why">{اختر|اختاري} اليوم والوقت اللي يناسبك. صيام ٨ ساعات بس، والماء مسموح.</p>
+function s6(){ setStage(6,66); const days=['السبت 25 أكتوبر','الأحد 26 أكتوبر','الاثنين 27 أكتوبر','الثلاثاء 28 أكتوبر']; const slots=['6:30 ص','7:30 ص','8:30 ص','9:30 ص'];
+  html(`<h1>نجيك البيت</h1><p class="why">{اختر|اختاري} اليوم والوقت اللي يناسبك. صيام 8 ساعات بس، والماء مسموح.</p>
   <h2>اليوم</h2><div class="opts">${days.map(d=>`<button class="opt ${S.booking.d===d?'sel':''}" data-d="${d}"><span>${d}</span><span class="tick">${S.booking.d===d?'✓':''}</span></button>`).join('')}</div>
   <h2>الوقت</h2><div class="row">${slots.map(t=>`<button class="opt ${S.booking.t===t?'sel':''}" data-t="${t}" style="justify-content:center"><span>${t}</span></button>`).join('')}</div>
   ${A.sex==='امرأة'&&S.chosenAddon==='صحة المرأة'?'<p class="small" style="margin-top:10px">لأن إضافة صحة المرأة مختارة، الأفضل يكون السحب بين اليوم الثاني والخامس من الدورة. بنتأكد معك.</p>':''}
@@ -1158,22 +1158,22 @@ function s7(){ setStage(7,74); const v=S.vitals;
   <div><label>الرقبة (سم)</label><input id="neck" type="number" value="${v.neck??40}"></div>
   <div><label>قوة القبضة (كجم)</label><input id="grip" type="number" value="${v.grip??(A.sex==='رجل'?42:26)}"></div>
   </div>
-  <p class="small" style="margin-top:12px">نتايجك خلال ٣ لـ٥ أيام. {ما تقرا|ما تقرين} أي رقم أحمر لحالك، طبيبك يراجعها معك أول شي.</p>
-  <button class="btn primary" id="res">وصلت نتايجك (بعد ٤ أيام)</button>`);
+  <p class="small" style="margin-top:12px">نتايجك خلال 3 لـ5 أيام. {ما تقرا|ما تقرين} أي رقم أحمر لحالك، طبيبك يراجعها معك أول شي.</p>
+  <button class="btn primary" id="res">وصلت نتايجك (بعد 4 أيام)</button>`);
   $('#res').onclick=()=>{['sbp','dbp','hr','spo2','wt','wa','neck','grip'].forEach(k=>S.vitals[k]=+$('#'+k).value); s8()};
 }
 function results(){
   const v=S.vitals, b=v.wt/((A.height/100)**2), r=lifestyleAge();
   const cats=[
-   ['القلب والدهون','١٠ مؤشرات', idx('active')===0||b>30?'warn':'good', [['LDL',idx('active')<=1?'warn':'good'],['Non-HDL','good'],['TG/HDL',b>30?'warn':'good'],['ضغط الدم',v.sbp>=140?'act':v.sbp>=130?'warn':'good']]],
-   ['السكر والأيض','٨ مؤشرات', idx('sweet')>=3||b>30?'warn':'good', [['HbA1c',idx('sweet')>=3?'warn':'good'],['الأنسولين',b>30?'warn':'good'],['HOMA-IR',b>30?'warn':'good'],['حمض اليوريك','good']]],
-   ['الدم والمناعة والالتهاب','٢١ مؤشر', idx('smoke')===3?'warn':'good', [['hs-CRP',idx('smoke')===3||idx('sleep')<=1?'warn':'good'],['الهيموجلوبين',A.sex==='امرأة'?'warn':'good'],['NLR','good']]],
-   ['الكبد والبنكرياس','١٤ مؤشر', b>30?'warn':'good', [['ALT',b>30?'warn':'good'],['GGT','good'],['الألبومين','good']]],
-   ['الكلى والبول','٢٣ مؤشر','good',[['eGFR','good'],['البروتين في البول','good']]],
-   ['الأملاح والمعادن','١٤ مؤشر','good',[['المغنيسيوم',idx('stress')>=3?'warn':'good'],['الزنك','good']]],
-   ['الحديد والفيتامينات','٥ مؤشرات','warn',[['فيتامين د','act'],['الفيريتين',A.sex==='امرأة'?'warn':'good'],['B12','good']]],
-   ['الغدة الدرقية','٤ مؤشرات','good',[['TSH','good'],['FT3/FT4','good']]],
-   ['العضلات','١ مؤشر + القبضة', v.grip<(A.sex==='رجل'?30:18)?'warn':'good', [['CK','good'],['قوة القبضة',v.grip<(A.sex==='رجل'?30:18)?'warn':'good']]],
+   ['القلب والدهون','10 مؤشرات', idx('active')===0||b>30?'warn':'good', [['LDL',idx('active')<=1?'warn':'good'],['Non-HDL','good'],['TG/HDL',b>30?'warn':'good'],['ضغط الدم',v.sbp>=140?'act':v.sbp>=130?'warn':'good']]],
+   ['السكر والأيض','8 مؤشرات', idx('sweet')>=3||b>30?'warn':'good', [['HbA1c',idx('sweet')>=3?'warn':'good'],['الأنسولين',b>30?'warn':'good'],['HOMA-IR',b>30?'warn':'good'],['حمض اليوريك','good']]],
+   ['الدم والمناعة والالتهاب','21 مؤشر', idx('smoke')===3?'warn':'good', [['hs-CRP',idx('smoke')===3||idx('sleep')<=1?'warn':'good'],['الهيموجلوبين',A.sex==='امرأة'?'warn':'good'],['NLR','good']]],
+   ['الكبد والبنكرياس','14 مؤشر', b>30?'warn':'good', [['ALT',b>30?'warn':'good'],['GGT','good'],['الألبومين','good']]],
+   ['الكلى والبول','23 مؤشر','good',[['eGFR','good'],['البروتين في البول','good']]],
+   ['الأملاح والمعادن','14 مؤشر','good',[['المغنيسيوم',idx('stress')>=3?'warn':'good'],['الزنك','good']]],
+   ['الحديد والفيتامينات','5 مؤشرات','warn',[['فيتامين د','act'],['الفيريتين',A.sex==='امرأة'?'warn':'good'],['B12','good']]],
+   ['الغدة الدرقية','4 مؤشرات','good',[['TSH','good'],['FT3/FT4','good']]],
+   ['العضلات','1 مؤشر + القبضة', v.grip<(A.sex==='رجل'?30:18)?'warn':'good', [['CK','good'],['قوة القبضة',v.grip<(A.sex==='رجل'?30:18)?'warn':'good']]],
    ['راحة البال','مع الاستبيان', scores().find(x=>x[0]==='مزاجك')[1]==='good'?'good':'warn', [['الغدة + D + الحديد','good'],['PHQ-9 / GAD-7',scores().find(x=>x[0]==='مزاجك')[1]]]],
   ];
   const all=cats.flatMap(c=>c[3]); const nAct=all.filter(x=>x[1]==='act').length, nWarn=all.filter(x=>x[1]==='warn').length;
@@ -1187,14 +1187,14 @@ function s8(){ setStage(8,84); const R=results(); const est=A.age+lifestyleAge()
   html(`<h1>نتايجك جاهزة${NM()}</h1><p class="why">طبيبك راجعها قبلك. اللي بالأحمر بيشرحه لك بالمكالمة.</p>
   <div class="bio"><div class="eyebrow">عمرك البيولوجي من دمك</div>
     <div class="ringwrap"><canvas id="ringCv"></canvas><div class="center"><div><div class="num" id="bioN">${n2a(A.age)}</div><div class="cap" style="font-family:var(--font-display);font-weight:700;font-size:16px;letter-spacing:.14em;color:#fff">WELL AGE</div><div class="verdict" id="bioV">&nbsp;</div></div></div></div>
-    <div class="pace"><div class="head"><span class="t">وتيرة تقدّمك بالعمر</span><span class="chip" id="paceChip"></span></div><div class="big"><span id="paceV">١.٠</span><small>x</small></div>
+    <div class="pace"><div class="head"><span class="t">وتيرة تقدّمك بالعمر</span><span class="chip" id="paceChip"></span></div><div class="big"><span id="paceV">1.0</span><small>x</small></div>
       <div class="ticks2" id="ticks"></div><div class="lbl2"><span>0.5x</span><span>1.0x</span><span>1.5x</span></div></div>
     <p style="margin:14px 0 0;font-size:14.5px;color:#E6DEFF;line-height:1.75;text-align:center">هذا الرقم مو حكم، هذا نقطة البداية. مع طبيبك وفريق ول. نشتغل على اللي يتغيّر: نومك، حركتك، أكلك، وراحة بالك، وبعد ستة شهور نعيد القياس {وتشوف|وتشوفين} الفرق بنفسك.</p>
     <div class="stats"><div class="stat"><div class="k">عمرك بالهوية</div><div class="v">${n2a(A.age)}</div></div><div class="stat"><div class="k">من جواباتك</div><div class="v">${n2a(Math.round(est))}</div></div></div>
     <button class="btn go" id="goCats">شوف صحتك بالتفصيل</button>
-    <p class="foot">Well Age محسوب من ٩ مؤشرات في دمك (PhenoAge): الألبومين، الكرياتينين، السكر، hs-CRP، الخلايا اللمفاوية، MCV، RDW، ALP، كريات الدم البيضاء. نعيد حسابه بعد ٦ شهور وتشوف الفرق.</p></div>
-  ${(()=>{const all=R.cats.flatMap(c=>c[3]);const tot=all.length;const sc=x=>Math.round(all.filter(m=>m[1]===x).length/tot*101);let gC=sc('good'),wC=sc('warn'),aC=101-gC-wC;return `<div class="labs"><div class="head"><b>مؤشراتك</b><span>١٠١ من دمك و١٠ من بيتك</span></div>${labsArc(gC,wC,aC)}<div class="legend"><div class="g"><div class="n">${n2a(gC)}</div><div class="k">مثالي</div></div><div class="w"><div class="n">${n2a(wC)}</div><div class="k">للمتابعة</div></div><div class="a"><div class="n">${n2a(aC)}</div><div class="k">يحتاج انتباه</div></div></div></div>`})()}
-  <div class="row" style="align-items:center;margin-bottom:6px"><div class="ring" id="ring" style="--p:0"><b id="wellN">٠</b><small>Well. Score</small></div><div><p style="margin:0"><b>${n2a(R.well)} من ١٠٠</b></p><p class="small">نسبة مؤشراتك في المدى المثالي، موزونة على أولويات طبيبك. هذا الرقم اللي تتابعه طول السنة.</p></div></div>
+    <p class="foot">Well Age محسوب من 9 مؤشرات في دمك (PhenoAge): الألبومين، الكرياتينين، السكر، hs-CRP، الخلايا اللمفاوية، MCV، RDW، ALP، كريات الدم البيضاء. نعيد حسابه بعد 6 شهور وتشوف الفرق.</p></div>
+  ${(()=>{const all=R.cats.flatMap(c=>c[3]);const tot=all.length;const sc=x=>Math.round(all.filter(m=>m[1]===x).length/tot*101);let gC=sc('good'),wC=sc('warn'),aC=101-gC-wC;return `<div class="labs"><div class="head"><b>مؤشراتك</b><span>101 من دمك و10 من بيتك</span></div>${labsArc(gC,wC,aC)}<div class="legend"><div class="g"><div class="n">${n2a(gC)}</div><div class="k">مثالي</div></div><div class="w"><div class="n">${n2a(wC)}</div><div class="k">للمتابعة</div></div><div class="a"><div class="n">${n2a(aC)}</div><div class="k">يحتاج انتباه</div></div></div></div>`})()}
+  <div class="row" style="align-items:center;margin-bottom:6px"><div class="ring" id="ring" style="--p:0"><b id="wellN">0</b><small>Well. Score</small></div><div><p style="margin:0"><b>${n2a(R.well)} من 100</b></p><p class="small">نسبة مؤشراتك في المدى المثالي، موزونة على أولويات طبيبك. هذا الرقم اللي تتابعه طول السنة.</p></div></div>
   <div class="cats">${R.cats.map(c=>{const g=c[3].filter(m=>m[1]==='good').length,p=Math.round(g/c[3].length*100);const CI={'القلب والدهون':'<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>','السكر والأيض':'<path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/>','الدم والمناعة والالتهاب':'<circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/>','الكبد والبنكرياس':'<path d="M4 9c0-3 3-5 8-5s8 2 8 5-2 7-5 9-6 2-8 0-3-6-3-9z"/>','الكلى والبول':'<path d="M8 5c-3 0-4 3-4 7s1 7 4 7 3-2 3-7-0-7-3-7zM16 5c3 0 4 3 4 7s-1 7-4 7-3-2-3-7 0-7 3-7z"/>','الأملاح والمعادن':'<path d="M12 3l8 5v8l-8 5-8-5V8z"/>','الحديد والفيتامينات':'<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>','الغدة الدرقية':'<path d="M8 6c-2 0-3 2-3 5s1 7 3 7 2-3 4-3 2 3 4 3 3-4 3-7-1-5-3-5"/>','العضلات':'<path d="M5 14l3-3 3 3 2-6 3 6 3-3M4 19h16"/>','راحة البال':'<path d="M12 4a7 7 0 0 0-7 7c0 3 2 4 2 7h10c0-3 2-4 2-7a7 7 0 0 0-7-7zM10 21h4"/>'};return `<div class="cat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${CI[c[0]]||''}</svg></div><div class="t">${c[0]}</div><div class="s">${c[1]}</div><div class="dots">${c[3].map(m=>`<i class="dot-${m[1]}" title="${m[0]}"></i>`).join('')}</div><div class="barr"><i data-w="${p}"></i></div></div>`}).join('')}</div>
   <h2>القياسات من بيتك</h2><div class="card">${[['ضغط الدم',`${n2a(S.vitals.sbp)}/${n2a(S.vitals.dbp)}`,S.vitals.sbp>=140?'act':S.vitals.sbp>=130?'warn':'good'],['النبض',n2a(S.vitals.hr),S.vitals.hr>90?'warn':'good'],['الخصر ÷ الطول',(S.vitals.wa/A.height).toFixed(2),S.vitals.wa/A.height>0.5?'warn':'good'],['قوة القبضة',n2a(S.vitals.grip)+' كجم',S.vitals.grip<(A.sex==='رجل'?30:18)?'warn':'good']].map(x=>`<div class="score"><div class="name">${x[0]}</div><div style="display:flex;gap:10px;align-items:center"><span class="sub" style="font-family:var(--font-num);font-size:18px;color:var(--ink)">${x[1]}</span><span class="pill ${x[2]}">${x[2]==='good'?'مثالي':x[2]==='warn'?'للمتابعة':'يحتاج انتباه'}</span></div></div>`).join('')}</div>
   <button class="btn primary" id="plan">مكالمة الطبيب: خطتك</button>`);
@@ -1208,36 +1208,36 @@ function s8(){ setStage(8,84); const R=results(); const est=A.age+lifestyleAge()
 }
 
 function services(R){ const out=[]; const f=R.cats.flatMap(c=>c[3]); const has=(n,st)=>f.some(m=>m[0]===n&&(st?m[1]===st:m[1]!=='good')); const sc=Object.fromEntries(scores().map(x=>[x[0],x[1]]));
-  if(has('فيتامين د')) out.push(['جرعة فيتامين د في بيتك','حقنة أو جرعة فموية يصفها طبيبك، والممرضة تجيك البيت','فيتامين د عندك منخفض','١٤٩','زيارة']);
-  if(has('B12')||(A.meds||[]).some(m=>/ميتفورمين|حموضة/.test(m))) out.push(['كورس B12 في بيتك','٤ حقن على ٤ أسابيع بوصفة طبيبك','B12 أو الأدوية اللي تاخذها','٣٩٩','كورس']);
-  if(has('الفيريتين')) out.push(['برنامج الحديد','حديد فموي من الصيدلية الشريكة، وتسريب في العيادة إذا احتاج','الفيريتين عندك منخفض','٢٤٩','شهر']);
-  if(idx('sweet')>=3||has('HbA1c')||has('الأنسولين')) out.push(['برنامج السكر مع أخصائية تغذية','٤ جلسات في التطبيق على ١٢ أسبوع','HbA1c والأنسولين عندك للمتابعة','٥٩٩','برنامج']);
-  if(sc['مزاجك']!=='good'||sc['قلقك']!=='good') out.push(['جلسة راحة بال','استشارة بالفيديو مع فريق ول. النفسي، وباقة ٤ جلسات بعدها','من جواباتك عن المزاج والقلق','٢٩٩','جلسة']);
-  else if(sc['ضغطك النفسي']!=='good'||sc['نومك']!=='good') out.push(['برنامج النوم والتوتر','٦ أسابيع مع مرشد، وقياس الكورتيزول في الشهر السادس','نومك وتوترك من جواباتك','٤٩٩','برنامج']);
-  if(S.vitals.sbp>=130) out.push(['متابعة الضغط في البيت','جهاز ومتابعة ممرضة أسبوعين','ضغطك في الزيارة '+n2a(S.vitals.sbp),'١٩٩','أسبوعين']);
+  if(has('فيتامين د')) out.push(['جرعة فيتامين د في بيتك','حقنة أو جرعة فموية يصفها طبيبك، والممرضة تجيك البيت','فيتامين د عندك منخفض','149','زيارة']);
+  if(has('B12')||(A.meds||[]).some(m=>/ميتفورمين|حموضة/.test(m))) out.push(['كورس B12 في بيتك','4 حقن على 4 أسابيع بوصفة طبيبك','B12 أو الأدوية اللي تاخذها','399','كورس']);
+  if(has('الفيريتين')) out.push(['برنامج الحديد','حديد فموي من الصيدلية الشريكة، وتسريب في العيادة إذا احتاج','الفيريتين عندك منخفض','249','شهر']);
+  if(idx('sweet')>=3||has('HbA1c')||has('الأنسولين')) out.push(['برنامج السكر مع أخصائية تغذية','4 جلسات في التطبيق على 12 أسبوع','HbA1c والأنسولين عندك للمتابعة','599','برنامج']);
+  if(sc['مزاجك']!=='good'||sc['قلقك']!=='good') out.push(['جلسة راحة بال','استشارة بالفيديو مع فريق ول. النفسي، وباقة 4 جلسات بعدها','من جواباتك عن المزاج والقلق','299','جلسة']);
+  else if(sc['ضغطك النفسي']!=='good'||sc['نومك']!=='good') out.push(['برنامج النوم والتوتر','6 أسابيع مع مرشد، وقياس الكورتيزول في الشهر السادس','نومك وتوترك من جواباتك','499','برنامج']);
+  if(S.vitals.sbp>=130) out.push(['متابعة الضغط في البيت','جهاز ومتابعة ممرضة أسبوعين','ضغطك في الزيارة '+n2a(S.vitals.sbp),'199','أسبوعين']);
   out.push(['المحاليل الوريدية في بيتك','يقرر طبيبك إذا تحتاجها ونوعها بعد ما يشوف نتايجك، مو من الاستبيان','بناءً على تقييم طبيبك في المكالمة','بعد التقييم','يحددها طبيبك']);
-  if(A.sex==='امرأة'&&(A.w_cycle==='غير منتظمة'||A.w_preg==='نعم')) out.push(['استشارة صحة المرأة','عيادة ول. للنساء والقابلات','دورتك أو تخطيطك للحمل','٢٤٩','استشارة']);
-  if(A.sex==='رجل'&&A.m_conf&&['m_conf','m_firm','m_keep'].some(k=>idx(k)<=2)) out.push(['استشارة صحة الرجل','مع د. نيبال، خاصة وسرية','من جواباتك في قسم صحة الرجل','٢٩٩','استشارة']);
-  if(!out.length) out.push(['فيتاميناتك الشهرية','خطة مكملات يكتبها طبيبك، توصيل شهري من الصيدلية الشريكة','أرقامك ممتازة، نحافظ عليها','١٩٩','شهر']);
-  out.push(['أضف من تحب','زوجتك أو والدك بسعر الأعضاء، ونفس الفريق يعتني بالبيت كله','نعتني بك وبمن تحب','٪١٥','خصم']);
+  if(A.sex==='امرأة'&&(A.w_cycle==='غير منتظمة'||A.w_preg==='نعم')) out.push(['استشارة صحة المرأة','عيادة ول. للنساء والقابلات','دورتك أو تخطيطك للحمل','249','استشارة']);
+  if(A.sex==='رجل'&&A.m_conf&&['m_conf','m_firm','m_keep'].some(k=>idx(k)<=2)) out.push(['استشارة صحة الرجل','مع د. نيبال، خاصة وسرية','من جواباتك في قسم صحة الرجل','299','استشارة']);
+  if(!out.length) out.push(['فيتاميناتك الشهرية','خطة مكملات يكتبها طبيبك، توصيل شهري من الصيدلية الشريكة','أرقامك ممتازة، نحافظ عليها','199','شهر']);
+  out.push(['أضف من تحب','زوجتك أو والدك بسعر الأعضاء، ونفس الفريق يعتني بالبيت كله','نعتني بك وبمن تحب','%15','خصم']);
   return out.slice(0,5);
 }
 
 function s9(){ setStage(9,92); const R=results(); const flagged=R.cats.flatMap(c=>c[3].filter(m=>m[1]!=='good').map(m=>[c[0],m[0],m[1]]));
   const pri=[]; const sc=Object.fromEntries(scores().map(x=>[x[0],x[1]]));
-  if(flagged.some(f=>f[1]==='فيتامين د')) pri.push(['فيتامين د','جرعة أسبوعية يصفها لك الطبيب، وربع ساعة شمس','فيتامين د بعد ٦ شهور']);
-  if(idx('sweet')>=3) pri.push(['المشروبات المحلاة','بدّل الغازيات بماء غازي بنكهة، ٥ أيام من ٧','HbA1c والدهون الثلاثية بعد ٦ شهور']);
-  if(idx('active')<=1) pri.push(['الحركة','مشي سريع نص ساعة، ٥ أيام بالأسبوع، بعد العشا','HDL والأنسولين وقوة القبضة بعد ٦ شهور']);
-  if(idx('sleep')<=1) pri.push(['النوم','وقت نوم ثابت، والجوال برا الغرفة','hs-CRP ومقياس النوم بعد ٦ شهور']);
-  if(idx('smoke')===3) pri.push(['التدخين','برنامج ترك مع فريق ول.','hs-CRP وCK بعد ٦ شهور']);
-  if(S.vitals.sbp>=130) pri.push(['ضغط الدم','قيس ضغطك بالبيت أسبوعين وخفف الملح','ضغط الدم في زيارة ٦ شهور']);
-  if(sc['مزاجك']!=='good'||sc['قلقك']!=='good') pri.push(['راحة بالك','جلسة مع فريق ول. النفسي خلال أسبوعين','PHQ-9 / GAD-7 بعد ٦ أسابيع']);
-  while(pri.length<3) pri.push([['قوة العضل','تمرينين مقاومة بالأسبوع','قوة القبضة وCK بعد ٦ شهور'],['الأكل','حصتين خضار كل يوم','MEDAS بعد ٦ شهور'],['الماء','٨ أكواب كل يوم','كثافة البول بعد ٦ شهور']][pri.length]);
-  html(`<h1>خطتك${NM()}: ٣ أشياء بس هالشهر</h1><p class="why">د. فيصل، طبيب ول.: ${n2a(flagged.length)} مؤشر يبي متابعة من ${n2a(101)}، وكل أولوية لها مؤشر نرجع نقيسه.</p>
+  if(flagged.some(f=>f[1]==='فيتامين د')) pri.push(['فيتامين د','جرعة أسبوعية يصفها لك الطبيب، وربع ساعة شمس','فيتامين د بعد 6 شهور']);
+  if(idx('sweet')>=3) pri.push(['المشروبات المحلاة','بدّل الغازيات بماء غازي بنكهة، 5 أيام من 7','HbA1c والدهون الثلاثية بعد 6 شهور']);
+  if(idx('active')<=1) pri.push(['الحركة','مشي سريع نص ساعة، 5 أيام بالأسبوع، بعد العشا','HDL والأنسولين وقوة القبضة بعد 6 شهور']);
+  if(idx('sleep')<=1) pri.push(['النوم','وقت نوم ثابت، والجوال برا الغرفة','hs-CRP ومقياس النوم بعد 6 شهور']);
+  if(idx('smoke')===3) pri.push(['التدخين','برنامج ترك مع فريق ول.','hs-CRP وCK بعد 6 شهور']);
+  if(S.vitals.sbp>=130) pri.push(['ضغط الدم','قيس ضغطك بالبيت أسبوعين وخفف الملح','ضغط الدم في زيارة 6 شهور']);
+  if(sc['مزاجك']!=='good'||sc['قلقك']!=='good') pri.push(['راحة بالك','جلسة مع فريق ول. النفسي خلال أسبوعين','PHQ-9 / GAD-7 بعد 6 أسابيع']);
+  while(pri.length<3) pri.push([['قوة العضل','تمرينين مقاومة بالأسبوع','قوة القبضة وCK بعد 6 شهور'],['الأكل','حصتين خضار كل يوم','MEDAS بعد 6 شهور'],['الماء','8 أكواب كل يوم','كثافة البول بعد 6 شهور']][pri.length]);
+  html(`<h1>خطتك${NM()}: 3 أشياء بس هالشهر</h1><p class="why">د. فيصل، طبيب ول.: ${n2a(flagged.length)} مؤشر يبي متابعة من ${n2a(101)}، وكل أولوية لها مؤشر نرجع نقيسه.</p>
   ${pri.slice(0,3).map((p,i)=>`<div class="card"><h3>${n2a(i+1)}. ${p[0]}</h3><p>${p[1]}</p><p class="small" style="margin-top:6px">نقيسه: ${p[2]}</p></div>`).join('')}
   ${ADDONS.some(x=>(S.addons||[]).includes(x.id))?`<div class="card"><h3>${ADDONS.filter(x=>S.addons.includes(x.id)).length>1?'إضافاتك':'إضافة'} ${ADDONS.filter(x=>S.addons.includes(x.id)).map(x=>x.name).join(' و')}</h3><p class="small">نتايجها مع الطبيب بنفس المكالمة.</p></div>`:''}
   ${(()=>{const m=MIND.find(x=>(S.addons||[]).includes(x.id)); return m?`<div class="card"><h3>باقة Well Mind</h3><p class="small">${m.what}. اشتراك شهري منفصل، ${n2a(m.price)} ريال/شهر، ومختصك يشوف جواباتك قبل أول جلسة.</p></div>`:''})()}
-  <h2>خدمات ول. المقترحة لك</h2><p class="why">طبيبك اختارها من نتايجك. كل خدمة لها مؤشر نرجع نقيسه بعد ٦ شهور.</p>
+  <h2>خدمات ول. المقترحة لك</h2><p class="why">طبيبك اختارها من نتايجك. كل خدمة لها مؤشر نرجع نقيسه بعد 6 شهور.</p>
   ${services(R).map((x,i)=>`<div class="svc"><div><div class="t">${x[0]}</div><div class="d">${x[1]}</div><span class="why">ليش: ${x[2]}</span></div><div class="p"><b>${x[3]}</b><small>${x[4]}</small><button data-i="${i}">${x[3]==='بعد التقييم'?'اسأل طبيبك':'احجز'}</button></div></div>`).join('')}
   <div class="card"><h3>كلمة من طبيبك</h3><p class="small">"أرقامك أحسن من اللي {تتوقع|تتوقعين} في أشياء، وفيها ثلاث فرص واضحة. بنشوف الفرق بعد ستة شهور، مو بعد سنة."</p></div>
   <button class="btn primary" id="year">سنتك مع ول.</button>`);
@@ -1247,29 +1247,29 @@ function s9(){ setStage(9,92); const R=results(); const flagged=R.cats.flatMap(c
 
 function spark(series,cols){ const W=300,H=110,px=24,py=14; const n=series[0].length; const x=i=>px+i*(W-2*px)/(n-1), y=v=>H-py-(v/100)*(H-2*py);
   let out=''; series.forEach((sr,k)=>{ const d=sr.map((v,i)=>`${i?'L':'M'}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(' '); out+=`<path class="a" d="${d} L${x(n-1)} ${H-py} L${x(0)} ${H-py}Z" fill="${cols[k]}"/><path class="l" d="${d}" stroke="${cols[k]}"/><circle cx="${x(n-1)}" cy="${y(sr[n-1])}" r="4" fill="${cols[k]}"/>`; });
-  const lbl=['٠','١','٢','٣','٤','٥','٦']; for(let i=0;i<n;i++) out+=`<text x="${x(i)}" y="${H-1}" text-anchor="middle">${lbl[i]||''}</text>`;
+  const lbl=['0','1','2','3','4','5','6']; for(let i=0;i<n;i++) out+=`<text x="${x(i)}" y="${H-1}" text-anchor="middle">${lbl[i]||''}</text>`;
   return `<svg class="spark" viewBox="0 0 ${W} ${H}" aria-hidden="true" style="direction:ltr">${out}</svg>`;
 }
 
 function s10(){ setStage(10,100);
   html(`<h1>سنتك مع ول.${NM()}</h1><p class="why">فحصين، وزيارتين من الفريق الطبي، ومكالمتين مع الطبيب، ومدير رعاية باسمك بينهم.</p>
-  <div class="mtrack"><div class="row2"><b>صحتك شهر بعد شهر</b><span class="up">+١٨٪</span></div>
+  <div class="mtrack"><div class="row2"><b>صحتك شهر بعد شهر</b><span class="up">+18%</span></div>
     <p class="small" style="margin:2px 0 0">تسجيل شهري في دقيقة (نوم، طاقة، مزاج) وقراءات ساعتك الذكية، بين السحبتين. مثال توضيحي.</p>
     ${spark([[52,55,61,64,68,71,74],[48,50,54,60,63,66,70],[58,57,62,65,67,70,72]],['#8F6BFF','#5CC79D','#E6B05A'])}
     <div class="mlegend"><span><i style="background:#8F6BFF"></i>الطاقة</span><span><i style="background:#5CC79D"></i>النوم</span><span><i style="background:#E6B05A"></i>المزاج</span><span style="color:var(--muted)">الشهر</span></div>
-    <div class="checkin"><div><b>٧.٢</b>ساعات نوم</div><div><b>٨٬٤٠٠</b>خطوة باليوم</div><div><b>٦٢</b>نبض الراحة</div></div>
+    <div class="checkin"><div><b>7.2</b>ساعات نوم</div><div><b>8٬400</b>خطوة باليوم</div><div><b>62</b>نبض الراحة</div></div>
   </div>
   <ul class="timeline">
-  <li class="now"><b>الشهر ٠</b>السحب الأول، النتائج، خطة ٣ أولويات</li>
+  <li class="now"><b>الشهر 0</b>السحب الأول، النتائج، خطة 3 أولويات</li>
   <li><b>كل شهر</b>تسجيل دقيقة واحدة للنوم والطاقة والمزاج، وقراءات ساعتك تنضاف تلقائياً، وتشوف الخط يتحرك</li>
-  <li><b>الشهر ١</b>رسالة من مدير رعايتك: كيف ماشي معك أول هدف؟</li>
-  <li><b>الشهر ٢</b>نصايح على قد أولوياتك الثلاث، بس</li>
-  <li><b>الشهر ٣</b>مراجعة نص الطريق مع طبيبك، ونعدّل الخطة</li>
-  <li><b>الشهر ٥</b>حجز السحب الثاني، وتذكير بالصيام، والإضافة إذا نصح فيها الطبيب</li>
-  <li><b>الشهر ٦</b>السحب الثاني في بيتك: ٧٤ مؤشر يتغيّر، واللي طلع يبي متابعة، وعمرك البيولوجي الجديد</li>
-  <li><b>الشهر ٧–١١</b>نفس النظام مع أولوياتك الجديدة</li>
-  <li><b>الشهر ١١</b>سنتك كلها في شاشة وحدة: وش تحسّن، وعمرك البيولوجي قبل وبعد</li>
-  <li><b>الشهر ١٢</b>التجديد، وسنتك الثانية تبدأ بالسحب الثالث</li>
+  <li><b>الشهر 1</b>رسالة من مدير رعايتك: كيف ماشي معك أول هدف؟</li>
+  <li><b>الشهر 2</b>نصايح على قد أولوياتك الثلاث، بس</li>
+  <li><b>الشهر 3</b>مراجعة نص الطريق مع طبيبك، ونعدّل الخطة</li>
+  <li><b>الشهر 5</b>حجز السحب الثاني، وتذكير بالصيام، والإضافة إذا نصح فيها الطبيب</li>
+  <li><b>الشهر 6</b>السحب الثاني في بيتك: 74 مؤشر يتغيّر، واللي طلع يبي متابعة، وعمرك البيولوجي الجديد</li>
+  <li><b>الشهر 7–11</b>نفس النظام مع أولوياتك الجديدة</li>
+  <li><b>الشهر 11</b>سنتك كلها في شاشة وحدة: وش تحسّن، وعمرك البيولوجي قبل وبعد</li>
+  <li><b>الشهر 12</b>التجديد، وسنتك الثانية تبدأ بالسحب الثالث</li>
   </ul>
   <div class="card"><h3>نعتني بك وبمن تحب لتبقوا بخير</h3><p class="small">{أضف زوجتك أو والدك|أضيفي زوجك أو والدتك} بسعر الأعضاء، ونفس الفريق يعتني بالبيت كله.</p></div>
   <button class="btn ghost" id="restart">{ابدأ|ابدئي} من جديد بإجابات ثانية</button>`);
@@ -1280,7 +1280,7 @@ function s10(){ setStage(10,100);
 function stickyCheck(){const sc=document.getElementById('stickyCta'), h=screen.querySelector('.hero2'); if(!sc||!h) return; const on=h.getBoundingClientRect().bottom<0; sc.classList.toggle('on',on); document.body.classList.toggle('sticky-on',on)}
 addEventListener('scroll',stickyCheck,{passive:true});
 const GO=[s0,()=>{S.qi=0;renderQuick()},s2,()=>{S.di=0;renderDeep()},s4,s5,s6,s7,s8,s9,s10];
-function ensureDefaults(){ const d={arch:'أبي أعرف جسمي بالتفصيل',age:38,sex:'رجل',height:172,weight:84,waist:96,sleep:'٥–٦',active:'١–٢',sweet:'كل يوم',smoke:'لا، أبداً',stress:'كثير',fam:['سكري'],sl_reg:'يتغير كثير',sl_lat:'١٥–٣٠',sl_fresh:'أحياناً',sl_snore:'لا',sl_apnea:'لا',sl_day:'أحياناً',mv_vig:'١',mv_mod:'٢',mv_sit:'٨–١٠',mv_res:'لا',nu_veg:'١',nu_fruit:'١',nu_meat:'٣–٥',nu_fish:'١',nu_out:'٣–٥',nu_dates:'١–٣',ps1:'أحياناً',ps2:'كثير',ps3:'أحياناً',phq1:'كم يوم',phq2:'كم يوم',phq3:'كم يوم',phq4:'أكثر من نص الأيام',phq5:'أبداً',phq6:'أبداً',phq7:'كم يوم',phq8:'أبداً',phq9:'أبداً',gad1:'كم يوم',gad2:'أبداً',lo1:'نادراً',lo2:'نادراً',lo3:'أحياناً',dx:['ولا واحد'],meds:['لا'],last:'أكثر من سنتين',bp:'ما أدري',goals:['طاقة أكثر','وزن','نوم'],m_conf:'عالية',m_firm:'أغلب الأوقات',m_keep:'أغلب الأوقات',m_energy:'نعم، شوي',m_noct:'مرة'}; for(const k in d) if(A[k]===undefined) A[k]=d[k]; if(!S.vitals.sbp) S.vitals={sbp:128,dbp:82,hr:74,spo2:97,wt:84,wa:96,neck:40,grip:42}; }
+function ensureDefaults(){ const d={arch:'أبي أعرف جسمي بالتفصيل',age:38,sex:'رجل',height:172,weight:84,waist:96,sleep:'5–6',active:'1–2',sweet:'كل يوم',smoke:'لا، أبداً',stress:'كثير',fam:['سكري'],sl_reg:'يتغير كثير',sl_lat:'15–30',sl_fresh:'أحياناً',sl_snore:'لا',sl_apnea:'لا',sl_day:'أحياناً',mv_vig:'1',mv_mod:'2',mv_sit:'8–10',mv_res:'لا',nu_veg:'1',nu_fruit:'1',nu_meat:'3–5',nu_fish:'1',nu_out:'3–5',nu_dates:'1–3',ps1:'أحياناً',ps2:'كثير',ps3:'أحياناً',phq1:'كم يوم',phq2:'كم يوم',phq3:'كم يوم',phq4:'أكثر من نص الأيام',phq5:'أبداً',phq6:'أبداً',phq7:'كم يوم',phq8:'أبداً',phq9:'أبداً',gad1:'كم يوم',gad2:'أبداً',lo1:'نادراً',lo2:'نادراً',lo3:'أحياناً',dx:['ولا واحد'],meds:['لا'],last:'أكثر من سنتين',bp:'ما أدري',goals:['طاقة أكثر','وزن','نوم'],m_conf:'عالية',m_firm:'أغلب الأوقات',m_keep:'أغلب الأوقات',m_energy:'نعم، شوي',m_noct:'مرة'}; for(const k in d) if(A[k]===undefined) A[k]=d[k]; if(!S.vitals.sbp) S.vitals={sbp:128,dbp:82,hr:74,spo2:97,wt:84,wa:96,neck:40,grip:42}; }
 backBtn.onclick=()=>{ if(S.step===1&&S.qi>0){S.qi--;renderQuick()} else if(S.step===3&&S.di>0){S.di--;renderDeep()} else if(S.step>0){GO[S.step-1]()} };
 const jump=$('#jump'); STAGES.forEach((s,i)=>{const o=document.createElement('option');o.value=i;o.textContent=n2a(i)+'. '+s;jump.appendChild(o)});
 jump.onchange=e=>{const i=+e.target.value; if(isNaN(i)||e.target.value==='')return; if(i>=2) ensureDefaults(); GO[i](); e.target.value=''};
