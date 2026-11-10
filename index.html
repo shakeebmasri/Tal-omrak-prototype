@@ -366,6 +366,18 @@ h1{font-size:30px;line-height:1.35;font-family:var(--font-head);font-weight:700}
 .closing>p:first-child{font-family:var(--font-head);font-size:19px;line-height:1.7;color:var(--ink);max-width:28ch;margin:0 auto 10px}
 .cl-wm .wm{font-size:34px}
 
+/* three-stage Well Age */
+.rv-gap.t-good b{color:#5FE0AE}.rv-gap.t-mid b{color:#FFC466}.rv-gap.t-act b{color:#FF8FA6}
+.stg{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:10px 0 2px}
+.stg span{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:4px 10px}
+.stg i{width:9px;height:9px;border-radius:50%;display:block}
+.stg .good i{background:rgb(38,176,124)}.stg .mid i{background:rgb(232,158,48)}.stg .act i{background:rgb(236,82,112)}
+.stg span.on{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.1);font-weight:600}
+.ringwrap .num{text-shadow:0 2px 14px rgba(0,0,0,.28)}
+.ringwrap .cap{color:rgba(255,255,255,.9)!important}
+.ringwrap .verdict{color:#fff!important;font-size:15px}
+.qmark{text-shadow:0 2px 14px rgba(0,0,0,.28)}
+
 /* reveal v2 */
 .calc{text-align:center;margin-top:10px}
 .calc p{opacity:0;animation:calcIn .5s ease forwards;font-size:15.5px;color:var(--ink-2);margin:6px 0}
@@ -706,26 +718,36 @@ function addonSuggest(){
 /* ---------- rendering helpers ---------- */
 const ICONS={bmi:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',waist:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h16M7 8c0 4 10 4 10 8M7 16c0-4 10-4 10-8"/></svg>',sleep:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>',active:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 14l4-2 3 3 4-6 2 3h3"/><circle cx="18" cy="6" r="2"/></svg>',sweet:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 4h10l-1 16H8z M9 9h6"/></svg>',smoke:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 15h14v4H3zM19 15h2v4h-2zM18 9c0-2 2-2 2-4M15 11c0-2 2-2 2-4"/></svg>',stress:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg>'};
 
-function drawRing(cv,seed,tone){ // living particle band: swirls, breathes, twinkles, never stops
-  const dpr=Math.min(2,window.devicePixelRatio||1); const W=cv.clientWidth||300; cv.width=W*dpr; cv.height=W*dpr; const g=cv.getContext('2d'); g.scale(dpr,dpr);
-  let r0=seed*9301+49297; const rnd=()=>{r0=(r0*9301+49297)%233280;return r0/233280};
-  const cx=W/2,cy=W/2,R=W*0.40; const a1=rnd()*6.28,a2=rnd()*6.28,a3=rnd()*6.28,a4=rnd()*6.28;
-  const shape=(t,ph)=>1+0.10*Math.sin(2*t+a1+ph*0.6)+0.07*Math.sin(3*t+a2-ph*0.4)+0.05*Math.sin(4*t+a3+ph*0.3)+0.03*Math.sin(7*t+a4);
-  const N=W<220?1500:2400; const dots=[]; for(let i=0;i<N;i++){ const t=rnd()*6.283; let u=(rnd()+rnd())/2; const edge=Math.min(u,1-u)*2; dots.push({t,u,edge,sz:0.7+rnd()*(1.2+2.8*edge),ph:rnd()*6.28,sp:0.15+rnd()*0.5,tw:1.5+rnd()*3,a:0.35+rnd()*0.65*edge+0.1,c:Math.floor(rnd()*4)}); }
-  const cols=tone==='good'?['#8FE8C6','#C9B8FF','#E6DEFF','#FFFFFF']:tone==='act'?['#FFB3AD','#F6CB8B','#E6DEFF','#FFFFFF']:['#A98BFF','#C9B8FF','#E6DEFF','#FFFFFF'];
-  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches; const t0=performance.now();
-  function frame(now){ if(!document.body.contains(cv)) return; const r=cv.getBoundingClientRect(); const vis=r.bottom>0&&r.top<innerHeight;
-    if(vis||reduce){ const el=(now-t0)/1000; const k=reduce?1:Math.min(1,el/1.4); const e=1-Math.pow(1-k,3); const ph=reduce?0:el*0.5; const breathe=reduce?1:1+0.025*Math.sin(el*1.3); const rot=reduce?0:el*0.18;
-      g.clearRect(0,0,W,W);
-            const gl=g.createRadialGradient(cx,cy,R*0.55,cx,cy,R*0.9); gl.addColorStop(0,'rgba(169,139,255,0)'); gl.addColorStop(0.7,`rgba(169,139,255,${0.06+0.04*Math.sin(el*1.3)})`); gl.addColorStop(1,'rgba(169,139,255,0)'); g.fillStyle=gl; g.beginPath(); g.arc(cx,cy,R*0.9*breathe,0,6.283); g.fill();
-      for(const d of dots){ const tt=d.t+rot*(0.6+d.sp); const sh=shape(tt,ph)*breathe; const rr=(R*sh*0.62+(R*sh-R*sh*0.62)*d.u)*(0.8+0.2*e)+(reduce?0:Math.sin(el*d.sp*3+d.ph)*1.4);
-        const x=cx+Math.cos(tt)*rr,y=cy+Math.sin(tt)*rr; const tw=reduce?1:0.65+0.35*Math.sin(el*d.tw+d.ph);
-        g.globalAlpha=Math.min(1,d.a*tw)*e; g.fillStyle=cols[d.c]; if(d.sz>3.2){g.shadowColor='rgba(230,222,255,0.7)';g.shadowBlur=5}else g.shadowBlur=0; g.beginPath(); g.arc(x,y,d.sz,0,6.283); g.fill(); }
-      g.shadowBlur=0; g.globalAlpha=1; }
-    if(!reduce) requestAnimationFrame(frame); }
-  requestAnimationFrame(frame);
+const TONE={good:[38,176,124],mid:[232,158,48],act:[236,82,112],idle:[126,87,253]};
+function tone3(d){ return d<=0?'good':d<5?'mid':'act'; }
+function drawRing(cv,seed,tone,pos){ // Well dot: a breathing orb in the stage colour, inside a three-zone dial
+  if(!cv) return; cv._t={tone:tone&&TONE[tone]?tone:'idle', pos:(pos==null?null:Math.max(-1,Math.min(1,pos)))};
+  const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ctx=cv.getContext('2d'); const st=cv._s||(cv._s={c:TONE[cv._t.tone].slice(), p:cv._t.pos==null?0:-1});
+  const Z=[['good',0,.5],['mid',.5,.708],['act',.708,1]], A0=Math.PI*.75, SW=Math.PI*1.5;
+  function frame(t){
+    if(!document.body.contains(cv)){cv._run=false;return}
+    const dpr=Math.min(2,devicePixelRatio||1), w=cv.clientWidth||240; if(cv.width!==Math.round(w*dpr)){cv.width=cv.height=Math.round(w*dpr)}
+    const W=cv.width, cx=W/2, cy=W/2, R=W/2, T=cv._t, tc=TONE[T.tone];
+    const k=still?1:.08; for(let n=0;n<3;n++) st.c[n]+=(tc[n]-st.c[n])*k;
+    const tp=T.pos==null?Math.sin(t/1400)*.85:T.pos; st.p+=(tp-st.p)*(still?1:(T.pos==null?.5:.06));
+    const col=a=>`rgba(${st.c[0]|0},${st.c[1]|0},${st.c[2]|0},${a})`;
+    ctx.clearRect(0,0,W,W);
+    const ra=R*.88, lw=R*.075; ctx.lineCap='round';
+    Z.forEach(z=>{ const on=T.tone===z[0]; const c=TONE[z[0]]; ctx.beginPath(); ctx.arc(cx,cy,ra,A0+SW*z[1]+.035,A0+SW*z[2]-.035);
+      ctx.strokeStyle=`rgba(${c[0]},${c[1]},${c[2]},${T.tone==='idle'?.55:on?1:.28})`; ctx.lineWidth=on?lw*1.15:lw; ctx.stroke(); });
+    const br=still?1:1+Math.sin(t/1100)*.025, ro=R*.64*br;
+    ctx.save(); ctx.shadowColor=col(.75); ctx.shadowBlur=R*.3; ctx.beginPath(); ctx.arc(cx,cy,ro,0,7); ctx.fillStyle=col(1); ctx.fill(); ctx.restore();
+    const g=ctx.createRadialGradient(cx-ro*.35,cy-ro*.4,ro*.05,cx,cy,ro); g.addColorStop(0,'rgba(255,255,255,.38)'); g.addColorStop(.5,'rgba(255,255,255,.06)'); g.addColorStop(1,'rgba(0,0,0,.22)');
+    ctx.beginPath(); ctx.arc(cx,cy,ro,0,7); ctx.fillStyle=g; ctx.fill();
+    const an=A0+SW*((st.p+1)/2), mx=cx+Math.cos(an)*ra, my=cy+Math.sin(an)*ra;
+    ctx.save(); ctx.shadowColor=col(.9); ctx.shadowBlur=R*.12; ctx.beginPath(); ctx.arc(mx,my,lw*1.05,0,7); ctx.fillStyle='#fff'; ctx.fill(); ctx.restore();
+    ctx.beginPath(); ctx.arc(mx,my,lw*.5,0,7); ctx.fillStyle=col(1); ctx.fill();
+    if(still){cv._run=false;return} requestAnimationFrame(frame);
+  }
+  if(!cv._run){cv._run=true; requestAnimationFrame(frame)}
 }
-
+const stageLegend=t=>`<div class="stg">${[['good','أصغر أو مثل عمرك'],['mid','أكبر بشوي'],['act','أكبر بوضوح']].map(x=>`<span class="${x[0]}${t===x[0]?' on':''}"><i></i>${x[1]}</span>`).join('')}</div>`;
 function labsArc(g,w,a){ const N=g+w+a, segs=40, r=120, cx=150, cy=150; const out=[]; const col=i=>{const f=i/segs; return f<g/N?'var(--good)':f<(g+w)/N?'var(--warn)':'var(--act)'};
   for(let i=0;i<segs;i++){ const a0=Math.PI+(i/segs)*Math.PI, a1=Math.PI+((i+1)/segs)*Math.PI-0.025; const x0=cx+r*Math.cos(a0),y0=cy+r*Math.sin(a0),x1=cx+r*Math.cos(a1),y1=cy+r*Math.sin(a1); out.push(`<path class="seg" data-i="${i}" d="M${x0} ${y0} A${r} ${r} 0 0 1 ${x1} ${y1}" stroke="${col(i)}"/>`)}
   return `<svg class="arc" viewBox="0 0 300 170" aria-hidden="true">${out.join('')}<text x="150" y="128" text-anchor="middle" font-size="44" font-weight="700">${n2a(N)}</text><text x="150" y="152" text-anchor="middle" font-size="12" style="fill:var(--muted)">مؤشر من دمك</text></svg>`;
@@ -984,7 +1006,7 @@ function s0(){ setStage(0,0);
     <p class="tagl" style="margin-top:4px">عِش بعافية، عِش أفضل.</p>
     <button class="btn primary" id="go3" style="margin-top:14px">اعرف عمرك الصحي</button></section>
   <p class="small" style="margin-top:18px;opacity:.7">نسخة أولية. القائمة اللي تحت تنقلك بين المراحل.</p>`);
-  drawRing($('#landCv'),4242,'mid'); drawRing($('#pvCv'),2718,'act');
+  drawRing($('#landCv'),4242); drawRing($('#pvCv'),2718,'act',5.2/12);
   (function loopQ(){ const q=screen.querySelector('.qmark'); if(!q||matchMedia('(prefers-reduced-motion: reduce)').matches) return; const ages=[27,52,34,46,31,58,39,44]; let i=0; const iv=setInterval(()=>{ if(!document.body.contains(q)){clearInterval(iv);return} if(i<ages.length){q.textContent=n2a(ages[i]);q.style.opacity=.85;i++} else {q.textContent='؟';q.style.opacity=1; if(i++>ages.length+12) i=0} },140); })();
   (function loopPv(){ const n=screen.querySelector('.pv-ring .num'); if(!n||matchMedia('(prefers-reduced-motion: reduce)').matches) return; const run=()=>{ if(!document.body.contains(n)) return; countUp(n,38,43.2,1600,1); setTimeout(run,5000)}; run(); })();
   $('#go').onclick=$('#go2').onclick=$('#go3').onclick=()=>{S.qi=0;renderQuick()}; $('#join0').onclick=$('#join1').onclick=()=>{ensureDefaults();s5()};
@@ -1004,14 +1026,14 @@ function sMob(){ setStage(1,20); if(S.contact&&S.contact.mob) return s2();
   html(`<div class="ringwrap h2ring" style="margin:0 auto 10px"><canvas id="mobCv"></canvas><div class="center"><div class="qmark">؟</div></div></div>`);
   const ring=screen.innerHTML;
   telQ({id:'mob',q:'نتيجتك جاهزة. وين نرسلها؟',why:'{اكتب|اكتبي} رقم جوالك و{شوف|شوفي} نتيجتك الحين، ونرسل لك نسخة على واتساب. ما نشارك رقمك مع أحد.'},s2);
-  screen.insertAdjacentHTML('afterbegin',ring); const cv=$('#mobCv'); if(cv&&typeof drawRing==='function') drawRing(cv,1234,'mid'); $('#mob').focus(); }
+  screen.insertAdjacentHTML('afterbegin',ring); const cv=$('#mobCv'); if(cv&&typeof drawRing==='function') drawRing(cv,1234); $('#mob').focus(); }
 function s2(){ setStage(2,21);
   const quick=matchMedia('(prefers-reduced-motion: reduce)').matches||S.seenCalc;
   if(quick) return s2b(); S.seenCalc=true;
   html(`<div class="ringwrap h2ring" style="margin-top:30px"><canvas id="calcCv"></canvas><div class="center"><div class="qmark">؟</div></div></div>
   <h1 style="text-align:center;margin-top:14px">نحسب عمرك الصحي…</h1>
   <div class="calc"><p style="animation-delay:.1s">نقرا نومك وحركتك</p><p style="animation-delay:.8s">نحسب وزنك وخصرك</p><p style="animation-delay:1.5s">نشوف عاداتك وتاريخ أهلك</p></div>`);
-  drawRing($('#calcCv'),777,'mid'); setTimeout(()=>{ if(S.step===2&&$('#calcCv')) s2b() },2400);
+  drawRing($('#calcCv'),777); setTimeout(()=>{ if(S.step===2&&$('#calcCv')) s2b() },2400);
 }
 function s2b(){ setStage(2,22);
   const r=lifestyleAge(); r.total=Math.round(r.total); const est=A.age+r.total; const top=r.adj.slice(0,3); const allGood=top.every(x=>x[1]<=0);
@@ -1022,8 +1044,9 @@ function s2b(){ setStage(2,22);
   html(`<h1>${nm}${verdictH}.</h1>
   <div class="reveal"><div class="lbl">عمرك الصحي من جواباتك</div>
     <div class="ringwrap h2ring rv-ring"><canvas id="rvCv"></canvas><div class="center"><div><div class="num" id="cnt" style="font-size:64px">${n2a(A.age)}</div><div class="cap">± 2 سنة</div></div></div></div>
-    <div class="rv-gap ${dcls}"><b dir="ltr">${d>0?'+':d<0?'−':''}${n2a(Math.abs(d))}</b><span>${d===0?'نفس عمرك بالهوية':'سنة عن عمرك بالهوية ('+n2a(A.age)+')'}</span></div>
+    <div class="rv-gap t-${tone3(d)}" id="rvGap"><b dir="ltr">${d>0?'+':d<0?'−':''}${n2a(Math.abs(d))}</b><span>${d===0?'نفس عمرك بالهوية':'سنة عن عمرك بالهوية ('+n2a(A.age)+')'}</span></div>
     <p class="rv-say">عمرك ${n2a(A.age)}، و${d>0?'جسمك يقول':'جسمك يقول'} <b id="rvSay">${n2a(est)}</b>.</p>
+    <div id="rvStg">${stageLegend(tone3(d))}</div>
     <div class="lbl" style="margin-top:6px">هذا تقدير من 12 سؤال. عمرك البيولوجي الحقيقي يطلع من 101 مؤشر في دمك.</div></div>
   <h2>${allGood?'نقاط قوتك':'وش اللي حرّك عمرك؟'}</h2>
   ${top.map(x=>`<div class="finding ${x[1]>0?'up':x[1]<0?'down':'neutral'}"><div class="ico">${ICONS[x[0]]||ICONS.bmi}</div><div><h3><span>${x[2]}</span><span class="yrs">${x[1]>0?'+':x[1]<0?'−':''}${x[1]?n2a(Math.abs(x[1])):'0'} سنة</span></h3><p>أثره الحقيقي يبان في: <b>${x[3]}</b>، وهذا اللي نشوفه في الفحص.</p></div></div>`).join('')}
@@ -1041,11 +1064,11 @@ function s2b(){ setStage(2,22);
   <button class="btn ghost" id="share">{شارك|شاركي} نتيجتك: شاب ولا شايب؟</button>
   <p class="small" style="margin-top:12px">هذا تقدير من جواباتك، مو تشخيص. طبيب ول. يقرا نتايجك معك.</p>`);
   const dec=est%1?1:0; countUp($('#cnt'),A.age,est,1600,dec);
-  drawRing($('#rvCv'),Math.round(A.age*7+est*3),d>2?'act':d<-1?'good':'mid');
+  drawRing($('#rvCv'),0,tone3(d),d/12);
   $('#join').onclick=s5; $('#deep').onclick=()=>{S.di=0;renderDeep()};
   let shown=est; screen.querySelectorAll('.wi-c').forEach(b=>b.onclick=()=>{ b.classList.toggle('on');
     const save=[...screen.querySelectorAll('.wi-c.on')].reduce((a,x)=>a+ +x.dataset.s,0); const raw=r.adj.reduce((a,x)=>a+x[1],0)+r.fam; const to=Math.min(est,A.age+Math.round(Math.max(-12,Math.min(12,raw-save))));
-    countUp($('#cnt'),shown,to,600,to%1?1:0); countUp($('#wiN'),shown,to,600,to%1?1:0); shown=to; });
+    countUp($('#cnt'),shown,to,600,to%1?1:0); countUp($('#wiN'),shown,to,600,to%1?1:0); shown=to; const nd=to-A.age; drawRing($('#rvCv'),0,tone3(nd),nd/12); $('#rvStg').innerHTML=stageLegend(tone3(nd)); });
   $('#share').onclick=async()=>{ const text=`عمري بالهوية ${n2a(A.age)} وعمري الصحي ${n2a(est)}. شاب ولا شايب؟ اعرف عمرك الصحي في 3 دقايق:`; const url=location.href.split('?')[0].split('#')[0];
     try{ if(navigator.share){ await navigator.share({text,url}) } else { await navigator.clipboard.writeText(text+' '+url); $('#share').textContent='انتسخت، الصقها وين ما تبي ✓' } }catch(e){} };
 }
@@ -1198,7 +1221,7 @@ function s8(){ setStage(8,84); const R=results(); const est=A.age+lifestyleAge()
   <div class="cats">${R.cats.map(c=>{const g=c[3].filter(m=>m[1]==='good').length,p=Math.round(g/c[3].length*100);const CI={'القلب والدهون':'<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/>','السكر والأيض':'<path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/>','الدم والمناعة والالتهاب':'<circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/>','الكبد والبنكرياس':'<path d="M4 9c0-3 3-5 8-5s8 2 8 5-2 7-5 9-6 2-8 0-3-6-3-9z"/>','الكلى والبول':'<path d="M8 5c-3 0-4 3-4 7s1 7 4 7 3-2 3-7-0-7-3-7zM16 5c3 0 4 3 4 7s-1 7-4 7-3-2-3-7 0-7 3-7z"/>','الأملاح والمعادن':'<path d="M12 3l8 5v8l-8 5-8-5V8z"/>','الحديد والفيتامينات':'<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>','الغدة الدرقية':'<path d="M8 6c-2 0-3 2-3 5s1 7 3 7 2-3 4-3 2 3 4 3 3-4 3-7-1-5-3-5"/>','العضلات':'<path d="M5 14l3-3 3 3 2-6 3 6 3-3M4 19h16"/>','راحة البال':'<path d="M12 4a7 7 0 0 0-7 7c0 3 2 4 2 7h10c0-3 2-4 2-7a7 7 0 0 0-7-7zM10 21h4"/>'};return `<div class="cat"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${CI[c[0]]||''}</svg></div><div class="t">${c[0]}</div><div class="s">${c[1]}</div><div class="dots">${c[3].map(m=>`<i class="dot-${m[1]}" title="${m[0]}"></i>`).join('')}</div><div class="barr"><i data-w="${p}"></i></div></div>`}).join('')}</div>
   <h2>القياسات من بيتك</h2><div class="card">${[['ضغط الدم',`${n2a(S.vitals.sbp)}/${n2a(S.vitals.dbp)}`,S.vitals.sbp>=140?'act':S.vitals.sbp>=130?'warn':'good'],['النبض',n2a(S.vitals.hr),S.vitals.hr>90?'warn':'good'],['الخصر ÷ الطول',(S.vitals.wa/A.height).toFixed(2),S.vitals.wa/A.height>0.5?'warn':'good'],['قوة القبضة',n2a(S.vitals.grip)+' كجم',S.vitals.grip<(A.sex==='رجل'?30:18)?'warn':'good']].map(x=>`<div class="score"><div class="name">${x[0]}</div><div style="display:flex;gap:10px;align-items:center"><span class="sub" style="font-family:var(--font-num);font-size:18px;color:var(--ink)">${x[1]}</span><span class="pill ${x[2]}">${x[2]==='good'?'مثالي':x[2]==='warn'?'للمتابعة':'يحتاج انتباه'}</span></div></div>`).join('')}</div>
   <button class="btn primary" id="plan">مكالمة الطبيب: خطتك</button>`);
-  setTimeout(()=>{countUp($('#bioN'),A.age,R.bio,1400,1); const tone=dd>2?'act':dd<-1?'good':'mid'; drawRing($('#ringCv'),Math.round(A.age*7+(A.weight||80)),tone);
+  setTimeout(()=>{countUp($('#bioN'),A.age,R.bio,1400,1); const tone=tone3(dd); drawRing($('#ringCv'),0,tone,dd/12);
       const tk=$('#ticks'); const N=61; tk.innerHTML=Array.from({length:N},(_,i)=>`<i${i===30?' class="mid"':''}></i>`).join(''); const idx=Math.round(Math.max(0,Math.min(1,(R.pace-0.5)))*(N-1));
       setTimeout(()=>{const el=tk.children; for(let i=Math.max(0,idx-4);i<=Math.min(N-1,idx+4);i++)el[i].classList.add('on'); el[idx].classList.add('mk'); $('#paceV').textContent=n2a(R.pace.toFixed(2)); $('#paceChip').textContent=R.pace>1.02?'أسرع من التقويم':R.pace<0.98?'أبطأ من التقويم':'على وتيرة التقويم';
       const v=$('#bioV');v.textContent=dd>0?`أكبر بـ${n2a(Math.abs(dd).toFixed(1))} سنة`:dd<0?`أصغر بـ${n2a(Math.abs(dd).toFixed(1))} سنة`:'مطابق لعمرك'},600);
