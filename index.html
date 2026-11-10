@@ -463,6 +463,10 @@ h1{font-size:30px;line-height:1.35;font-family:var(--font-head);font-weight:700}
 .fr div{background:rgba(92,199,157,.08);border-radius:12px;padding:8px 10px}
 .fr b{display:block;font-size:13.5px;color:var(--ink)}
 .fr span{font-size:12px;color:var(--muted)}
+.free-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.free-row span{background:rgba(92,199,157,.08);border:1px solid rgba(92,199,157,.28);border-radius:14px;padding:9px 6px;text-align:center;font-size:13px;color:var(--ink);display:flex;flex-direction:column;gap:2px}
+.free-row s{font-size:11px;color:var(--muted)}
+.free-row b{font-size:13px;color:var(--good)}
 .appf{display:grid;grid-template-columns:1fr;gap:6px;margin-top:8px}
 .appf div{background:rgba(92,199,157,.08);border-radius:12px;padding:8px 10px}
 .appf b{display:block;font-size:14px;color:var(--ink)}
@@ -723,7 +727,7 @@ const ADDONS=[
   {id:'stress',name:'التوتر والنوم',price:149, when:'لو توترك عالي أو نومك مو زين، أو تحس بالاحتراق', tests:'كورتيزول الصباح وDHEA-S، ويُسحب قبل 9 الصباح'}];
 const APP_FEATURES=[
   ['chart','Well Age وعلاماتك الحيوية','عمرك البيولوجي مع تفصيله وتاريخه، والتعافي والنوم ونبض القلب من ساعتك'],
-  ['home','ساعتك متصلة','Apple Health وWHOOP وOura وGarmin وFitbit وWithings، و23 مصدر غيرها'],
+  ['home','ساعتك متصلة','Apple Health وWHOOP وOura وGarmin وFitbit وWithings، ضمن 23 مصدر'],
   ['doc','نتايجك في جيبك','كل تحاليلك ووصفاتك وتقاريرك في سجلك الطبي، وتشاركها مع طبيب بثواني'],
   ['drop','أكلك بصورة','{صوّر|صوّري} وجبتك والتطبيق يحسب السعرات والبروتين'],
   ['chart','مدرب الجيم','خطة تمارين لك، وجلسات موجّهة بمؤقت راحة'],
@@ -847,7 +851,7 @@ function s0(){ setStage(0,0);
   const pil=(t,d)=>`<div class="pil"><b>${t}</b><span>${d}</span></div>`;
   const svc=(t,d,soon)=>`<div class="svc${soon?' soon':''}"><b>${t}${soon?'<em>قريباً</em>':''}</b><span>${d}</span></div>`;
   const ap=(i,t,d,body)=>`<div class="ap"><div class="ap-t"><div class="fi">${svg(i)}</div><div><b>${t}</b><span>${d}</span></div></div>${body}</div>`;
-  html(`<nav class="lnav">${[['how','كيف نشتغل'],['incl','وش تشمل'],['app','التطبيق'],['after','بعد خطتك'],['price','السعر'],['faqs','الأسئلة']].map(x=>`<button data-to="${x[0]}">${x[1]}</button>`).join('')}</nav>
+  html(`<nav class="lnav">${[['how','كيف نشتغل'],['incl','وش تشمل'],['wellapp','التطبيق'],['after','بعد خطتك'],['price','السعر'],['faqs','الأسئلة']].map(x=>`<button data-to="${x[0]}">${x[1]}</button>`).join('')}</nav>
   <section class="hero2">
     <div class="h2brand">الاطمئنان خيرٌ من الانتظار.</div>
     <h1 class="h2title">كم عمرك فعلاً؟</h1>
@@ -902,8 +906,9 @@ function s0(){ setStage(0,0);
     </ul></details>
   </section>
 
-  <section class="sec" id="app"><h2 class="sec-h">وتطبيق ول. معك طول السنة</h2>
-    <p class="mf-p" style="margin-bottom:12px">عضويتك تفتح لك التطبيق كامل، من يوم ما {تنضم|تنضمين}.</p>
+  <section class="sec" id="wellapp"><h2 class="sec-h">كل تطبيقاتك الصحية في تطبيق واحد، مجاناً</h2>
+    <p class="mf-p" style="margin-bottom:10px">تطبيق للسعرات، وتطبيق للتمارين، وتطبيق للنوم، وتطبيق للمزاج، وكل واحد باشتراك. مع عضويتك، كلها في تطبيق واحد <b>بدون أي اشتراك زيادة</b>، من يوم ما {تنضم|تنضمين}.</p>
+    <div class="free-row">${['عدّاد السعرات','مدرب التمارين','متابعة النوم','سجل المزاج','متابعة الدورة','السجل الطبي'].map(x=>`<span><s>اشتراك</s>${x}<b>مجاناً</b></span>`).join('')}</div>
     ${APP_FEATURES.slice(0,8).map(f=>row(f[0],f[1],f[2])).join('')}
     <p class="small" style="margin-top:10px">متاح الحين على iPhone، بالعربي والإنجليزي.</p>
   </section>
@@ -1253,7 +1258,7 @@ function s5(){ setStage(5,58); const ad=addonSuggest(); const first=(A.goals||[]
     <button class="btn ${on?'primary':'ghost'} ao-b">${on?'انضافت ✓':'أضفها'}</button></div>`})()}
   <div class="card free"><h3 style="margin-top:0">مشمول في عضويتك، بدون زيادة</h3><p class="small">4 تقارير تركيز من نفس السحب، يفعّلها طبيبك لما يشوف إنك {تحتاجها|تحتاجينها}:</p>
     <div class="fr">${FREE_REPORTS.map(r=>`<div><b>${r[0]}</b><span>${r[1]}</span></div>`).join('')}</div></div>
-  <div class="card free"><h3 style="margin-top:0">وتطبيق ول. كامل، مشمول</h3><p class="small">عضويتك تفتح لك كل التطبيق طول السنة:</p>
+  <div class="card free"><h3 style="margin-top:0">كل تطبيقاتك الصحية في تطبيق واحد، مجاناً</h3><p class="small">اللي {تدفع|تدفعين} عليه اشتراكات في تطبيقات متفرقة، كله في تطبيق ول. مع عضويتك، بدون أي اشتراك زيادة:</p>
     <div class="appf">${APP_FEATURES.map(f=>`<div><b>${f[1]}</b><span>${f[2]}</span></div>`).join('')}</div></div>
   ${(()=>{const sel=ADDONS.filter(x=>(S.addons||[]).includes(x.id)); const mind=MIND.find(x=>(S.addons||[]).includes(x.id)); const tot=1999+sel.reduce((a,x)=>a+x.price,0); return (sel.length||mind)?`<div class="card tot"><div class="tot-r"><span>عضوية طال عمرك</span><span>1999</span></div>${sel.map(x=>`<div class="tot-r"><span>${x.name}</span><span>${n2a(x.price)}</span></div>`).join('')}<div class="tot-r sum"><span>المجموع السنوي</span><span>${n2a(tot)} ريال</span></div><p class="small" style="margin:6px 0 0">أو 4 دفعات، كل دفعة ${n2a(Math.ceil(tot/4))} ريال</p>${mind?`<div class="tot-r" style="margin-top:8px;border-top:1px solid var(--line);padding-top:9px"><span>باقة Well Mind، اشتراك منفصل</span><span>${n2a(mind.price)} ريال/شهر</span></div>`:''}</div>`:''})()}
   <button class="btn primary" id="book">{فعّل عضويتك واحجز|فعّلي عضويتك واحجزي} زيارتك</button>
