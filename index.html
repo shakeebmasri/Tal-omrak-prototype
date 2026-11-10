@@ -1035,7 +1035,7 @@ function mentalCard(){ const m=mental(); const cls=l=>l===0?'good':l===1?'warn':
     ${m.prog.lab?`<p class="small" style="margin:8px 0 0"><b>ومن دمك:</b> ${m.prog.lab}</p>`:''}</div>
   ${(()=>{const t=mindSuggest(); if(!t) return `<p class="small" style="margin:4px 0 0">تمارين التنفس والتأمل وتسجيل المزاج في التطبيق مشمولة في عضويتك.</p>`;
     const on=(S.addons||[]).includes(t.id);
-    return `<div class="ao sug${on?' on':''}" data-id="${t.id}"><div class="ao-h"><div><b>Well Mind ${t.tier}</b><em>مقترحة لك</em></div><span class="ao-p">${n2a(t.price)} ريال/شهر</span></div>
+    return `<div class="ao sug${on?' on':''}" data-id="${t.id}"><div class="ao-h"><div><b>باقة Well Mind المناسبة لك</b><em>حسب جواباتك</em></div><span class="ao-p">${n2a(t.price)} ريال/شهر</span></div>
     <p class="ao-w">${t.what}</p><p class="ao-t">باقة نفسية منفصلة عن العضوية، اشتراك شهري {تلغيه|تلغينه} متى ما {تبي|تبين}. المختص يشوف جواباتك هنا قبل أول جلسة.</p>
     <button class="btn ${on?'primary':'ghost'} ao-b">${on?'انضافت ✓':'أضفها'}</button></div>`})()}`; }
 function s4(){ setStage(4,48); const sc=scores(); const g=sc.filter(x=>x[1]==='good').length;
@@ -1058,14 +1058,14 @@ function s5(){ setStage(5,58); const ad=addonSuggest(); const first=(A.goals||[]
     <div class="ao-h"><div><b>${x.name}</b>${sug?'<em>مقترحة لك</em>':''}</div><span class="ao-p">${n2a(x.price)} ريال</span></div>
     <p class="ao-w">${x.when}</p><p class="ao-t">${x.tests}</p>
     <button class="btn ${on?'primary':'ghost'} ao-b">${on?'انضافت ✓':'أضفها'}</button></div>`}).join('')}
-  ${(()=>{const t=mindSuggest(); if(!t) return ''; const on=(S.addons||[]).includes(t.id); return `<div class="ao sug${on?' on':''}" data-id="${t.id}"><div class="ao-h"><div><b>Well Mind ${t.tier}</b><em>مقترحة لك</em></div><span class="ao-p">${n2a(t.price)} ريال/شهر</span></div>
+  ${(()=>{const t=mindSuggest(); if(!t) return ''; const on=(S.addons||[]).includes(t.id); return `<div class="ao sug${on?' on':''}" data-id="${t.id}"><div class="ao-h"><div><b>باقة Well Mind المناسبة لك</b><em>حسب جواباتك</em></div><span class="ao-p">${n2a(t.price)} ريال/شهر</span></div>
     <p class="ao-w">${t.what}</p><p class="ao-t">باقة نفسية منفصلة، اشتراك شهري {تلغيه|تلغينه} متى ما {تبي|تبين}.</p>
     <button class="btn ${on?'primary':'ghost'} ao-b">${on?'انضافت ✓':'أضفها'}</button></div>`})()}
   <div class="card free"><h3 style="margin-top:0">مشمول في عضويتك، بدون زيادة</h3><p class="small">٤ تقارير تركيز من نفس السحب، يفعّلها طبيبك لما يشوف إنك {تحتاجها|تحتاجينها}:</p>
     <div class="fr">${FREE_REPORTS.map(r=>`<div><b>${r[0]}</b><span>${r[1]}</span></div>`).join('')}</div></div>
   <div class="card free"><h3 style="margin-top:0">وتطبيق ول. كامل، مشمول</h3><p class="small">عضويتك تفتح لك كل التطبيق طول السنة:</p>
     <div class="appf">${APP_FEATURES.map(f=>`<div><b>${f[1]}</b><span>${f[2]}</span></div>`).join('')}</div></div>
-  ${(()=>{const sel=ADDONS.filter(x=>(S.addons||[]).includes(x.id)); const mind=MIND.find(x=>(S.addons||[]).includes(x.id)); const tot=1999+sel.reduce((a,x)=>a+x.price,0); return (sel.length||mind)?`<div class="card tot"><div class="tot-r"><span>عضوية طال عمرك</span><span>١٩٩٩</span></div>${sel.map(x=>`<div class="tot-r"><span>${x.name}</span><span>${n2a(x.price)}</span></div>`).join('')}<div class="tot-r sum"><span>المجموع السنوي</span><span>${n2a(tot)} ريال</span></div><p class="small" style="margin:6px 0 0">أو ٤ دفعات، كل دفعة ${n2a(Math.ceil(tot/4))} ريال</p>${mind?`<div class="tot-r" style="margin-top:8px;border-top:1px solid var(--line);padding-top:9px"><span>Well Mind ${mind.tier}، اشتراك منفصل</span><span>${n2a(mind.price)} ريال/شهر</span></div>`:''}</div>`:''})()}
+  ${(()=>{const sel=ADDONS.filter(x=>(S.addons||[]).includes(x.id)); const mind=MIND.find(x=>(S.addons||[]).includes(x.id)); const tot=1999+sel.reduce((a,x)=>a+x.price,0); return (sel.length||mind)?`<div class="card tot"><div class="tot-r"><span>عضوية طال عمرك</span><span>١٩٩٩</span></div>${sel.map(x=>`<div class="tot-r"><span>${x.name}</span><span>${n2a(x.price)}</span></div>`).join('')}<div class="tot-r sum"><span>المجموع السنوي</span><span>${n2a(tot)} ريال</span></div><p class="small" style="margin:6px 0 0">أو ٤ دفعات، كل دفعة ${n2a(Math.ceil(tot/4))} ريال</p>${mind?`<div class="tot-r" style="margin-top:8px;border-top:1px solid var(--line);padding-top:9px"><span>باقة Well Mind، اشتراك منفصل</span><span>${n2a(mind.price)} ريال/شهر</span></div>`:''}</div>`:''})()}
   <button class="btn primary" id="book">{فعّل عضويتك واحجز|فعّلي عضويتك واحجزي} زيارتك</button>
   <p class="small" style="margin-top:10px">طال عمرك… مو كلمة تنقال وبس، هي أسلوب حياة.</p>`);
   bindAddonBtns(s5); $('#book').onclick=s6;
@@ -1170,6 +1170,7 @@ function s9(){ setStage(9,92); const R=results(); const flagged=R.cats.flatMap(c
   html(`<h1>خطتك${NM()}: ٣ أشياء بس هالشهر</h1><p class="why">د. فيصل، طبيب ول.: ${n2a(flagged.length)} مؤشر يبي متابعة من ${n2a(101)}، وكل أولوية لها مؤشر نرجع نقيسه.</p>
   ${pri.slice(0,3).map((p,i)=>`<div class="card"><h3>${n2a(i+1)}. ${p[0]}</h3><p>${p[1]}</p><p class="small" style="margin-top:6px">نقيسه: ${p[2]}</p></div>`).join('')}
   ${ADDONS.some(x=>(S.addons||[]).includes(x.id))?`<div class="card"><h3>${ADDONS.filter(x=>S.addons.includes(x.id)).length>1?'إضافاتك':'إضافة'} ${ADDONS.filter(x=>S.addons.includes(x.id)).map(x=>x.name).join(' و')}</h3><p class="small">نتايجها مع الطبيب بنفس المكالمة.</p></div>`:''}
+  ${(()=>{const m=MIND.find(x=>(S.addons||[]).includes(x.id)); return m?`<div class="card"><h3>باقة Well Mind</h3><p class="small">${m.what}. اشتراك شهري منفصل، ${n2a(m.price)} ريال/شهر، ومختصك يشوف جواباتك قبل أول جلسة.</p></div>`:''})()}
   <h2>خدمات ول. المقترحة لك</h2><p class="why">طبيبك اختارها من نتايجك. كل خدمة لها مؤشر نرجع نقيسه بعد ٦ شهور.</p>
   ${services(R).map((x,i)=>`<div class="svc"><div><div class="t">${x[0]}</div><div class="d">${x[1]}</div><span class="why">ليش: ${x[2]}</span></div><div class="p"><b>${x[3]}</b><small>${x[4]}</small><button data-i="${i}">${x[3]==='بعد التقييم'?'اسأل طبيبك':'احجز'}</button></div></div>`).join('')}
   <div class="card"><h3>كلمة من طبيبك</h3><p class="small">"أرقامك أحسن من اللي {تتوقع|تتوقعين} في أشياء، وفيها ثلاث فرص واضحة. بنشوف الفرق بعد ستة شهور، مو بعد سنة."</p></div>
