@@ -366,6 +366,39 @@ h1{font-size:30px;line-height:1.35;font-family:var(--font-head);font-weight:700}
 .closing>p:first-child{font-family:var(--font-head);font-size:19px;line-height:1.7;color:var(--ink);max-width:28ch;margin:0 auto 10px}
 .cl-wm .wm{font-size:34px}
 
+/* chapters and findings */
+.chap{display:flex;gap:4px;margin:0 0 6px}
+.chap i{flex:1;height:5px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden;display:block}
+.chap i b{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#7E57FD,#ACA6E1);transition:width .3s}
+.chap-l{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-bottom:14px}
+.d3{width:14px;height:14px;border-radius:50%;flex:none;margin-top:5px;display:block}
+.good>.d3,.fr3.good .d3{background:rgb(38,176,124);box-shadow:0 0 12px rgba(38,176,124,.7)}
+.fr3.mid .d3{background:rgb(232,158,48);box-shadow:0 0 12px rgba(232,158,48,.7)}
+.fr3.act .d3{background:rgb(236,82,112);box-shadow:0 0 12px rgba(236,82,112,.7)}
+.fr3{display:flex;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-bottom:8px}
+.fr3>div{flex:1;min-width:0}
+.fr3-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.fr3-h b{font-size:15.5px;color:var(--ink)}
+.fr3-h em{font-style:normal;font-size:14px;font-weight:700;white-space:nowrap}
+.fr3.good em{color:#5FE0AE}.fr3.mid em{color:#FFC466}.fr3.act em{color:#FF8FA6}
+.fr3 p{margin:3px 0 0;font-size:13.5px;color:var(--ink-2);line-height:1.6}
+.fr3 .fr3-b{color:var(--muted)}.fr3 .fr3-b b{color:#C9B8FF;font-weight:600}
+.fr3 small{display:block;font-size:11.5px;color:var(--muted);margin-top:4px;font-family:var(--font-latin),var(--font-body)}
+.prio{position:relative}
+.prio-n{position:absolute;top:-6px;inset-inline-start:-6px;z-index:1;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#1D1069;font-family:var(--font-num);font-size:14px;font-weight:700}
+.sharp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.sharp>div{background:linear-gradient(135deg,rgba(126,87,253,.3),rgba(34,17,150,.25));border:1px solid rgba(201,184,255,.3);border-radius:16px;padding:10px 12px;text-align:center}
+.sharp span{display:block;font-size:12.5px;color:var(--ink-2)}
+.sharp b{font-family:var(--font-num);font-size:30px;color:#fff;line-height:1.2}
+.sharp em{display:block;font-style:normal;font-size:11.5px;color:#5FE0AE}
+.hl-g{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.hl-g span{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11.5px;text-align:center;border-radius:12px;padding:8px 4px}
+.hl-g .ok{background:rgba(38,176,124,.14);color:#5FE0AE}
+.hl-g .lk{background:rgba(255,255,255,.04);color:var(--muted);border:1px dashed var(--line)}
+.hl-g svg{width:14px;height:14px}
+.tot .tot-r small{color:var(--muted);font-size:12px;line-height:1.5}
+.tot .tot-r{align-items:flex-start;gap:10px}
+
 /* three-stage Well Age */
 .rv-gap.t-good b{color:#5FE0AE}.rv-gap.t-mid b{color:#FFC466}.rv-gap.t-act b{color:#FF8FA6}
 .stg{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin:10px 0 2px}
@@ -1058,7 +1091,7 @@ function s2b(){ setStage(2,22);
     <p class="small" style="margin:8px 0 0">تقدير من دراسات على آلاف الناس، مو وعد. دمك هو اللي يعطيك الرقم الحقيقي.</p></div>`:''}
   <h2>باقي في تقريرك</h2>
   <div class="locks">${[['راحة بالك','مزاجك وقلقك وضغطك'],['خطر السكري','خلال 10 سنين'],['نومك','جودته وتنفسك فيه']].map(x=>`<div class="lock"><div class="lk-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div><b>${x[0]}</b><span>${x[1]}</span><div class="lk-bar"><i></i><i></i><i></i></div></div>`).join('')}</div>
-  <button class="btn primary" id="deep">{افتح|افتحي} تقريرك الكامل، مجاناً (8 دقايق)</button><div style="height:14px"></div>
+  <button class="btn primary" id="deep">{افتح|افتحي} تقريرك الكامل، مجاناً (${n2a(Math.ceil(visibleDeep().filter(x=>!x.mod).length*7/60))} دقايق)</button><div style="height:14px"></div>
   <div class="card" style="border-color:color-mix(in srgb,var(--accent) 45%,var(--line));background:linear-gradient(135deg,rgba(143,107,255,.16),var(--surface))"><h3>${d>0?'بس لا {تشيل|تشيلين} هم'+NM()+'، حنا معك.':'ممتاز'+NM()+'، حنا معك.'}</h3><p>${d>0?'{نعينك ونساعدك تصير أحسن نسخة من نفسك|نعينك ونساعدك تصيرين أحسن نسخة من نفسك}: أغلب اللي شفناه في جواباتك يتغيّر، وطبيبك وفريقك في ول. يمشون معك خطوة خطوة: نوم أعمق، طاقة أعلى، مزاج أهدى، وأرقام {تشوفها|تشوفينها} تتحسن بعينك بعد ستة شهور.':'جسمك أصغر من عمرك، و{نعينك تحافظ|نعينك تحافظين} عليها: نثبّتها بالأرقام ونمشي معك عشان {تصير|تصيرين} أحسن نسخة من نفسك.'}</p></div>
   <button class="btn primary" id="join">{انضم|انضمي} إلى عضوية طال عمرك من ول.</button><div style="height:10px"></div>
   <button class="btn ghost" id="share">{شارك|شاركي} نتيجتك: شاب ولا شايب؟</button>
@@ -1073,11 +1106,57 @@ function s2b(){ setStage(2,22);
     try{ if(navigator.share){ await navigator.share({text,url}) } else { await navigator.clipboard.writeText(text+' '+url); $('#share').textContent='انتسخت، الصقها وين ما تبي ✓' } }catch(e){} };
 }
 function visibleDeep(){ return DEEP.filter(x=>{ if(x.only&&x.only!==A.sex) return false; if(x.sk&&S.skipMen) return false; if(x.gate==='phq'&&idx('phq1')+idx('phq2')<3) return false; if(x.gate==='gad'&&idx('gad1')+idx('gad2')<3) return false; return true; }); }
+function minsLeft(){ const n=visibleDeep().slice(S.di).filter(x=>!x.mod).length; return Math.max(1,Math.ceil(n*7/60)); }
+function chapOf(list,di){ let m=null,start=0; for(let k=0;k<=di&&k<list.length;k++){ if(list[k].mod){m=list[k];start=k} } let end=list.length; for(let k=start+1;k<list.length;k++){ if(list[k].mod){end=k;break} } return {m,start,end}; }
+function chapStrip(){ const list=visibleDeep(), mods=list.filter(x=>x.mod), c=chapOf(list,Math.min(S.di,list.length-1));
+  const segs=mods.map(m=>{ const st=list.indexOf(m); const cc=chapOf(list,st); const tot=cc.end-cc.start-1||1; const done=Math.max(0,Math.min(tot,S.di-cc.start-1)); const pct=S.di>=cc.end?100:S.di<=cc.start?0:Math.round(done/tot*100); return `<i><b style="width:${pct}%"></b></i>` }).join('');
+  return `<div class="chap"><i><b style="width:100%"></b></i>${segs}</div><div class="chap-l"><span>${c.m?c.m.mod:''}، الفصل ${n2a(mods.indexOf(c.m)+1)} من ${n2a(mods.length)}</span><span>باقي حوالي ${n2a(minsLeft())} ${minsLeft()>2?'دقايق':minsLeft()===2?'دقيقتين':'دقيقة'}</span></div>`; }
+function refinedAge(){ const r=lifestyleAge(); let t=r.total, ch=0; const sc=scores(); const sub=k=>(sc.find(x=>x[0]===k)||['','',''])[2];
+  if(A.sl_lat){ch++; const m=mental().rows[3][1][0]; t+=m===2?1:m===0?-0.5:0}
+  if(A.mv_vig){ch++; if(idx('mv_res')>=2)t-=1; if(idx('mv_sit')>=3)t+=1}
+  if(A.nu_veg){ch++; const med=+((sub('أكلك').match(/: (\d+)/)||[0,3])[1]); t+=med>=5?-1:med<3?1:0}
+  if(A.ps1){ch++; if(mental().rows[2][1][0]===2)t+=0.5}
+  if(A.dx)ch++;
+  return {age:A.age+Math.round(Math.max(-12,Math.min(12,t))), pm:Math.max(1,Math.round((2-ch*0.2)*10)/10), d:Math.round(Math.max(-12,Math.min(12,t)))}; }
+function findings(){ const sc=scores(); const sub=k=>(sc.find(x=>x[0]===k)||['','',''])[2]; const num=k=>+((sub(k).match(/[:≈] ?(\d+)/)||[0,0])[1]); const m=mental(); const F={};
+  const sl=m.rows[3][1][0]; F.sleep={name:'جودة نومك',lvl:sl,label:['نوم زين','نوم متقطع','نوم ضعيف'][sl],line:['نومك يخدمك، {حافظ|حافظي} عليه','يحتاج تنظيم: وقت ثابت للنوم، وشاشات أقل آخر ساعة','قلة النوم ترفع السكر والقلق وتنزّل المزاج'][sl],tool:'مؤشر جودة النوم PSQI',blood:'HbA1c، الكورتيزول، hs-CRP'};
+  const sb=num('تنفسك بالنوم'); F.apnea={name:'انقطاع التنفس بالنوم',lvl:sb<3?0:sb<5?1:2,label:sb<3?'خطر منخفض':sb<5?'خطر متوسط':'خطر عالي',line:sb<3?'ما فيه علامات تقلق':sb<5?'فيه علامات تستاهل يشوفها طبيبك':'طبيبك بيقترح لك دراسة نوم',tool:'STOP-Bang: '+sb+' من 8',blood:'الهيموجلوبين، HbA1c'};
+  const met=num('حركتك'); F.move={name:'حركتك',lvl:met>=600?0:met>0?1:2,label:met>=1500?'نشاط عالي':met>=600?'ضمن توصية الصحة العالمية':met>0?'أقل من التوصية':'بدون حركة منتظمة',line:met>=600?'حركتك تحمي قلبك وسكرك':'150 دقيقة مشي سريع بالأسبوع توصلك للتوصية',tool:'IPAQ: '+met+' MET-دقيقة بالأسبوع',blood:'HDL، الدهون الثلاثية، الأنسولين'};
+  const med=num('أكلك'); const wins=[[idx('nu_veg')<2,'خضار مع كل وجبة'],[idx('sweet')>1,'ماء بدل المشروبات المحلاة'],[idx('nu_fish')<1,'سمك مرة بالأسبوع'],[idx('nu_out')>1,'أكل البيت أكثر'],[idx('nu_fruit')<2,'حبتين فواكه باليوم'],[idx('nu_meat')>1,'لحم أحمر أقل']].filter(x=>x[0]).slice(0,2).map(x=>x[1]);
+  F.food={name:'أكلك',lvl:med>=5?0:med>=3?1:2,label:med+' من 7',line:wins.length?'أسهل خطوتين: '+wins.join('، و'):'أكلك قريب من النمط المتوسطي',tool:'مقياس النمط المتوسطي MEDAS',blood:'الدهون، HbA1c، حمض اليوريك، فيتامين د وB12'};
+  [['mood',0,'مزاجك','PHQ-9','الغدة، فيتامين د، B12، الحديد'],['anx',1,'قلقك','GAD-7','الغدة، الكورتيزول'],['stress',2,'ضغطك النفسي','PSS-4','الكورتيزول، hs-CRP، HbA1c'],['lon',4,'تواصلك','UCLA-3','']].forEach(x=>{const r=m.rows[x[1]][1]; F[x[0]]={name:x[2],lvl:Math.min(2,r[0]),label:r[1],line:r[2],tool:x[3],blood:x[4]}});
+  const fr=num('خطر السكري'); const band=fr<7?[0,'1 من كل 100']:fr<12?[1,'1 من كل 25']:fr<15?[1,'1 من كل 6']:fr<21?[2,'1 من كل 3']:[2,'1 من كل 2'];
+  F.diab={name:'خطر السكري خلال 10 سنين',lvl:band[0],label:band[1],line:band[0]===0?'خطرك منخفض، والفحص يثبّته':'أغلب هالخطر يتغيّر بالوزن والحركة والأكل',tool:'FINDRISC: '+fr+' من 26',blood:'السكر الصائم، HbA1c، الأنسولين وHOMA-IR'};
+  const le=num('قلبك (نصف LE8)'); F.heart={name:'صحة قلبك',lvl:le>=80?0:le>=50?1:2,label:le+' من 100',line:'محسوبة من 4 عادات. الأربعة الباقية (الكولسترول، السكر، الضغط، الوزن) تكتمل من فحصك',tool:"Life's Essential 8، نصفه من جواباتك",blood:'LDL، ApoB، hs-CRP، HbA1c'};
+  return F; }
+const CHAP_KEYS={'نومك':['sleep','apnea'],'حركتك':['move'],'أكلك':['food'],'راحة بالك':['mood','anx','stress','lon'],'تاريخك الصحي':['diab','heart']};
+const LV=['good','mid','act'];
+const fRow=(f,blood)=>`<div class="fr3 ${LV[f.lvl]}"><span class="d3"></span><div><div class="fr3-h"><b>${f.name}</b><em>${f.label}</em></div><p>${f.line}</p>${blood&&f.blood?`<p class="fr3-b">يأكده دمك: <b>${f.blood}</b></p>`:''}<small>${f.tool}</small></div></div>`;
+function chapterEnd(mod,go){ const keys=CHAP_KEYS[mod]; const list=visibleDeep(); const nextMod=list.slice(S.di).find(x=>x.mod);
+  if(!keys && mod!=='صحة الرجل') return go();
+  const F=findings(), ra=refinedAge(); setStage(3,25+S.di/list.length*20);
+  html(`${chapStrip()}<span class="hint-eyebrow">خلصت فصل ${mod}</span><h1>${mod==='صحة الرجل'?'جواباتك محفوظة لطبيبك':'نتيجتك في '+mod}</h1>
+  ${mod==='صحة الرجل'?`<div class="card"><p style="margin:0">هالجزء خاص، وما يطلع في تقريرك. طبيبك يقراه معك في المكالمة، وإذا احتاج يقترح لك إضافة صحة الرجل.</p></div>`:keys.map(k=>fRow(F[k])).join('')}
+  <div class="sharp"><div><span>عمرك الصحي الحين</span><b>${n2a(ra.age)}</b></div><div><span>الدقة</span><b>± ${n2a(ra.pm)}</b><em>صارت أدق</em></div></div>
+  <button class="btn primary" id="cont">${nextMod?'الفصل التالي: '+nextMod.mod:'{شوف|شوفي} تقريرك الكامل'}</button><div style="height:10px"></div>
+  <button class="btn ghost" id="later">{كمّل|كمّلي} بعدين</button>`);
+  $('#cont').onclick=go; $('#later').onclick=()=>sLater(go);
+}
+function sLater(go){ const mob=(S.contact&&S.contact.mob)||''; const mask=mob.length>=9?`+966 5X XXX XX${mob.slice(-2)}`:'جوالك';
+  html(`<div class="ringwrap h2ring" style="margin-top:20px"><canvas id="ltCv"></canvas><div class="center"><div class="num" style="font-size:48px">${n2a(refinedAge().age)}</div></div></div>
+  <h1 style="text-align:center;margin-top:10px">حفظنا جواباتك</h1>
+  <p class="why" style="text-align:center">أرسلنا رابط على واتساب <b dir="ltr">${mask}</b>. {ارجع|ارجعي} منه لنفس السؤال متى ما {تبي|تبين}، وتقريرك ينتظرك. باقي حوالي ${n2a(minsLeft())} دقايق.</p>
+  <button class="btn primary" id="cont">أكمل الحين</button>
+  <p class="small" style="text-align:center;margin-top:10px">نسخة تجريبية: الرسالة ما تنرسل فعلياً.</p>`);
+  const ra=refinedAge(); drawRing($('#ltCv'),0,tone3(ra.d),ra.d/12); $('#cont').onclick=go; }
 function renderDeep(){ const list=visibleDeep(); if(S.di>=list.length) return s4(); const q=list[S.di]; setStage(3,25+S.di/list.length*20);
-  hint.textContent=`${n2a(S.di+1)} / ${n2a(list.length)}`;
-  const next=()=>{S.di++;renderDeep()};
-  if(q.mod){ html(`<div class="modintro"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="120" cy="120" r="80" fill="var(--lav)" opacity=".5"/><circle cx="70" cy="90" r="46" fill="var(--accent)" opacity=".35"/><circle cx="150" cy="60" r="26" fill="var(--surface)" opacity=".9"/></svg><span class="tag">${n2a(DEEP.filter(x=>x.mod).indexOf(q)+1)} من ${n2a(DEEP.filter(x=>x.mod).length)}</span><h1>${q.mod}</h1><p class="why" style="margin:0">${q.why}</p></div><button class="btn primary" id="cont">{يلا نبدأ|يلا نبدأ}</button>${q.skippable?'<div style="height:10px"></div><button class="btn ghost" id="skip">تخطّي هالجزء</button>':''}`); $('#cont').onclick=next; if(q.skippable)$('#skip').onclick=()=>{S.skipMen=true;next()}; return; }
-  html(`<span class="hint-eyebrow">${(DEEP.slice(0,DEEP.indexOf(q)).reverse().find(x=>x.mod)||{}).mod||''}</span><h1>${q.q}</h1>${opts(q,A[q.id])}${q.multi?`<button class="btn primary" id="cont" ${(A[q.id]||[]).length?'':'disabled'}>{كمّل|كمّلي}</button>`:''}`);
+  hint.textContent='';
+  const next=()=>{ const c=chapOf(list,S.di); S.di++; const l2=visibleDeep(); if(!q.mod && (S.di>=l2.length || l2[S.di].mod)) return chapterEnd(c.m?c.m.mod:'',renderDeep); renderDeep() };
+  if(q.mod){ const c=chapOf(list,S.di); const nq=c.end-c.start-1;
+    html(`${chapStrip()}<div class="modintro"><svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="120" cy="120" r="80" fill="var(--lav)" opacity=".5"/><circle cx="70" cy="90" r="46" fill="var(--accent)" opacity=".35"/><circle cx="150" cy="60" r="26" fill="var(--surface)" opacity=".9"/></svg><span class="tag">${n2a(nq)} ${nq>10?'سؤال':'أسئلة'}، ${CHAP_KEYS[q.mod]?'وتطلع نتيجتك بعدها مباشرة':'وبعدها تقريرك'}</span><h1>${q.mod}</h1><p class="why" style="margin:0">${q.why}</p></div><button class="btn primary" id="cont">{يلا نبدأ|يلا نبدأ}</button>${q.skippable?'<div style="height:10px"></div><button class="btn ghost" id="skip">تخطّي هالجزء</button>':''}${S.di>0?'<div style="height:10px"></div><button class="btn ghost" id="later">{كمّل|كمّلي} بعدين</button>':''}`);
+    $('#cont').onclick=()=>{S.di++;renderDeep()}; if(q.skippable)$('#skip').onclick=()=>{S.skipMen=true;S.di++;renderDeep()}; if($('#later'))$('#later').onclick=()=>sLater(renderDeep); return; }
+  const c=chapOf(list,S.di);
+  html(`${chapStrip()}<span class="hint-eyebrow">سؤال ${n2a(S.di-c.start)} من ${n2a(c.end-c.start-1)}</span><h1>${q.q}</h1>${opts(q,A[q.id])}${q.multi?`<button class="btn primary" id="cont" ${(A[q.id]||[]).length?'':'disabled'}>{كمّل|كمّلي}</button>`:''}`);
   bindOpts(q,()=>{ if(q.safety&&A.phq9&&A.phq9!=='أبداً') return safety(next); next(); });
 }
 function safety(next){ html(`<div class="card safety"><h3>نبي نطمّن عليك</h3><p>إجابتك مهمة لنا. أحد من فريق ول. الطبي بيكلمك خلال ساعة في أوقات الدوام. وإذا تحتاج أحد الحين، الخط الوطني للصحة النفسية: <b dir="ltr">920033360</b>.</p></div><p>{تقدر تكمّل|تقدرين تكمّلين} الاستبيان متى ما {تبي|تبين}.</p><button class="btn primary" id="cont">أكمل</button>`); $('#cont').onclick=next; }
@@ -1106,7 +1185,7 @@ function mental(){
   const anx  = gad2<3?[0,'هادي','قلقك في المدى الطبيعي']:gad<10?[1,'قلق خفيف','يجي ويروح، وتمارين التنفس والنوم المنتظم تخففه']:gad<15?[2,'قلق متوسط','يأثر على يومك، وجلسات مع مختص تعلّمك تتحكم فيه']:[3,'قلق شديد','نرتب لك موعد مع مختص خلال أيام'];
   const str  = pss<=5?[0,'تحت السيطرة','ضغطك اليومي في حدوده']:pss<=9?[1,'ضغط متوسط','تحس إن الأمور أحياناً أكثر من طاقتك']:[2,'ضغط عالي','الضغط المستمر يبان بالكورتيزول والنوم والسكر'];
   const slp  = psqi<=2?[0,'نوم زين','']:psqi<=4?[1,'نوم متقطع','نومك يحتاج تنظيم']:[2,'نوم ضعيف','قلة النوم ترفع القلق وتخفض المزاج'];
-  const lon  = lo<6?[0,'متواصل','عندك ناس تلجأ لهم']:[1,'وحدة','قلة التواصل تأثر على الصحة مثل التدخين تقريباً'];
+  const lon  = lo<6?[0,'متواصل','عندك ناس تلجأ لهم']:[1,'وحدة','قلة التواصل تأثر على الصحة أكثر مما نتوقع'];
   const sev=Math.max(mood[0],anx[0]); let prog;
   if(mood[0]>=3||anx[0]>=3) prog={name:'موعد مع مختص خلال أيام',cls:'act',what:['مكالمة من فريق ول. النفسي خلال 24 ساعة','تقييم مع مختص، وخطة علاجية معه','متابعة أسبوعية لين تتحسن'],lab:'كورتيزول الصباح، الغدة، فيتامين د وB12 والحديد من سحبك'};
   else if(sev>=1) prog={name:'برنامج راحة البال',cls:'warn',what:['جلسة تقييم مع مختص نفسي خلال أسبوعين','4 جلسات على 6 أسابيع، أونلاين أو في العيادة','نعيد نفس الأسئلة بعد 6 أسابيع ونقيس الفرق'],lab:'الغدة وفيتامين د وB12 والحديد من سحبك، لأنها تأثر على المزاج مباشرة'};
@@ -1127,12 +1206,34 @@ function mentalCard(){ const m=mental(); const cls=l=>l===0?'good':l===1?'warn':
     return `<div class="ao sug${on?' on':''}" data-id="${t.id}"><div class="ao-h"><div><b>باقة Well Mind المناسبة لك</b><em>حسب جواباتك</em></div><span class="ao-p">${n2a(t.price)} ريال/شهر</span></div>
     <p class="ao-w">${t.what}</p><p class="ao-t">باقة نفسية منفصلة عن العضوية، اشتراك شهري {تلغيه|تلغينه} متى ما {تبي|تبين}. المختص يشوف جواباتك هنا قبل أول جلسة.</p>
     <button class="btn ${on?'primary':'ghost'} ao-b">${on?'انضافت ✓':'أضفها'}</button></div>`})()}`; }
-function s4(){ setStage(4,48); const sc=scores(); const g=sc.filter(x=>x[1]==='good').length;
-  html(`<h1>تقريرك المجاني${NM()}</h1><p class="why">${n2a(sc.length)} مؤشر من جواباتك، ${n2a(g)} منها في المدى الصحي. هذي الأشياء اللي {تقدر تغيّرها|تقدرين تغيّرينها}، والدم يبيّن لك أثرها.</p>
-  <div class="card">${sc.filter(x=>!MH_KEYS.includes(x[0])).map(x=>`<div class="score"><div><div class="name">${x[0]}</div><div class="sub">${x[2]}</div></div><span class="pill ${x[1]}">${x[1]==='good'?'مثالي':x[1]==='warn'?'للمتابعة':'يحتاج انتباه'}</span></div>`).join('')}</div>
+function s4(){ setStage(4,48); const F=findings(), ra=refinedAge();
+  const order=['diab','heart','mood','anx','apnea','sleep','stress','move','food','lon'];
+  const top=order.map(k=>F[k]).filter(f=>f.lvl>0).sort((a,b)=>b.lvl-a.lvl).slice(0,3);
+  const body=['diab','heart','sleep','apnea','move','food'].map(k=>F[k]);
+  const good=order.filter(k=>F[k].lvl===0).length;
+  const ad=addonSuggest(), adO=ADDONS.find(x=>x.name===ad[0]), mind=mindSuggest();
+  const mob=(S.contact&&S.contact.mob)||'';
+  html(`<span class="hint-eyebrow">تقريرك الكامل</span><h1>${top.length?'هذي صورتك الكاملة':'صحتك في وضع ممتاز'}</h1>
+  <div class="reveal" style="padding-bottom:14px"><div class="lbl">عمرك الصحي بعد كل جواباتك</div>
+    <div class="ringwrap h2ring rv-ring"><canvas id="rpCv"></canvas><div class="center"><div><div class="num" style="font-size:64px">${n2a(ra.age)}</div><div class="cap">± ${n2a(ra.pm)} سنة</div></div></div></div>
+    ${stageLegend(tone3(ra.d))}
+    <div class="lbl" style="margin-top:8px;text-align:center">${n2a(order.length)} نتايج من أدوات طبية معتمدة، ${n2a(good)} منها في المدى الصحي.</div></div>
+  ${top.length?`<h2>أولوياتك ${top.length===3?'الثلاث':top.length===2?'الاثنتين':''}</h2>${top.map((f,n)=>`<div class="prio"><span class="prio-n">${n2a(n+1)}</span>${fRow(f,true)}</div>`).join('')}`:''}
+  <h2>جسمك ونومك</h2>
+  ${body.map(f=>fRow(f)).join('')}
+  <div class="card hlock"><div class="mk-h" style="margin:0 0 8px"><b>صحة قلبك: 4 من 8 محسوبة</b><span class="tagm">الباقي من دمك</span></div>
+    <div class="hl-g">${['التدخين','الحركة','النوم','الأكل'].map(x=>`<span class="ok">${x}</span>`).join('')}${['الكولسترول','السكر','الضغط','الوزن والخصر'].map(x=>`<span class="lk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>${x}</span>`).join('')}</div></div>
   ${mentalCard()}
-  <button class="btn primary" id="join">{انضم|انضمي} إلى عضوية طال عمرك من ول.</button>`);
-  $('#join').onclick=s5; bindAddonBtns(s4);
+  <h2>الباقة المناسبة لك</h2>
+  <div class="card tot"><div class="tot-r"><span><b>عضوية طال عمرك</b><br><small>فحصين في السنة، 101 مؤشر، Well Age من دمك، وطبيب يكتب خطتك</small></span><span>1999</span></div>
+    ${adO?`<div class="tot-r"><span><b>إضافة ${adO.name}</b><br><small>${ad[1]}</small></span><span>${n2a(adO.price)}</span></div>`:''}
+    <div class="tot-r sum"><span>المجموع السنوي</span><span>${n2a(1999+(adO?adO.price:0))} ريال</span></div>
+    ${mind?`<div class="tot-r" style="margin-top:8px;border-top:1px solid var(--line);padding-top:9px"><span>باقة Well Mind، اشتراك منفصل</span><span>${n2a(mind.price)} ريال/شهر</span></div>`:''}
+    <p class="small" style="margin:8px 0 0">اقتراح من جواباتك. {تقدر تشيل|تقدرين تشيلين} أي إضافة في الخطوة الجاية.</p></div>
+  <button class="btn primary" id="join">{انضم|انضمي} إلى عضوية طال عمرك من ول.</button>
+  <p class="small" style="text-align:center;margin-top:12px">${mob?`أرسلنا نسخة من تقريرك على واتساب <b dir="ltr">+966 5X XXX XX${mob.slice(-2)}</b>. `:''}هذي مؤشرات أولية من جواباتك، مو تشخيص.</p>`);
+  drawRing($('#rpCv'),0,tone3(ra.d),ra.d/12);
+  $('#join').onclick=()=>{ if(adO&&!(S.addons||[]).includes(adO.id)) S.addons=[...(S.addons||[]),adO.id]; s5() }; bindAddonBtns(s4);
 }
 function bindAddonBtns(rerender){ screen.querySelectorAll('.ao-b').forEach(b=>b.onclick=e=>{const id=e.target.closest('.ao').dataset.id; S.addons=S.addons||[]; S.addons=S.addons.includes(id)?S.addons.filter(x=>x!==id):[...S.addons,id]; const first=ADDONS.find(x=>S.addons.includes(x.id)); S.chosenAddon=first?first.name:null; const y=scrollY; rerender(); scrollTo(0,y)}); }
 function s5(){ setStage(5,58); const ad=addonSuggest(); const first=(A.goals||[])[0]||'';
